@@ -266,12 +266,12 @@ ALTER TABLE ONLY history_transaction_participants ALTER COLUMN id SET DEFAULT ne
 -- Data for Name: gorp_migrations; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO gorp_migrations VALUES ('1_initial_schema.sql', '2017-10-18 10:17:11.477451-07');
-INSERT INTO gorp_migrations VALUES ('2_index_participants_by_toid.sql', '2017-10-18 10:17:11.481524-07');
-INSERT INTO gorp_migrations VALUES ('3_use_sequence_in_history_accounts.sql', '2017-10-18 10:17:11.48435-07');
-INSERT INTO gorp_migrations VALUES ('4_add_protocol_version.sql', '2017-10-18 10:17:11.489616-07');
-INSERT INTO gorp_migrations VALUES ('5_create_trades_table.sql', '2017-10-18 10:17:11.495781-07');
-INSERT INTO gorp_migrations VALUES ('6_create_assets_table.sql', '2017-10-18 10:17:11.499837-07');
+INSERT INTO gorp_migrations VALUES ('1_initial_schema.sql', '2017-10-18 11:08:39.275583-07');
+INSERT INTO gorp_migrations VALUES ('2_index_participants_by_toid.sql', '2017-10-18 11:08:39.280523-07');
+INSERT INTO gorp_migrations VALUES ('3_use_sequence_in_history_accounts.sql', '2017-10-18 11:08:39.286456-07');
+INSERT INTO gorp_migrations VALUES ('4_add_protocol_version.sql', '2017-10-18 11:08:39.296443-07');
+INSERT INTO gorp_migrations VALUES ('5_create_trades_table.sql', '2017-10-18 11:08:39.302387-07');
+INSERT INTO gorp_migrations VALUES ('6_create_assets_table.sql', '2017-10-18 11:08:39.307158-07');
 
 
 --

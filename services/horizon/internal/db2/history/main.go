@@ -113,6 +113,14 @@ type AccountsQ struct {
 	sql    sq.SelectBuilder
 }
 
+// Asset is a row of data from the `history_assets` table
+type Asset struct {
+	ID     int64  `db:"id"`
+	Type   string `db:"asset_type"`
+	Code   string `db:"asset_code"`
+	Issuer string `db:"asset_issuer"`
+}
+
 // Effect is a row of data from the `history_effects` table
 type Effect struct {
 	HistoryAccountID   int64       `db:"history_account_id"`
@@ -279,27 +287,4 @@ func (q *Q) OldestOutdatedLedgers(dest interface{}, currentVersion int) error {
 		WHERE importer_version < $1
 		ORDER BY sequence ASC
 		LIMIT 1000000`, currentVersion)
-}
-
-type Asset struct {
-	ID     int64  `db:"id"`
-	Type   string `db:"asset_type"`
-	Code   string `db:"asset_code"`
-	Issuer string `db:"asset_issuer"`
-}
-
-func (q *Q) GetAssetById(dest interface{}, id int64) (err error) {
-	sql := sq.Select("id", "asset_type", "asset_code", "asset_issuer").From("history_assets").Limit(1).Where(sq.Eq{"id": id})
-	err = q.Get(dest, sql)
-	return
-}
-
-func (q *Q) GetAssetId(assetType string, assetCode string, assetIssuer string) (id int64, err error) {
-	sql := sq.Select("id").From("history_assets").Limit(1).Where(sq.Eq{
-		"asset_type": assetType,
-		"asset_code": assetCode,
-		"asset_issuer": assetIssuer})
-
-	err = q.Get(&id, sql)
-	return
 }

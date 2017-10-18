@@ -255,12 +255,12 @@ func (ingest *Ingestion) Trade(
 	}
 
 	//This populates the assets table. Returned IDs are currently ignored, until the trades table is modified.
-	_, err  = ingest.getSetAssetId(trade.AssetSold)
+	_, err = ingest.getAssetId(trade.AssetSold)
 	if err != nil {
 		return errors.Wrap(err, "failed to get sold asset id")
 	}
 
-	_, err = ingest.getSetAssetId(trade.AssetBought)
+	_, err = ingest.getAssetId(trade.AssetBought)
 	if err != nil {
 		return errors.Wrap(err, "failed to get bought asset id")
 	}
@@ -425,6 +425,7 @@ func (ingest *Ingestion) commit() error {
 	return nil
 }
 
+// Get account row id. If account is first seen, it will be inserted.
 func (ingest *Ingestion) getParticipantID(
 	aid xdr.AccountId,
 ) (result int64, err error) {
@@ -454,23 +455,13 @@ func (ingest *Ingestion) getParticipantID(
 	return
 }
 
-func (ingest *Ingestion) getSetAssetId(
+// Get asset row id. If asset is first seen, it will be inserted.
+func (ingest *Ingestion) getAssetId(
 	asset xdr.Asset,
 ) (result int64, err error) {
 
-	var (
-		AssetType     string
-		AssetCode     string
-		AssetIssuer   string
-	)
-
-	err = asset.Extract(&AssetType, &AssetCode, &AssetIssuer)
-	if err!= nil {
-		return
-	}
-
 	q := history.Q{Session: ingest.DB}
-	result, err = q.GetAssetId(AssetType, AssetCode, AssetIssuer)
+	result, err = q.GetAssetID(asset)
 
 	if err != nil && !q.NoRows(err) {
 		return
@@ -481,9 +472,20 @@ func (ingest *Ingestion) getSetAssetId(
 		return result, nil
 	}
 
+	var (
+		assetType   string
+		assetCode   string
+		assetIssuer string
+	)
+
+	err = asset.Extract(&assetType, &assetCode, &assetIssuer)
+	if err != nil {
+		return
+	}
+
 	err = ingest.DB.GetRaw(&result,
 		`INSERT INTO history_assets (asset_type, asset_code, asset_issuer) VALUES (?,?,?) RETURNING id`,
-		AssetType, AssetCode, AssetIssuer)
+		assetType, assetCode, assetIssuer)
 
 	return
 }

@@ -68,7 +68,7 @@ func TestAssetIngest(t *testing.T) {
 	}
 
 	actualAsset := history.Asset{}
-	err := q.GetAssetById(&actualAsset, 4)
+	err := q.GetAssetByID(&actualAsset, 4)
 	tt.Require.NoError(err)
 	tt.Assert.Equal(expectedAsset, actualAsset)
 }
