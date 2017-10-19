@@ -185,8 +185,8 @@ type Signer struct {
 	Type      string `json:"type"`
 }
 
-// Trade represents a trade effect
-type Trade struct {
+// TradeFromEffect represents a trade as manifested in an effect, preserving the seller/buyer directionality
+type TradeFromEffect struct {
 	Links struct {
 		Self      hal.Link `json:"self"`
 		Seller    hal.Link `json:"seller"`
@@ -208,6 +208,30 @@ type Trade struct {
 	BoughtAssetCode   string    `json:"bought_asset_code,omitempty"`
 	BoughtAssetIssuer string    `json:"bought_asset_issuer,omitempty"`
 	LedgerCloseTime   time.Time `json:"created_at"`
+}
+
+// Trade represents a horizon digested trade
+type Trade struct {
+	Links struct {
+		Self      hal.Link `json:"self"`
+		Base      hal.Link `json:"base"`
+		Counter   hal.Link `json:"counter"`
+		Operation hal.Link `json:"operation"`
+	} `json:"_links"`
+
+	ID                 string    `json:"id"`
+	PT                 string    `json:"paging_token"`
+	LedgerCloseTime    time.Time `json:"ledger_close_time"`
+	OfferID            string    `json:"offer_id"`
+	BaseVolume         string    `json:"base_volume"`
+	BaseAssetType      string    `json:"base_asset_type"`
+	BaseAssetCode      string    `json:"base_asset_code,omitempty"`
+	BaseAssetIssuer    string    `json:"base_asset_issuer,omitempty"`
+	CounterVolume      string    `json:"counter_volume"`
+	CounterAssetType   string    `json:"counter_asset_type"`
+	CounterAssetCode   string    `json:"counter_asset_code,omitempty"`
+	CounterAssetIssuer string    `json:"counter_asset_issuer,omitempty"`
+	BaseIsSeller       bool      `json:"base_is_seller"`
 }
 
 // Transaction represents a single, successful transaction

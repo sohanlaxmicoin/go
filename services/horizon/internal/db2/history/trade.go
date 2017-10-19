@@ -5,19 +5,10 @@ import (
 	"math"
 
 	sq "github.com/Masterminds/squirrel"
-	"github.com/stellar/go/support/errors"
-	"github.com/stellar/go/xdr"
 	"github.com/stellar/go/services/horizon/internal/db2"
-	toid "github.com/stellar/go/services/horizon/internal/toid"
 )
 
-// LedgerSequence return the ledger in which the effect occurred.
-func (r *Trade) LedgerSequence() int32 {
-	id := toid.Parse(r.HistoryOperationID)
-	return id.LedgerSequence
-}
-
-// PagingToken returns a cursor for this effect
+// PagingToken returns a cursor for this trade
 func (r *Trade) PagingToken() string {
 	return fmt.Sprintf("%d-%d", r.HistoryOperationID, r.Order)
 }
@@ -31,32 +22,10 @@ func (q *Q) Trades() *TradesQ {
 	}
 }
 
-// ForBoughtAsset filters the query to only include trades involving that
-// involved selling the provided asset.
-func (q *TradesQ) ForBoughtAsset(bought xdr.Asset) *TradesQ {
-	q.orderBookFilter(bought, "bought_")
-	if q.Err != nil {
-		return q
-	}
-
-	return q
-}
-
 // ForOffer filters the trade query to only return trades that occurred against
 // the offer identified by `id`.
 func (q *TradesQ) ForOffer(id int64) *TradesQ {
-	q.sql = q.sql.Where("htrd.offer_id = ?", id)
-	return q
-}
-
-// ForSoldAsset filters the query to only include trades involving that involved
-// selling the provided asset.
-func (q *TradesQ) ForSoldAsset(sold xdr.Asset) *TradesQ {
-	q.orderBookFilter(sold, "sold_")
-	if q.Err != nil {
-		return q
-	}
-
+	q.sql = q.sql.Where("offer_id = ?", id)
 	return q
 }
 
@@ -113,38 +82,36 @@ func (q *TradesQ) Select(dest interface{}) error {
 }
 
 var selectTrade = sq.Select(
-	"htrd.history_operation_id",
-	"htrd.order",
-	"htrd.offer_id",
-	"hacc1.address as seller_address",
-	"hacc2.address as buyer_address",
-	"htrd.sold_asset_type",
-	"htrd.sold_asset_code",
-	"htrd.sold_asset_issuer",
-	"htrd.sold_amount",
-	"htrd.bought_asset_type",
-	"htrd.bought_asset_code",
-	"htrd.bought_asset_issuer",
-	"htrd.bought_amount",
+	"history_operation_id",
+	"\"order\"",
+	"ledger_closed_at",
+	"offer_id",
+	"base_asset_id",
+	"base.asset_type as base_asset_type",
+	"base.asset_code as base_asset_code",
+	"base.asset_issuer as base_asset_issuer",
+	"base_volume",
+	"counter_asset_id",
+	"counter.asset_type as counter_asset_type",
+	"counter.asset_code as counter_asset_code",
+	"counter.asset_issuer as counter_asset_issuer",
+	"counter_volume",
+	"base_is_seller",
 ).From("history_trades htrd").
-	LeftJoin("history_accounts hacc1 ON hacc1.id = htrd.seller_id").
-	LeftJoin("history_accounts hacc2 ON hacc2.id = htrd.buyer_id")
+	Join("history_assets base ON base_asset_id = base.id").
+	Join("history_assets counter ON counter_asset_id = counter.id")
 
-func (q *TradesQ) orderBookFilter(a xdr.Asset, prefix string) {
-	var typ, code, iss string
-	err := a.Extract(&typ, &code, &iss)
-	if err != nil {
-		q.Err = errors.Wrap(err, "failed to extract filter asset")
-		return
+// Filters query for a specific asset id appearing as base or counter
+func (q *TradesQ) ForSingleAsset(assetId int64) *TradesQ {
+	q.sql = q.sql.Where(sq.Or{sq.Eq{"base_asset_id": assetId}, sq.Eq{"counter_asset_id": assetId}})
+	return q
+}
+
+// Filters query for a specific asset pair
+func (q *TradesQ) ForAssetPair(baseAssetId int64, counterAssetId int64) *TradesQ {
+	if baseAssetId>counterAssetId {
+		baseAssetId, counterAssetId = counterAssetId, baseAssetId
 	}
-
-	if !(prefix == "bought_" || prefix == "sold_") {
-		panic("invalid prefix: only bought_ and sold_ allowed")
-	}
-
-	clause := fmt.Sprintf(
-		`(htrd.%sasset_type = ? 
-		AND htrd.%sasset_code = ? 
-		AND htrd.%sasset_issuer = ?)`, prefix, prefix, prefix)
-	q.sql = q.sql.Where(clause, typ, code, iss)
+	q.sql = q.sql.Where(sq.Eq{"base_asset_id": baseAssetId, "counter_asset_id": counterAssetId})
+	return q
 }

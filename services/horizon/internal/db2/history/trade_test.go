@@ -6,12 +6,14 @@ import (
 	"github.com/stellar/go/build"
 	"github.com/stellar/go/services/horizon/internal/db2"
 	"github.com/stellar/go/services/horizon/internal/test"
+	"github.com/stellar/go/xdr"
 )
 
 func TestTradeQueries(t *testing.T) {
 	tt := test.Start(t).Scenario("kahuna")
 	defer tt.Finish()
 	q := &Q{tt.HorizonSession()}
+
 	var trades []Trade
 
 	// All trades
@@ -46,30 +48,22 @@ func TestTradeQueries(t *testing.T) {
 		tt.Assert.Len(trades, 0)
 	}
 
-	// Test ForSoldAsset()
+	// test for single asset
+	nativeAssetId, _ := q.GetAssetID(build.NativeAsset().MustXDR())
+	q.Trades().ForSingleAsset(nativeAssetId).Select(&trades)
+	tt.Assert.Len(trades, 4)
 
-	q.Trades().ForSoldAsset(build.NativeAsset().MustXDR()).Select(&trades)
+	q.Trades().ForSingleAsset(3).Select(&trades)
+	tt.Assert.Len(trades, 2)
 
-	if tt.Assert.Len(trades, 2) {
-		tt.Assert.Equal("native", trades[0].SoldAssetType)
-		tt.Assert.Equal("", trades[0].SoldAssetIssuer)
-		tt.Assert.Equal("", trades[0].SoldAssetCode)
-		tt.Assert.Equal("native", trades[1].SoldAssetType)
-		tt.Assert.Equal("", trades[1].SoldAssetIssuer)
-		tt.Assert.Equal("", trades[1].SoldAssetCode)
-	}
+	// test for asset pairs
+	q.Trades().ForAssetPair(2, 3).Select(&trades)
+	tt.Assert.Len(trades, 0)
 
-	// Test ForBoughtAsset
+	q.Trades().ForAssetPair(1, 2).Select(&trades)
+	tt.Assert.Len(trades, 1)
 
-	issuer := "GAXMF43TGZHW3QN3REOUA2U5PW5BTARXGGYJ3JIFHW3YT6QRKRL3CPPU"
-	usd := build.CreditAsset("USD", issuer)
-
-	q.Trades().ForBoughtAsset(usd.MustXDR()).Select(&trades)
-
-	if tt.Assert.Len(trades, 1) {
-		tt.T.Log(trades[0])
-		tt.Assert.Equal("credit_alphanum4", trades[0].BoughtAssetType)
-		tt.Assert.Equal(issuer, trades[0].BoughtAssetIssuer)
-		tt.Assert.Equal("USD", trades[0].BoughtAssetCode)
-	}
+	tt.Assert.Equal(xdr.Int64(2000000000), trades[0].BaseVolume)
+	tt.Assert.Equal(xdr.Int64(1000000000), trades[0].CounterVolume)
+	tt.Assert.Equal(true, trades[0].BaseIsSeller)
 }

@@ -135,7 +135,7 @@ func (action *OrderBookTradeIndexAction) loadRecords() {
 // loadPage populates action.Page
 func (action *OrderBookTradeIndexAction) loadPage() {
 	for _, record := range action.Records {
-		var res resource.Trade
+		var res resource.TradeFromEffect
 
 		ledger, found := action.Ledgers.Records[record.LedgerSequence()]
 		if !found {

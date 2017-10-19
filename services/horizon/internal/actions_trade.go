@@ -14,13 +14,12 @@ import (
 
 type TradeIndexAction struct {
 	Action
-	OfferFilter       int64
-	SoldAssetFilter   xdr.Asset
-	BoughtAssetFilter xdr.Asset
-	PagingParams      db2.PageQuery
-	Records           []history.Trade
-	Ledgers           history.LedgerCache
-	Page              hal.Page
+	OfferFilter        int64
+	BaseAssetFilter    xdr.Asset
+	CounterAssetFilter xdr.Asset
+	PagingParams       db2.PageQuery
+	Records            []history.Trade
+	Page               hal.Page
 }
 
 // JSON is a method for actions.JSON
@@ -29,7 +28,6 @@ func (action *TradeIndexAction) JSON() {
 		action.EnsureHistoryFreshness,
 		action.loadParams,
 		action.loadRecords,
-		action.loadLedgers,
 		action.loadPage,
 		func() {
 			hal.Render(action.W, action.Page)
@@ -37,12 +35,27 @@ func (action *TradeIndexAction) JSON() {
 	)
 }
 
-// LoadQuery sets action.Query from the request params
+func flip(a int64, b int64) (int64, int64, bool) {
+	if a > b {
+		return b, a, true
+	}
+	return a, b, false
+}
+
+// loadParams sets action.Query from the request params
 func (action *TradeIndexAction) loadParams() {
-	action.OfferFilter = action.GetInt64("offer_id")
 	action.PagingParams = action.GetPageQuery()
-	action.SoldAssetFilter = action.MaybeGetAsset("sold_")
-	action.BoughtAssetFilter = action.MaybeGetAsset("bought_")
+	action.OfferFilter = action.GetInt64("offer_id")
+	action.BaseAssetFilter = action.MaybeGetAsset("base_")
+	action.CounterAssetFilter = action.MaybeGetAsset("counter_")
+}
+
+// Ensure base is aligned with user's requirement
+func ensureTradeDirection(t *history.Trade, requiredBaseId int64) {
+	if t.BaseAssetId != requiredBaseId {
+		t.BaseAssetId, t.CounterAssetId = t.CounterAssetId, t.BaseAssetId
+		t.BaseVolume, t.CounterVolume = t.CounterVolume, t.BaseVolume
+	}
 }
 
 // loadRecords populates action.Records
@@ -53,28 +66,34 @@ func (action *TradeIndexAction) loadRecords() {
 		trades = trades.ForOffer(action.OfferFilter)
 	}
 
-	if (action.SoldAssetFilter != xdr.Asset{}) {
-		trades = trades.ForSoldAsset(action.SoldAssetFilter)
-	}
-
-	if (action.BoughtAssetFilter != xdr.Asset{}) {
-		trades = trades.ForBoughtAsset(action.BoughtAssetFilter)
+	baseAssetId, counterAssetId := int64(-1), int64(-1)
+	if (action.BaseAssetFilter != xdr.Asset{}) {
+		baseAssetId, action.Err = action.HistoryQ().GetAssetID(action.BaseAssetFilter)
+		if action.Err != nil {
+			return
+		}
+		if (action.CounterAssetFilter != xdr.Asset{}) {
+			counterAssetId, action.Err = action.HistoryQ().GetAssetID(action.CounterAssetFilter)
+			if action.Err != nil {
+				return
+			}
+			trades.ForAssetPair(baseAssetId, counterAssetId)
+		} else {
+			trades.ForSingleAsset(baseAssetId)
+		}
 	}
 
 	action.Err = trades.Page(action.PagingParams).Select(&action.Records)
-}
-
-// loadLedgers populates the ledger cache for this action
-func (action *TradeIndexAction) loadLedgers() {
 	if action.Err != nil {
 		return
 	}
 
-	for _, trade := range action.Records {
-		action.Ledgers.Queue(trade.LedgerSequence())
+	// if a base was specified, ensure directionality according to user's requirement
+	if baseAssetId != -1 {
+		for _, record := range action.Records {
+			ensureTradeDirection(&record, baseAssetId)
+		}
 	}
-
-	action.Err = action.Ledgers.Load(action.HistoryQ())
 }
 
 // loadPage populates action.Page
@@ -82,14 +101,7 @@ func (action *TradeIndexAction) loadPage() {
 	for _, record := range action.Records {
 		var res resource.Trade
 
-		ledger, found := action.Ledgers.Records[record.LedgerSequence()]
-		if !found {
-			msg := fmt.Sprintf("could not find ledger data for sequence %d", record.LedgerSequence())
-			action.Err = errors.New(msg)
-			return
-		}
-
-		action.Err = res.Populate(action.Ctx, record, ledger)
+		action.Err = res.Populate(action.Ctx, record)
 		if action.Err != nil {
 			return
 		}
@@ -148,14 +160,13 @@ func (action *TradeEffectIndexAction) loadParams() {
 
 func (action *TradeEffectIndexAction) loadRecords() {
 	trades := action.HistoryQ().Effects().OfType(history.EffectTrade).ForAccount(action.AccountFilter)
-
 	action.Err = trades.Page(action.PagingParams).Select(&action.Records)
 }
 
 // loadPage populates action.Page
 func (action *TradeEffectIndexAction) loadPage() {
 	for _, record := range action.Records {
-		var res resource.Trade
+		var res resource.TradeFromEffect
 
 		ledger, found := action.Ledgers.Records[record.LedgerSequence()]
 		if !found {
