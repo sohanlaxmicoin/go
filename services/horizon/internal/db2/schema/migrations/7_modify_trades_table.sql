@@ -6,12 +6,14 @@ CREATE TABLE history_trades (
     "order" INTEGER NOT NULL,
     ledger_closed_at TIMESTAMP NOT NULL,
     offer_id BIGINT NOT NULL,
+    base_account_id BIGINT NOT NULL REFERENCES history_accounts(id),
     base_asset_id BIGINT NOT NULL REFERENCES history_assets(id),
     base_volume BIGINT NOT NULL CHECK (base_volume > 0),
+    counter_account_id BIGINT NOT NULL REFERENCES history_accounts(id),
     counter_asset_id BIGINT NOT NULL REFERENCES history_assets(id),
     counter_volume BIGINT NOT NULL CHECK (counter_volume > 0),
-    base_is_seller BOOLEAN, -- 1: base is seller, 0: counter is seller
-    CHECK(base_asset_id < counter_asset_id) -- Check that convention is followed.
+    base_is_seller BOOLEAN,
+    CHECK(base_asset_id < counter_asset_id)
 );
 
 CREATE UNIQUE INDEX htrd_pid ON history_trades USING btree (history_operation_id, "order");

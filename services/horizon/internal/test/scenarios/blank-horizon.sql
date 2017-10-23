@@ -15,7 +15,9 @@ SET client_min_messages = warning;
 SET search_path = public, pg_catalog;
 
 ALTER TABLE IF EXISTS ONLY public.history_trades DROP CONSTRAINT IF EXISTS history_trades_counter_asset_id_fkey;
+ALTER TABLE IF EXISTS ONLY public.history_trades DROP CONSTRAINT IF EXISTS history_trades_counter_account_id_fkey;
 ALTER TABLE IF EXISTS ONLY public.history_trades DROP CONSTRAINT IF EXISTS history_trades_base_asset_id_fkey;
+ALTER TABLE IF EXISTS ONLY public.history_trades DROP CONSTRAINT IF EXISTS history_trades_base_account_id_fkey;
 DROP INDEX IF EXISTS public.trade_effects_by_order_book;
 DROP INDEX IF EXISTS public.index_history_transactions_on_id;
 DROP INDEX IF EXISTS public.index_history_operations_on_type;
@@ -243,8 +245,10 @@ CREATE TABLE history_trades (
     "order" integer NOT NULL,
     ledger_closed_at timestamp without time zone NOT NULL,
     offer_id bigint NOT NULL,
+    base_account_id bigint NOT NULL,
     base_asset_id bigint NOT NULL,
     base_volume bigint NOT NULL,
+    counter_account_id bigint NOT NULL,
     counter_asset_id bigint NOT NULL,
     counter_volume bigint NOT NULL,
     base_is_seller boolean,
@@ -335,13 +339,13 @@ ALTER TABLE ONLY history_transaction_participants ALTER COLUMN id SET DEFAULT ne
 -- Data for Name: gorp_migrations; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO gorp_migrations VALUES ('1_initial_schema.sql', '2017-10-19 16:21:01.356225-07');
-INSERT INTO gorp_migrations VALUES ('2_index_participants_by_toid.sql', '2017-10-19 16:21:01.36075-07');
-INSERT INTO gorp_migrations VALUES ('3_use_sequence_in_history_accounts.sql', '2017-10-19 16:21:01.363516-07');
-INSERT INTO gorp_migrations VALUES ('4_add_protocol_version.sql', '2017-10-19 16:21:01.369011-07');
-INSERT INTO gorp_migrations VALUES ('5_create_trades_table.sql', '2017-10-19 16:21:01.375027-07');
-INSERT INTO gorp_migrations VALUES ('6_create_assets_table.sql', '2017-10-19 16:21:01.379418-07');
-INSERT INTO gorp_migrations VALUES ('7_modify_trades_table.sql', '2017-10-19 16:21:01.387976-07');
+INSERT INTO gorp_migrations VALUES ('1_initial_schema.sql', '2017-10-24 11:27:03.627694-07');
+INSERT INTO gorp_migrations VALUES ('2_index_participants_by_toid.sql', '2017-10-24 11:27:03.632901-07');
+INSERT INTO gorp_migrations VALUES ('3_use_sequence_in_history_accounts.sql', '2017-10-24 11:27:03.636298-07');
+INSERT INTO gorp_migrations VALUES ('4_add_protocol_version.sql', '2017-10-24 11:27:03.644189-07');
+INSERT INTO gorp_migrations VALUES ('5_create_trades_table.sql', '2017-10-24 11:27:03.651859-07');
+INSERT INTO gorp_migrations VALUES ('6_create_assets_table.sql', '2017-10-24 11:27:03.657514-07');
+INSERT INTO gorp_migrations VALUES ('7_modify_trades_table.sql', '2017-10-24 11:27:03.665802-07');
 
 
 --
@@ -684,11 +688,27 @@ CREATE INDEX trade_effects_by_order_book ON history_effects USING btree (((detai
 
 
 --
+-- Name: history_trades history_trades_base_account_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY history_trades
+    ADD CONSTRAINT history_trades_base_account_id_fkey FOREIGN KEY (base_account_id) REFERENCES history_accounts(id);
+
+
+--
 -- Name: history_trades history_trades_base_asset_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY history_trades
     ADD CONSTRAINT history_trades_base_asset_id_fkey FOREIGN KEY (base_asset_id) REFERENCES history_assets(id);
+
+
+--
+-- Name: history_trades history_trades_counter_account_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY history_trades
+    ADD CONSTRAINT history_trades_counter_account_id_fkey FOREIGN KEY (counter_account_id) REFERENCES history_accounts(id);
 
 
 --

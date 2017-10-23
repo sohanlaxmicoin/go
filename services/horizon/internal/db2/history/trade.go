@@ -22,11 +22,19 @@ func (q *Q) Trades() *TradesQ {
 	}
 }
 
-// ForOffer filters the trade query to only return trades that occurred against
-// the offer identified by `id`.
-func (q *TradesQ) ForOffer(id int64) *TradesQ {
-	q.sql = q.sql.Where("offer_id = ?", id)
-	return q
+// TradesForAssetPair provides a helper to filter rows from the `history_trades` table
+// with the base filter of a specific asset pair.  See `TradesQ` methods for further available filters.
+func (q *Q) TradesForAssetPair(baseAssetId int64, counterAssetId int64) *TradesQ {
+	var sql sq.SelectBuilder
+	if baseAssetId < counterAssetId {
+		sql = selectTrade.Where(sq.Eq{"base_asset_id": baseAssetId, "counter_asset_id": counterAssetId})
+	} else {
+		sql = selectReverseTrade.Where(sq.Eq{"base_asset_id": counterAssetId, "counter_asset_id": baseAssetId})
+	}
+	return &TradesQ{
+		parent: q,
+		sql:    sql,
+	}
 }
 
 // Page specifies the paging constraints for the query being built by `q`.
@@ -83,35 +91,44 @@ func (q *TradesQ) Select(dest interface{}) error {
 
 var selectTrade = sq.Select(
 	"history_operation_id",
-	"\"order\"",
-	"ledger_closed_at",
-	"offer_id",
-	"base_asset_id",
-	"base.asset_type as base_asset_type",
-	"base.asset_code as base_asset_code",
-	"base.asset_issuer as base_asset_issuer",
-	"base_volume",
-	"counter_asset_id",
-	"counter.asset_type as counter_asset_type",
-	"counter.asset_code as counter_asset_code",
-	"counter.asset_issuer as counter_asset_issuer",
-	"counter_volume",
-	"base_is_seller",
+	"htrd.\"order\"",
+	"htrd.ledger_closed_at",
+	"htrd.offer_id",
+	"base_accounts.address as base_account",
+	"base_assets.asset_type as base_asset_type",
+	"base_assets.asset_code as base_asset_code",
+	"base_assets.asset_issuer as base_asset_issuer",
+	"htrd.base_volume",
+	"counter_accounts.address as counter_account",
+	"counter_assets.asset_type as counter_asset_type",
+	"counter_assets.asset_code as counter_asset_code",
+	"counter_assets.asset_issuer as counter_asset_issuer",
+	"htrd.counter_volume",
+	"htrd.base_is_seller",
 ).From("history_trades htrd").
-	Join("history_assets base ON base_asset_id = base.id").
-	Join("history_assets counter ON counter_asset_id = counter.id")
+	Join("history_accounts base_accounts ON base_account_id = base_accounts.id").
+	Join("history_accounts counter_accounts ON counter_account_id = counter_accounts.id").
+	Join("history_assets base_assets ON base_asset_id = base_assets.id").
+	Join("history_assets counter_assets ON counter_asset_id = counter_assets.id")
 
-// Filters query for a specific asset id appearing as base or counter
-func (q *TradesQ) ForSingleAsset(assetId int64) *TradesQ {
-	q.sql = q.sql.Where(sq.Or{sq.Eq{"base_asset_id": assetId}, sq.Eq{"counter_asset_id": assetId}})
-	return q
-}
-
-// Filters query for a specific asset pair
-func (q *TradesQ) ForAssetPair(baseAssetId int64, counterAssetId int64) *TradesQ {
-	if baseAssetId>counterAssetId {
-		baseAssetId, counterAssetId = counterAssetId, baseAssetId
-	}
-	q.sql = q.sql.Where(sq.Eq{"base_asset_id": baseAssetId, "counter_asset_id": counterAssetId})
-	return q
-}
+var selectReverseTrade = sq.Select(
+	"history_operation_id",
+	"htrd.\"order\"",
+	"htrd.ledger_closed_at",
+	"htrd.offer_id",
+	"counter_accounts.address as base_account",
+	"counter_assets.asset_type as base_asset_type",
+	"counter_assets.asset_code as base_asset_code",
+	"counter_assets.asset_issuer as base_asset_issuer",
+	"htrd.base_volume",
+	"base_accounts.address as counter_account",
+	"base_assets.asset_type as counter_asset_type",
+	"base_assets.asset_code as counter_asset_code",
+	"base_assets.asset_issuer as counter_asset_issuer",
+	"htrd.counter_volume",
+	"NOT(htrd.base_is_seller) as base_is_seller",
+).From("history_trades htrd").
+	Join("history_accounts base_accounts ON base_account_id = base_accounts.id").
+	Join("history_accounts counter_accounts ON counter_account_id = counter_accounts.id").
+	Join("history_assets base_assets ON base_asset_id = base_assets.id").
+	Join("history_assets counter_assets ON counter_asset_id = counter_assets.id")

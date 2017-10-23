@@ -47,7 +47,7 @@ type Cursor struct {
 }
 
 // EffectIngestion is a helper struct to smooth the ingestion of effects.  this
-// struct will track what the correct operation to use and arrange to use when
+// struct will track what the correct operation to use and order to use when
 // adding effects into an ingestion.
 type EffectIngestion struct {
 	Dest        *Ingestion

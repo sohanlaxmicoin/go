@@ -225,6 +225,16 @@ func (ingest *Ingestion) Trade(
 	trade xdr.ClaimOfferAtom,
 	ledgerClosedAt int64,
 ) error {
+
+	sellerAccountId, err := ingest.getParticipantID(trade.SellerId)
+	if err != nil {
+		return errors.Wrap(err, "failed to load seller account id")
+	}
+
+	buyerAccountId, err := ingest.getParticipantID(buyer)
+	if err != nil {
+		return errors.Wrap(err, "failed to load buyer account id")
+	}
 	soldAssetId, err := ingest.getAssetId(trade.AssetSold)
 	if err != nil {
 		return errors.Wrap(err, "failed to get sold asset id")
@@ -235,15 +245,16 @@ func (ingest *Ingestion) Trade(
 		return errors.Wrap(err, "failed to get bought asset id")
 	}
 	var baseAssetId, counterAssetId int64
+	var baseAccountId, counterAccountId int64
 	var baseVolume, counterVolume xdr.Int64
 
 	//map seller and buyer to base and counter based on ordering of ids
 	if soldAssetId < boughtAssetId {
-		baseAssetId, baseVolume, counterAssetId, counterVolume =
-			soldAssetId, trade.AmountSold, boughtAssetId, trade.AmountBought
+		baseAccountId, baseAssetId, baseVolume, counterAccountId, counterAssetId, counterVolume =
+			sellerAccountId, soldAssetId, trade.AmountSold, buyerAccountId, boughtAssetId, trade.AmountBought
 	} else {
-		baseAssetId, baseVolume, counterAssetId, counterVolume =
-			boughtAssetId, trade.AmountBought, soldAssetId, trade.AmountSold
+		baseAccountId, baseAssetId, baseVolume, counterAccountId, counterAssetId, counterVolume =
+			buyerAccountId, boughtAssetId, trade.AmountBought, sellerAccountId, soldAssetId, trade.AmountSold
 	}
 
 	sql := ingest.trades.Values(
@@ -251,8 +262,10 @@ func (ingest *Ingestion) Trade(
 		order,
 		time.Unix(ledgerClosedAt, 0).UTC(),
 		trade.OfferId,
+		baseAccountId,
 		baseAssetId,
 		baseVolume,
+		counterAccountId,
 		counterAssetId,
 		counterVolume,
 		soldAssetId < boughtAssetId,
@@ -381,8 +394,10 @@ func (ingest *Ingestion) createInsertBuilders() {
 		"\"order\"",
 		"ledger_closed_at",
 		"offer_id",
+		"base_account_id",
 		"base_asset_id",
 		"base_volume",
+		"counter_account_id",
 		"counter_asset_id",
 		"counter_volume",
 		"base_is_seller",
