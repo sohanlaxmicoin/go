@@ -46,8 +46,8 @@ func TestTradeActions_Index(t *testing.T) {
 		records := []map[string]interface{}{}
 		ht.UnmarshalPage(w.Body, &records)
 
-		ht.Assert.Contains(records[0], "base_volume")
-		ht.Assert.Contains(records[0], "counter_volume")
+		ht.Assert.Contains(records[0], "base_amount")
+		ht.Assert.Contains(records[0], "counter_amount")
 	}
 
 	q = make(url.Values)
@@ -65,8 +65,8 @@ func TestTradeActions_Index(t *testing.T) {
 		records := []map[string]interface{}{}
 		ht.UnmarshalPage(w.Body, &records)
 
-		ht.Assert.Contains(records[0], "base_volume")
-		ht.Assert.Contains(records[0], "counter_volume")
+		ht.Assert.Contains(records[0], "base_amount")
+		ht.Assert.Contains(records[0], "counter_amount")
 	}
 
 }

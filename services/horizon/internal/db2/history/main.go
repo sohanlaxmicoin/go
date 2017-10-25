@@ -222,12 +222,12 @@ type Trade struct {
 	BaseAssetType      string    `db:"base_asset_type"`
 	BaseAssetCode      string    `db:"base_asset_code"`
 	BaseAssetIssuer    string    `db:"base_asset_issuer"`
-	BaseVolume         xdr.Int64 `db:"base_volume"`
+	BaseAmount         xdr.Int64 `db:"base_amount"`
 	CounterAccount     string    `db:"counter_account"`
 	CounterAssetType   string    `db:"counter_asset_type"`
 	CounterAssetCode   string    `db:"counter_asset_code"`
 	CounterAssetIssuer string    `db:"counter_asset_issuer"`
-	CounterVolume      xdr.Int64 `db:"counter_volume"`
+	CounterAmount      xdr.Int64 `db:"counter_amount"`
 	BaseIsSeller       bool      `db:"base_is_seller"`
 }
 

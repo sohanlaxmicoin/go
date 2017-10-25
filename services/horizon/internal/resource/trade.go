@@ -23,12 +23,12 @@ func (res *Trade) Populate(
 	res.BaseAssetType = row.BaseAssetType
 	res.BaseAssetCode = row.BaseAssetCode
 	res.BaseAssetIssuer = row.BaseAssetIssuer
-	res.BaseVolume = amount.String(row.BaseVolume)
+	res.BaseAmount = amount.String(row.BaseAmount)
 	res.CounterAccount = row.CounterAccount
 	res.CounterAssetType = row.CounterAssetType
 	res.CounterAssetCode = row.CounterAssetCode
 	res.CounterAssetIssuer = row.CounterAssetIssuer
-	res.CounterVolume = amount.String(row.CounterVolume)
+	res.CounterAmount = amount.String(row.CounterAmount)
 	res.LedgerCloseTime = row.LedgerCloseTime
 	res.BaseIsSeller = row.BaseIsSeller
 	res.populateLinks(ctx, row.HistoryOperationID)

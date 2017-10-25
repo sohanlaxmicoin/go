@@ -8,10 +8,10 @@ CREATE TABLE history_trades (
     offer_id BIGINT NOT NULL,
     base_account_id BIGINT NOT NULL REFERENCES history_accounts(id),
     base_asset_id BIGINT NOT NULL REFERENCES history_assets(id),
-    base_volume BIGINT NOT NULL CHECK (base_volume > 0),
+    base_amount BIGINT NOT NULL CHECK (base_amount > 0),
     counter_account_id BIGINT NOT NULL REFERENCES history_accounts(id),
     counter_asset_id BIGINT NOT NULL REFERENCES history_assets(id),
-    counter_volume BIGINT NOT NULL CHECK (counter_volume > 0),
+    counter_amount BIGINT NOT NULL CHECK (counter_amount > 0),
     base_is_seller BOOLEAN,
     CHECK(base_asset_id < counter_asset_id)
 );

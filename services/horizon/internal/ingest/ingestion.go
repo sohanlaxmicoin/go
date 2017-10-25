@@ -246,14 +246,14 @@ func (ingest *Ingestion) Trade(
 	}
 	var baseAssetId, counterAssetId int64
 	var baseAccountId, counterAccountId int64
-	var baseVolume, counterVolume xdr.Int64
+	var baseAmount, counterAmount xdr.Int64
 
 	//map seller and buyer to base and counter based on ordering of ids
 	if soldAssetId < boughtAssetId {
-		baseAccountId, baseAssetId, baseVolume, counterAccountId, counterAssetId, counterVolume =
+		baseAccountId, baseAssetId, baseAmount, counterAccountId, counterAssetId, counterAmount =
 			sellerAccountId, soldAssetId, trade.AmountSold, buyerAccountId, boughtAssetId, trade.AmountBought
 	} else {
-		baseAccountId, baseAssetId, baseVolume, counterAccountId, counterAssetId, counterVolume =
+		baseAccountId, baseAssetId, baseAmount, counterAccountId, counterAssetId, counterAmount =
 			buyerAccountId, boughtAssetId, trade.AmountBought, sellerAccountId, soldAssetId, trade.AmountSold
 	}
 
@@ -264,10 +264,10 @@ func (ingest *Ingestion) Trade(
 		trade.OfferId,
 		baseAccountId,
 		baseAssetId,
-		baseVolume,
+		baseAmount,
 		counterAccountId,
 		counterAssetId,
-		counterVolume,
+		counterAmount,
 		soldAssetId < boughtAssetId,
 	)
 	_, err = ingest.DB.Exec(sql)
@@ -396,10 +396,10 @@ func (ingest *Ingestion) createInsertBuilders() {
 		"offer_id",
 		"base_account_id",
 		"base_asset_id",
-		"base_volume",
+		"base_amount",
 		"counter_account_id",
 		"counter_asset_id",
-		"counter_volume",
+		"counter_amount",
 		"base_is_seller",
 	)
 }

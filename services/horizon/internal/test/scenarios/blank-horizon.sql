@@ -247,14 +247,14 @@ CREATE TABLE history_trades (
     offer_id bigint NOT NULL,
     base_account_id bigint NOT NULL,
     base_asset_id bigint NOT NULL,
-    base_volume bigint NOT NULL,
+    base_amount bigint NOT NULL,
     counter_account_id bigint NOT NULL,
     counter_asset_id bigint NOT NULL,
-    counter_volume bigint NOT NULL,
+    counter_amount bigint NOT NULL,
     base_is_seller boolean,
-    CONSTRAINT history_trades_base_volume_check CHECK ((base_volume > 0)),
+    CONSTRAINT history_trades_base_amount_check CHECK ((base_amount > 0)),
     CONSTRAINT history_trades_check CHECK ((base_asset_id < counter_asset_id)),
-    CONSTRAINT history_trades_counter_volume_check CHECK ((counter_volume > 0))
+    CONSTRAINT history_trades_counter_amount_check CHECK ((counter_amount > 0))
 );
 
 
@@ -339,13 +339,13 @@ ALTER TABLE ONLY history_transaction_participants ALTER COLUMN id SET DEFAULT ne
 -- Data for Name: gorp_migrations; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO gorp_migrations VALUES ('1_initial_schema.sql', '2017-10-24 11:27:03.627694-07');
-INSERT INTO gorp_migrations VALUES ('2_index_participants_by_toid.sql', '2017-10-24 11:27:03.632901-07');
-INSERT INTO gorp_migrations VALUES ('3_use_sequence_in_history_accounts.sql', '2017-10-24 11:27:03.636298-07');
-INSERT INTO gorp_migrations VALUES ('4_add_protocol_version.sql', '2017-10-24 11:27:03.644189-07');
-INSERT INTO gorp_migrations VALUES ('5_create_trades_table.sql', '2017-10-24 11:27:03.651859-07');
-INSERT INTO gorp_migrations VALUES ('6_create_assets_table.sql', '2017-10-24 11:27:03.657514-07');
-INSERT INTO gorp_migrations VALUES ('7_modify_trades_table.sql', '2017-10-24 11:27:03.665802-07');
+INSERT INTO gorp_migrations VALUES ('1_initial_schema.sql', '2017-10-25 12:02:41.355815-07');
+INSERT INTO gorp_migrations VALUES ('2_index_participants_by_toid.sql', '2017-10-25 12:02:41.35913-07');
+INSERT INTO gorp_migrations VALUES ('3_use_sequence_in_history_accounts.sql', '2017-10-25 12:02:41.361119-07');
+INSERT INTO gorp_migrations VALUES ('4_add_protocol_version.sql', '2017-10-25 12:02:41.365998-07');
+INSERT INTO gorp_migrations VALUES ('5_create_trades_table.sql', '2017-10-25 12:02:41.370443-07');
+INSERT INTO gorp_migrations VALUES ('6_create_assets_table.sql', '2017-10-25 12:02:41.373746-07');
+INSERT INTO gorp_migrations VALUES ('7_modify_trades_table.sql', '2017-10-25 12:02:41.381902-07');
 
 
 --

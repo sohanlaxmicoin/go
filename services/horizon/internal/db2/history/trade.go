@@ -98,12 +98,12 @@ var selectTrade = sq.Select(
 	"base_assets.asset_type as base_asset_type",
 	"base_assets.asset_code as base_asset_code",
 	"base_assets.asset_issuer as base_asset_issuer",
-	"htrd.base_volume",
+	"htrd.base_amount",
 	"counter_accounts.address as counter_account",
 	"counter_assets.asset_type as counter_asset_type",
 	"counter_assets.asset_code as counter_asset_code",
 	"counter_assets.asset_issuer as counter_asset_issuer",
-	"htrd.counter_volume",
+	"htrd.counter_amount",
 	"htrd.base_is_seller",
 ).From("history_trades htrd").
 	Join("history_accounts base_accounts ON base_account_id = base_accounts.id").
@@ -120,12 +120,12 @@ var selectReverseTrade = sq.Select(
 	"counter_assets.asset_type as base_asset_type",
 	"counter_assets.asset_code as base_asset_code",
 	"counter_assets.asset_issuer as base_asset_issuer",
-	"htrd.base_volume",
+	"htrd.base_amount",
 	"base_accounts.address as counter_account",
 	"base_assets.asset_type as counter_asset_type",
 	"base_assets.asset_code as counter_asset_code",
 	"base_assets.asset_issuer as counter_asset_issuer",
-	"htrd.counter_volume",
+	"htrd.counter_amount",
 	"NOT(htrd.base_is_seller) as base_is_seller",
 ).From("history_trades htrd").
 	Join("history_accounts base_accounts ON base_account_id = base_accounts.id").
