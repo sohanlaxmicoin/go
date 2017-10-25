@@ -12,14 +12,13 @@ import (
 
 type TradeIndexAction struct {
 	Action
-	OfferFilter int64
 	BaseAssetFilter       xdr.Asset
 	HasBaseAssetFilter    bool
 	CounterAssetFilter    xdr.Asset
 	HasCounterAssetFilter bool
-	PagingParams db2.PageQuery
-	Records      []history.Trade
-	Page         hal.Page
+	PagingParams          db2.PageQuery
+	Records               []history.Trade
+	Page                  hal.Page
 }
 
 // JSON is a method for actions.JSON
@@ -38,7 +37,6 @@ func (action *TradeIndexAction) JSON() {
 // loadParams sets action.Query from the request params
 func (action *TradeIndexAction) loadParams() {
 	action.PagingParams = action.GetPageQuery()
-	action.OfferFilter = action.GetInt64("offer_id")
 	action.BaseAssetFilter, action.HasBaseAssetFilter = action.MaybeGetAsset("base_")
 	action.CounterAssetFilter, action.HasCounterAssetFilter = action.MaybeGetAsset("counter_")
 }
