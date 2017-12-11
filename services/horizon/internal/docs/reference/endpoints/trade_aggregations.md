@@ -8,7 +8,7 @@ Trade Aggregations are catered specifically for developers of trading clients. T
 ## Request
 
 ```
-GET /trades?base_asset_type={base_asset_type}&base_asset_code={base_asset_code}&base_asset_issuer={base_asset_issuer}&counter_asset_type={counter_asset_type}&counter_asset_code={counter_asset_code}&counter_asset_issuer={counter_asset_issuer}&resolution={resolution}&start_time={start_time}&end_time={end_time}
+GET /trade_aggregations?base_asset_type={base_asset_type}&base_asset_code={base_asset_code}&base_asset_issuer={base_asset_issuer}&counter_asset_type={counter_asset_type}&counter_asset_code={counter_asset_code}&counter_asset_issuer={counter_asset_issuer}
 ```
 
 ### Arguments
@@ -24,7 +24,7 @@ GET /trades?base_asset_type={base_asset_type}&base_asset_code={base_asset_code}&
 | `counter_asset_type` | string | Type of counter asset  | `credit_alphanum4` |
 | `counter_asset_code` | string | Code of counter asset, not required if type is `native` | `BTC` |
 | `counter_asset_issuer` | string | Issuer of counter asset, not required if type is `native` | 'GD6VWBXI6NY3AOOR55RLVQ4MNIDSXE5JSAVXUTF35FRRI72LYPI3WL6Z' |
-| `?order`  | optional, string, default `asc` | The order in which to return rows, "asc" or "desc". | `asc` |
+| `?order`  | optional, string, default `asc` | The order, in terms of timeline, in which to return rows, "asc" or "desc". | `asc` |
 | `?limit`  | optional, number, default: `10` | Maximum number of records to return. | `200` |
 
 ### curl Example Request

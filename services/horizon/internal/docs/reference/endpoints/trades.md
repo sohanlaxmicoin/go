@@ -9,7 +9,7 @@ Trades can be filtered for specific orderbook, defined by an asset pair: `base` 
 ## Request
 
 ```
-GET /trade_aggregations?base_asset_type={base_asset_type}&base_asset_code={base_asset_code}&base_asset_issuer={base_asset_issuer}&counter_asset_type={counter_asset_type}&counter_asset_code={counter_asset_code}&counter_asset_issuer={counter_asset_issuer}
+GET /trades?base_asset_type={base_asset_type}&base_asset_code={base_asset_code}&base_asset_issuer={base_asset_issuer}&counter_asset_type={counter_asset_type}&counter_asset_code={counter_asset_code}&counter_asset_issuer={counter_asset_issuer}&resolution={resolution}&start_time={start_time}&end_time={end_time}
 ```
 
 ### Arguments
@@ -22,14 +22,14 @@ GET /trade_aggregations?base_asset_type={base_asset_type}&base_asset_code={base_
 | `counter_asset_type` | optional, string | Type of counter asset  | `credit_alphanum4` |
 | `counter_asset_code` | optional, string | Code of counter asset, not required if type is `native` | `BTC` |
 | `counter_asset_issuer` | optional, string | Issuer of counter asset, not required if type is `native` | 'GD6VWBXI6NY3AOOR55RLVQ4MNIDSXE5JSAVXUTF35FRRI72LYPI3WL6Z' |
-| `offer_id` | optional, string | filter for by a specific offer id | '283606' |
+| `offer_id` | optional, string | filter for by a specific offer id | `283606` |
 | `?cursor` | optional, any, default _null_ | A paging token, specifying where to start returning records from. | `12884905984` |
-| `?order`  | optional, string, default `asc` | The order in which to return rows, "asc" or "desc". | `asc` |
+| `?order`  | optional, string, default `asc` | The order, in terms of timeline, in which to return rows, "asc" or "desc". | `asc` |
 | `?limit`  | optional, number, default: `10` | Maximum number of records to return. | `200` |
 
 ### curl Example Request
 ```sh 
-curl "https://horizon.stellar.org//trades?counter_asset_type=credit_alphanum4&base_asset_type=native&counter_asset_issuer=GAP5LETOV6YIE62YAM56STDANPRDO7ZFDBGSNHJQIYGGKSMOZAHOOS2S&base_asset_issuer=undefined&counter_asset_code=EURT&base_asset_code=XLM&order=desc&limit=200"
+curl "https://horizon.stellar.org/trades?counter_asset_type=credit_alphanum4&base_asset_type=native&counter_asset_issuer=GAP5LETOV6YIE62YAM56STDANPRDO7ZFDBGSNHJQIYGGKSMOZAHOOS2S&base_asset_issuer=undefined&counter_asset_code=EURT&base_asset_code=XLM&order=desc&limit=200"
 ```
 
 ## Response
