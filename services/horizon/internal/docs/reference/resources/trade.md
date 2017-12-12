@@ -2,7 +2,7 @@
 title: Trade
 ---
 
-A trade represents a fulfilled offer.  For example, let's say that there exists an offer to sell 9 `foo_bank/EUR` for 3 `baz_exchange/BTC` and you make an offer to buy 3 `foo_bank/EUR` for 1 `baz_exchange/BTC`.  Since your offer and the existing one cross, a trade happens.  After the trade completes,
+A trade represents a fulfilled offer.  For example, let's say that there exists an offer to sell 9 `foo_bank/EUR` for 3 `baz_exchange/BTC` and you make an offer to buy 3 `foo_bank/EUR` for 1 `baz_exchange/BTC`.  Since your offer and the existing one cross, a trade happens.  After the trade completes:
 
 - you are 3 `foo_bank/EUR` richer and 1 `baz_exchange/BTC` poorer
 - the maker of the other offer is 1 `baz_exchange/BTC` richer and 3 `foo_bank/EUR` poorer
