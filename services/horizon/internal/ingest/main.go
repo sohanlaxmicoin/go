@@ -126,9 +126,9 @@ type Ingestion struct {
 	trades                   sq.InsertBuilder
 	assetStats               sq.InsertBuilder
 
-	effectsPresent               bool
-	operationsPresent            bool
-	operationParticipantsPresent bool
+	effectsQueryParams               int
+	operationsQueryParams            int
+	operationParticipantsQueryParams int
 
 	accountIDMapping map[xdr.AccountId]int64
 }

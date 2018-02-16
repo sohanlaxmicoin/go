@@ -75,7 +75,46 @@ func (ingest *Ingestion) Effect(aid int64, opid int64, order int, typ history.Ef
 	}
 
 	ingest.effects = ingest.effects.Values(aid, opid, order, typ, djson)
-	ingest.effectsPresent = true
+	ingest.effectsQueryParams += 5
+	err = ingest.flushQueriesIfNeeded()
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// flushQueriesIfNeeded flush queries when number of params exceed 60k params.
+// PostgreSQL supports up to 65535 parameters
+func (ingest *Ingestion) flushQueriesIfNeeded() error {
+	var err error
+
+	if ingest.operationsQueryParams > 60000 {
+		_, err = ingest.DB.Exec(ingest.operations)
+		if err != nil {
+			return err
+		}
+		ingest.operationsQueryParams = 0
+		ingest.createOperationsInsertBuilder()
+	}
+
+	if ingest.operationParticipantsQueryParams > 60000 {
+		_, err = ingest.DB.Exec(ingest.operation_participants)
+		if err != nil {
+			return err
+		}
+		ingest.operationParticipantsQueryParams = 0
+		ingest.createOperationParticipantsInsertBuilder()
+	}
+
+	if ingest.effectsQueryParams > 60000 {
+		_, err = ingest.DB.Exec(ingest.effects)
+		if err != nil {
+			return err
+		}
+		ingest.effectsQueryParams = 0
+		ingest.createEffectsInsertBuilder()
+	}
 
 	return nil
 }
@@ -85,22 +124,21 @@ func (ingest *Ingestion) Effect(aid int64, opid int64, order int, typ history.Ef
 func (ingest *Ingestion) Flush() error {
 	var err error
 
-	// NOTE generate SQL queries can exceed max query length!
-	if ingest.operationParticipantsPresent {
-		_, err = ingest.DB.Exec(ingest.operation_participants)
-		if err != nil {
-			return err
-		}
-	}
-
-	if ingest.operationsPresent {
+	if ingest.operationsQueryParams > 0 {
 		_, err = ingest.DB.Exec(ingest.operations)
 		if err != nil {
 			return err
 		}
 	}
 
-	if ingest.effectsPresent {
+	if ingest.operationParticipantsQueryParams > 0 {
+		_, err = ingest.DB.Exec(ingest.operation_participants)
+		if err != nil {
+			return err
+		}
+	}
+
+	if ingest.effectsQueryParams > 0 {
 		_, err = ingest.DB.Exec(ingest.effects)
 		if err != nil {
 			return err
@@ -168,7 +206,11 @@ func (ingest *Ingestion) Operation(
 	}
 
 	ingest.operations = ingest.operations.Values(id, txid, order, source.Address(), typ, djson)
-	ingest.operationsPresent = true
+	ingest.operationsQueryParams += 6
+	err = ingest.flushQueriesIfNeeded()
+	if err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -201,6 +243,12 @@ func (ingest *Ingestion) OperationParticipants(op int64, aids []xdr.AccountId) e
 			return err
 		}
 		ingest.operation_participants = ingest.operation_participants.Values(op, haid)
+
+		ingest.operationParticipantsQueryParams += 2
+		err = ingest.flushQueriesIfNeeded()
+		if err != nil {
+			return err
+		}
 	}
 
 	return nil
@@ -222,9 +270,9 @@ func (ingest *Ingestion) Start() (err error) {
 	ingest.accountIDMapping = make(map[xdr.AccountId]int64)
 
 	ingest.createInsertBuilders()
-	ingest.effectsPresent = false
-	ingest.operationsPresent = false
-	ingest.operationParticipantsPresent = false
+	ingest.effectsQueryParams = 0
+	ingest.operationsQueryParams = 0
+	ingest.operationParticipantsQueryParams = 0
 
 	return
 }
@@ -357,6 +405,34 @@ func (ingest *Ingestion) TransactionParticipants(tx int64, aids []xdr.AccountId)
 	return nil
 }
 
+func (ingest *Ingestion) createOperationsInsertBuilder() {
+	ingest.operations = sq.Insert("history_operations").Columns(
+		"id",
+		"transaction_id",
+		"application_order",
+		"source_account",
+		"type",
+		"details",
+	)
+}
+
+func (ingest *Ingestion) createOperationParticipantsInsertBuilder() {
+	ingest.operation_participants = sq.Insert("history_operation_participants").Columns(
+		"history_operation_id",
+		"history_account_id",
+	)
+}
+
+func (ingest *Ingestion) createEffectsInsertBuilder() {
+	ingest.effects = sq.Insert("history_effects").Columns(
+		"history_account_id",
+		"history_operation_id",
+		"\"order\"",
+		"type",
+		"details",
+	)
+}
+
 func (ingest *Ingestion) createInsertBuilders() {
 	ingest.ledgers = sq.Insert("history_ledgers").Columns(
 		"importer_version",
@@ -408,27 +484,9 @@ func (ingest *Ingestion) createInsertBuilders() {
 		"history_account_id",
 	)
 
-	ingest.operations = sq.Insert("history_operations").Columns(
-		"id",
-		"transaction_id",
-		"application_order",
-		"source_account",
-		"type",
-		"details",
-	)
-
-	ingest.operation_participants = sq.Insert("history_operation_participants").Columns(
-		"history_operation_id",
-		"history_account_id",
-	)
-
-	ingest.effects = sq.Insert("history_effects").Columns(
-		"history_account_id",
-		"history_operation_id",
-		"\"order\"",
-		"type",
-		"details",
-	)
+	ingest.createOperationsInsertBuilder()
+	ingest.createOperationParticipantsInsertBuilder()
+	ingest.createEffectsInsertBuilder()
 
 	ingest.trades = sq.Insert("history_trades").Columns(
 		"history_operation_id",
