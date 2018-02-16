@@ -8,8 +8,6 @@ import (
 // Add writes an effect to the database while automatically tracking the index
 // to use.
 func (ei *EffectIngestion) Add(aid xdr.AccountId, typ history.EffectType, details interface{}) bool {
-	q := history.Q{Session: ei.parent.DB}
-
 	if ei.err != nil {
 		return false
 	}
@@ -17,7 +15,7 @@ func (ei *EffectIngestion) Add(aid xdr.AccountId, typ history.EffectType, detail
 	ei.added++
 	var haid int64
 
-	haid, ei.err = q.GetCreateAccountID(aid)
+	haid, ei.err = ei.Dest.GetCreateAccountID(aid)
 	if ei.err != nil {
 		return false
 	}

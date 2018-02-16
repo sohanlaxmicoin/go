@@ -125,6 +125,12 @@ type Ingestion struct {
 	accounts                 sq.InsertBuilder
 	trades                   sq.InsertBuilder
 	assetStats               sq.InsertBuilder
+
+	effectsPresent               bool
+	operationsPresent            bool
+	operationParticipantsPresent bool
+
+	accountIDMapping map[xdr.AccountId]int64
 }
 
 // Session represents a single attempt at ingesting data into the history

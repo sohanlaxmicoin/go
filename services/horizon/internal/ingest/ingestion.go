@@ -74,12 +74,8 @@ func (ingest *Ingestion) Effect(aid int64, opid int64, order int, typ history.Ef
 		return err
 	}
 
-	sql := ingest.effects.Values(aid, opid, order, typ, djson)
-
-	_, err = ingest.DB.Exec(sql)
-	if err != nil {
-		return err
-	}
+	ingest.effects = ingest.effects.Values(aid, opid, order, typ, djson)
+	ingest.effectsPresent = true
 
 	return nil
 }
@@ -87,7 +83,31 @@ func (ingest *Ingestion) Effect(aid int64, opid int64, order int, typ history.Ef
 // Flush writes the currently buffered rows to the db, and if successful
 // starts a new transaction.
 func (ingest *Ingestion) Flush() error {
-	err := ingest.commit()
+	var err error
+
+	// NOTE generate SQL queries can exceed max query length!
+	if ingest.operationParticipantsPresent {
+		_, err = ingest.DB.Exec(ingest.operation_participants)
+		if err != nil {
+			return err
+		}
+	}
+
+	if ingest.operationsPresent {
+		_, err = ingest.DB.Exec(ingest.operations)
+		if err != nil {
+			return err
+		}
+	}
+
+	if ingest.effectsPresent {
+		_, err = ingest.DB.Exec(ingest.effects)
+		if err != nil {
+			return err
+		}
+	}
+
+	err = ingest.commit()
 	if err != nil {
 		return err
 	}
@@ -147,33 +167,40 @@ func (ingest *Ingestion) Operation(
 		return err
 	}
 
-	sql := ingest.operations.Values(id, txid, order, source.Address(), typ, djson)
-	_, err = ingest.DB.Exec(sql)
-	if err != nil {
-		return err
-	}
+	ingest.operations = ingest.operations.Values(id, txid, order, source.Address(), typ, djson)
+	ingest.operationsPresent = true
 
 	return nil
+}
+
+// GetCreateAccountID works like history.Q.GetCreateAccountID but is caching results.
+// NOTE - what if account gets merged?
+// NOTE - how much the cache it can grow?
+func (ingest *Ingestion) GetCreateAccountID(aid xdr.AccountId) (int64, error) {
+	if ingest.accountIDMapping[aid] != 0 {
+		return ingest.accountIDMapping[aid], nil
+	}
+
+	q := history.Q{Session: ingest.DB}
+	haid, err := q.GetCreateAccountID(aid)
+	if err != nil {
+		return 0, err
+	}
+
+	ingest.accountIDMapping[aid] = haid
+	return haid, nil
 }
 
 // OperationParticipants ingests the provided accounts `aids` as participants of
 // operation with id `op`, creating a new row in the
 // `history_operation_participants` table.
 func (ingest *Ingestion) OperationParticipants(op int64, aids []xdr.AccountId) error {
-	sql := ingest.operation_participants
-	q := history.Q{Session: ingest.DB}
-
 	for _, aid := range aids {
-		haid, err := q.GetCreateAccountID(aid)
+		haid, err := ingest.GetCreateAccountID(aid)
 		if err != nil {
 			return err
 		}
-		sql = sql.Values(op, haid)
-	}
-
-	_, err := ingest.DB.Exec(sql)
-	if err != nil {
-		return err
+		ingest.operation_participants = ingest.operation_participants.Values(op, haid)
 	}
 
 	return nil
@@ -192,7 +219,12 @@ func (ingest *Ingestion) Start() (err error) {
 		return
 	}
 
+	ingest.accountIDMapping = make(map[xdr.AccountId]int64)
+
 	ingest.createInsertBuilders()
+	ingest.effectsPresent = false
+	ingest.operationsPresent = false
+	ingest.operationParticipantsPresent = false
 
 	return
 }
@@ -232,15 +264,14 @@ func (ingest *Ingestion) Trade(
 	trade xdr.ClaimOfferAtom,
 	ledgerClosedAt int64,
 ) error {
-
 	q := history.Q{Session: ingest.DB}
 
-	sellerAccountId, err := q.GetCreateAccountID(trade.SellerId)
+	sellerAccountId, err := ingest.GetCreateAccountID(trade.SellerId)
 	if err != nil {
 		return errors.Wrap(err, "failed to load seller account id")
 	}
 
-	buyerAccountId, err := q.GetCreateAccountID(buyer)
+	buyerAccountId, err := ingest.GetCreateAccountID(buyer)
 	if err != nil {
 		return errors.Wrap(err, "failed to load buyer account id")
 	}
@@ -309,10 +340,9 @@ func (ingest *Ingestion) Transaction(
 // `history_transaction_participants` table.
 func (ingest *Ingestion) TransactionParticipants(tx int64, aids []xdr.AccountId) error {
 	sql := ingest.transaction_participants
-	q := history.Q{Session: ingest.DB}
 
 	for _, aid := range aids {
-		haid, err := q.GetCreateAccountID(aid)
+		haid, err := ingest.GetCreateAccountID(aid)
 		if err != nil {
 			return err
 		}

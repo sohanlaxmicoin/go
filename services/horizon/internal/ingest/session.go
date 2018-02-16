@@ -315,6 +315,13 @@ func (is *Session) ingestEffects() {
 
 // ingestLedger ingests the current ledger
 func (is *Session) ingestLedger() {
+	start2 := time.Now()
+
+	defer func() {
+		elapsed := time.Now().Sub(start2)
+		fmt.Println("ingestLedger", elapsed)
+	}()
+
 	if is.Err != nil {
 		return
 	}
@@ -532,6 +539,13 @@ func (is *Session) tradeDetails(buyer, seller xdr.AccountId, claim xdr.ClaimOffe
 }
 
 func (is *Session) ingestTransaction() {
+	start2 := time.Now()
+
+	defer func() {
+		elapsed := time.Now().Sub(start2)
+		fmt.Println("ingestTransaction", elapsed)
+	}()
+
 	if is.Err != nil {
 		return
 	}
