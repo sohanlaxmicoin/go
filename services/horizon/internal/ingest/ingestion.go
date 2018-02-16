@@ -205,6 +205,10 @@ func (ingest *Ingestion) Operation(
 		return err
 	}
 
+	if typ == xdr.OperationTypeAccountMerge {
+		delete(ingest.accountIDMapping, source)
+	}
+
 	ingest.operations = ingest.operations.Values(id, txid, order, source.Address(), typ, djson)
 	ingest.operationsQueryParams += 6
 	err = ingest.flushQueriesIfNeeded()
