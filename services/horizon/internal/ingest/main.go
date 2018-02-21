@@ -5,10 +5,12 @@ package ingest
 
 import (
 	"sync"
+	"time"
 
 	sq "github.com/Masterminds/squirrel"
 	metrics "github.com/rcrowley/go-metrics"
 	"github.com/stellar/go/services/horizon/internal/db2/core"
+	"github.com/stellar/go/services/horizon/internal/db2/history"
 	"github.com/stellar/go/support/db"
 	"github.com/stellar/go/xdr"
 )
@@ -110,11 +112,86 @@ type IngesterMetrics struct {
 // AssetsModified tracks all the assets modified during a cycle of ingestion
 type AssetsModified map[string]xdr.Asset
 
+type TableName string
+
+const (
+	OperationsTableName              TableName = "history_operations"
+	EffectsTableName                 TableName = "history_effects"
+	TransactionParticipantsTableName TableName = "history_transaction_participants"
+	TradesTableName                  TableName = "trades"
+	OperationParticipantsTableName   TableName = "history_operation_participants"
+)
+
+// row should be implemented by objects added to DB during ingestion.
+type row interface {
+	// GetParams returns fields to be added to DB. Objects can contain
+	// more helper fields that are not added to DB.
+	GetParams() []interface{}
+	// UpdateAccountIDs updates fields with account IDs by using provided
+	// address => id mapping.
+	UpdateAccountIDs(accounts map[string]int64)
+	// GetAddresses returns a list of addresses to find corresponding IDs
+	GetAddresses() []string
+	GetTableName() TableName
+}
+
+type effectRow struct {
+	AccountID   int64
+	OperationID int64
+	Order       int
+	Type        history.EffectType
+	Details     []byte
+
+	Address string
+}
+
+type operationRow struct {
+	ID      int64
+	TxID    int64
+	Order   int32
+	Source  string
+	Type    xdr.OperationType
+	Details []byte
+}
+
+type operationParticipantRow struct {
+	OperationID int64
+	AccountID   int64
+
+	Address string
+}
+
+type tradeRow struct {
+	OperationID      int64
+	Order            int32
+	LedgerCloseAt    time.Time
+	OfferID          xdr.Uint64
+	BaseAccountID    int64
+	BaseAssetID      int64
+	BaseAmount       xdr.Int64
+	CounterAccountID int64
+	CounterAssetID   int64
+	CounterAmount    xdr.Int64
+	BaseIsSeller     bool
+
+	BaseAddress    string
+	CounterAddress string
+}
+
+type transactionParticipantRow struct {
+	TransactionID int64
+	AccountID     int64
+
+	Address string
+}
+
 // Ingestion receives write requests from a Session
 type Ingestion struct {
 	// DB is the sql connection to be used for writing any rows into the horizon
 	// database.
 	DB *db.Session
+
+	builders map[TableName]sq.InsertBuilder
 
 	ledgers                  sq.InsertBuilder
 	transactions             sq.InsertBuilder
@@ -122,15 +199,10 @@ type Ingestion struct {
 	operations               sq.InsertBuilder
 	operation_participants   sq.InsertBuilder
 	effects                  sq.InsertBuilder
-	accounts                 sq.InsertBuilder
 	trades                   sq.InsertBuilder
 	assetStats               sq.InsertBuilder
 
-	effectsQueryParams               int
-	operationsQueryParams            int
-	operationParticipantsQueryParams int
-
-	accountIDMapping map[xdr.AccountId]int64
+	rowsToInsert []row
 }
 
 // Session represents a single attempt at ingesting data into the history

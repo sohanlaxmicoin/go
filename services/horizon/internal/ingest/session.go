@@ -27,6 +27,13 @@ func (is *Session) Run() {
 		return
 	}
 
+	start2 := time.Now()
+
+	defer func() {
+		elapsed := time.Now().Sub(start2)
+		fmt.Println("Session.Run", elapsed)
+	}()
+
 	is.Err = is.Ingestion.Start()
 	if is.Err != nil {
 		return
@@ -96,6 +103,13 @@ func (is *Session) effectFlagDetails(flagDetails map[string]bool, flagPtr *xdr.U
 }
 
 func (is *Session) flush() {
+	start2 := time.Now()
+
+	defer func() {
+		elapsed := time.Now().Sub(start2)
+		fmt.Println("Session.flush", elapsed)
+	}()
+
 	if is.Err != nil {
 		return
 	}
@@ -315,13 +329,6 @@ func (is *Session) ingestEffects() {
 
 // ingestLedger ingests the current ledger
 func (is *Session) ingestLedger() {
-	start2 := time.Now()
-
-	defer func() {
-		elapsed := time.Now().Sub(start2)
-		fmt.Println("ingestLedger", elapsed)
-	}()
-
 	if is.Err != nil {
 		return
 	}
@@ -539,13 +546,6 @@ func (is *Session) tradeDetails(buyer, seller xdr.AccountId, claim xdr.ClaimOffe
 }
 
 func (is *Session) ingestTransaction() {
-	start2 := time.Now()
-
-	defer func() {
-		elapsed := time.Now().Sub(start2)
-		fmt.Println("ingestTransaction", elapsed)
-	}()
-
 	if is.Err != nil {
 		return
 	}

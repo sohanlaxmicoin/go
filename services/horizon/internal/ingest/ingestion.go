@@ -68,53 +68,20 @@ func (ingest *Ingestion) Close() error {
 }
 
 // Effect adds a new row into the `history_effects` table.
-func (ingest *Ingestion) Effect(aid int64, opid int64, order int, typ history.EffectType, details interface{}) error {
+func (ingest *Ingestion) Effect(address string, opid int64, order int, typ history.EffectType, details interface{}) error {
 	djson, err := json.Marshal(details)
 	if err != nil {
 		return err
 	}
 
-	ingest.effects = ingest.effects.Values(aid, opid, order, typ, djson)
-	ingest.effectsQueryParams += 5
-	err = ingest.flushQueriesIfNeeded()
-	if err != nil {
-		return err
+	effect := &effectRow{
+		Address:     address,
+		OperationID: opid,
+		Order:       order,
+		Type:        typ,
+		Details:     djson,
 	}
-
-	return nil
-}
-
-// flushQueriesIfNeeded flush queries when number of params exceed 60k params.
-// PostgreSQL supports up to 65535 parameters
-func (ingest *Ingestion) flushQueriesIfNeeded() error {
-	var err error
-
-	if ingest.operationsQueryParams > 60000 {
-		_, err = ingest.DB.Exec(ingest.operations)
-		if err != nil {
-			return err
-		}
-		ingest.operationsQueryParams = 0
-		ingest.createOperationsInsertBuilder()
-	}
-
-	if ingest.operationParticipantsQueryParams > 60000 {
-		_, err = ingest.DB.Exec(ingest.operation_participants)
-		if err != nil {
-			return err
-		}
-		ingest.operationParticipantsQueryParams = 0
-		ingest.createOperationParticipantsInsertBuilder()
-	}
-
-	if ingest.effectsQueryParams > 60000 {
-		_, err = ingest.DB.Exec(ingest.effects)
-		if err != nil {
-			return err
-		}
-		ingest.effectsQueryParams = 0
-		ingest.createEffectsInsertBuilder()
-	}
+	ingest.rowsToInsert = append(ingest.rowsToInsert, effect)
 
 	return nil
 }
@@ -122,26 +89,47 @@ func (ingest *Ingestion) flushQueriesIfNeeded() error {
 // Flush writes the currently buffered rows to the db, and if successful
 // starts a new transaction.
 func (ingest *Ingestion) Flush() error {
-	var err error
+	// Update IDs for accounts
+	err := ingest.UpdateAccountIDs()
+	if err != nil {
+		return errors.Wrap(err, "Error while updating account ids")
+	}
 
-	if ingest.operationsQueryParams > 0 {
-		_, err = ingest.DB.Exec(ingest.operations)
-		if err != nil {
-			return err
+	// Inserts
+	paramsCount := map[TableName]int{}
+	for _, row := range ingest.rowsToInsert {
+		tableName := row.GetTableName()
+		params := row.GetParams()
+
+		if _, ok := ingest.builders[tableName]; !ok {
+			return errors.Errorf("%s insert builder does not exist", tableName)
+		}
+
+		ingest.builders[tableName] = ingest.builders[tableName].Values(params...)
+		paramsCount[tableName] += len(params)
+
+		// PostgreSQL supports up to 65535 parameters.
+		if paramsCount[tableName] > 65000 {
+			fmt.Println("flushing", tableName)
+			_, err = ingest.DB.Exec(ingest.builders[tableName])
+			if err != nil {
+				return err
+			}
+			paramsCount[tableName] = 0
+			ingest.createInsertBuilderByTableName(tableName)
 		}
 	}
 
-	if ingest.operationParticipantsQueryParams > 0 {
-		_, err = ingest.DB.Exec(ingest.operation_participants)
-		if err != nil {
-			return err
-		}
-	}
+	fmt.Println("paramsCount", paramsCount)
 
-	if ingest.effectsQueryParams > 0 {
-		_, err = ingest.DB.Exec(ingest.effects)
-		if err != nil {
-			return err
+	// Exec the rest
+	for tableName, params := range paramsCount {
+		if params > 0 {
+			fmt.Println("last flushing", tableName)
+			_, err = ingest.DB.Exec(ingest.builders[tableName])
+			if err != nil {
+				return err
+			}
 		}
 	}
 
@@ -205,36 +193,86 @@ func (ingest *Ingestion) Operation(
 		return err
 	}
 
-	if typ == xdr.OperationTypeAccountMerge {
-		delete(ingest.accountIDMapping, source)
+	operation := operationRow{
+		ID:      id,
+		TxID:    txid,
+		Order:   order,
+		Source:  source.Address(),
+		Type:    typ,
+		Details: djson,
+	}
+	ingest.rowsToInsert = append(ingest.rowsToInsert, operation)
+	return nil
+}
+
+// UpdateAccountIDs updates IDs of the accounts before inserting
+// objects into DB.
+func (ingest *Ingestion) UpdateAccountIDs() error {
+	accounts := map[string]int64{}
+	addresses := []string{}
+
+	// Collect addresses to fetch
+	for _, row := range ingest.rowsToInsert {
+		for _, address := range row.GetAddresses() {
+			if _, exists := accounts[address]; !exists {
+				addresses = append(addresses, address)
+			}
+			accounts[address] = 0
+		}
 	}
 
-	ingest.operations = ingest.operations.Values(id, txid, order, source.Address(), typ, djson)
-	ingest.operationsQueryParams += 6
-	err = ingest.flushQueriesIfNeeded()
+	if len(addresses) == 0 {
+		return nil
+	}
+
+	fmt.Println("addresses to load", len(addresses))
+
+	// Get IDs and update map
+	q := history.Q{Session: ingest.DB}
+	dbAccounts := make([]history.Account, 0, len(addresses))
+	err := q.AccountsByAddresses(&dbAccounts, addresses)
 	if err != nil {
 		return err
 	}
 
-	return nil
-}
+	fmt.Println("accounts loaded", len(dbAccounts))
 
-// GetCreateAccountID works like history.Q.GetCreateAccountID but is caching results.
-// NOTE - what if account gets merged?
-// NOTE - how much the cache it can grow?
-func (ingest *Ingestion) GetCreateAccountID(aid xdr.AccountId) (int64, error) {
-	if ingest.accountIDMapping[aid] != 0 {
-		return ingest.accountIDMapping[aid], nil
+	for _, row := range dbAccounts {
+		accounts[row.Address] = row.ID
 	}
 
-	q := history.Q{Session: ingest.DB}
-	haid, err := q.GetCreateAccountID(aid)
+	// Insert non-existent addresses and update map
+	addresses = []string{}
+	for address, id := range accounts {
+		if id == 0 {
+			addresses = append(addresses, address)
+		}
+	}
+
+	if len(addresses) == 0 {
+		return nil
+	}
+
+	fmt.Println("accounts to insert", len(addresses))
+
+	dbAccounts = make([]history.Account, 0, len(addresses))
+	err = q.CreateAccounts(&dbAccounts, addresses)
 	if err != nil {
-		return 0, err
+		return err
 	}
 
-	ingest.accountIDMapping[aid] = haid
-	return haid, nil
+	fmt.Println("accounts inserted", len(dbAccounts))
+
+	for _, row := range dbAccounts {
+		accounts[row.Address] = row.ID
+	}
+
+	// Update IDs in objects
+	for _, row := range ingest.rowsToInsert {
+		row.UpdateAccountIDs(accounts)
+	}
+
+	return nil
 }
 
 // OperationParticipants ingests the provided accounts `aids` as participants of
@@ -242,17 +280,11 @@ func (ingest *Ingestion) GetCreateAccountID(aid xdr.AccountId) (int64, error) {
 // `history_operation_participants` table.
 func (ingest *Ingestion) OperationParticipants(op int64, aids []xdr.AccountId) error {
 	for _, aid := range aids {
-		haid, err := ingest.GetCreateAccountID(aid)
-		if err != nil {
-			return err
+		operationParticipant := &operationParticipantRow{
+			OperationID: op,
+			Address:     aid.Address(),
 		}
-		ingest.operation_participants = ingest.operation_participants.Values(op, haid)
-
-		ingest.operationParticipantsQueryParams += 2
-		err = ingest.flushQueriesIfNeeded()
-		if err != nil {
-			return err
-		}
+		ingest.rowsToInsert = append(ingest.rowsToInsert, operationParticipant)
 	}
 
 	return nil
@@ -271,13 +303,10 @@ func (ingest *Ingestion) Start() (err error) {
 		return
 	}
 
-	ingest.accountIDMapping = make(map[xdr.AccountId]int64)
-
+	// We need to recreate builders and clear `rowsToInsert` because `Ingestion`
+	// object can be used to ingest more than one ledger.
 	ingest.createInsertBuilders()
-	ingest.effectsQueryParams = 0
-	ingest.operationsQueryParams = 0
-	ingest.operationParticipantsQueryParams = 0
-
+	ingest.rowsToInsert = []row{}
 	return
 }
 
@@ -318,15 +347,9 @@ func (ingest *Ingestion) Trade(
 ) error {
 	q := history.Q{Session: ingest.DB}
 
-	sellerAccountId, err := ingest.GetCreateAccountID(trade.SellerId)
-	if err != nil {
-		return errors.Wrap(err, "failed to load seller account id")
-	}
+	sellerAddress := trade.SellerId.Address()
+	buyerAddress := buyer.Address()
 
-	buyerAccountId, err := ingest.GetCreateAccountID(buyer)
-	if err != nil {
-		return errors.Wrap(err, "failed to load buyer account id")
-	}
 	soldAssetId, err := q.GetCreateAssetID(trade.AssetSold)
 	if err != nil {
 		return errors.Wrap(err, "failed to get sold asset id")
@@ -337,36 +360,33 @@ func (ingest *Ingestion) Trade(
 		return errors.Wrap(err, "failed to get bought asset id")
 	}
 	var baseAssetId, counterAssetId int64
-	var baseAccountId, counterAccountId int64
+	var baseAddress, counterAddress string
 	var baseAmount, counterAmount xdr.Int64
 
 	//map seller and buyer to base and counter based on ordering of ids
 	if soldAssetId < boughtAssetId {
-		baseAccountId, baseAssetId, baseAmount, counterAccountId, counterAssetId, counterAmount =
-			sellerAccountId, soldAssetId, trade.AmountSold, buyerAccountId, boughtAssetId, trade.AmountBought
+		baseAddress, baseAssetId, baseAmount, counterAddress, counterAssetId, counterAmount =
+			sellerAddress, soldAssetId, trade.AmountSold, buyerAddress, boughtAssetId, trade.AmountBought
 	} else {
-		baseAccountId, baseAssetId, baseAmount, counterAccountId, counterAssetId, counterAmount =
-			buyerAccountId, boughtAssetId, trade.AmountBought, sellerAccountId, soldAssetId, trade.AmountSold
+		baseAddress, baseAssetId, baseAmount, counterAddress, counterAssetId, counterAmount =
+			buyerAddress, boughtAssetId, trade.AmountBought, sellerAddress, soldAssetId, trade.AmountSold
 	}
 
-	sql := ingest.trades.Values(
-		opid,
-		order,
-		time.Unix(ledgerClosedAt, 0).UTC(),
-		trade.OfferId,
-		baseAccountId,
-		baseAssetId,
-		baseAmount,
-		counterAccountId,
-		counterAssetId,
-		counterAmount,
-		soldAssetId < boughtAssetId,
-	)
-	_, err = ingest.DB.Exec(sql)
-	if err != nil {
-		return errors.Wrap(err, "failed to exec sql")
-	}
+	tradeR := &tradeRow{
+		OperationID:    opid,
+		Order:          order,
+		LedgerCloseAt:  time.Unix(ledgerClosedAt, 0).UTC(),
+		OfferID:        trade.OfferId,
+		BaseAssetID:    baseAssetId,
+		BaseAmount:     baseAmount,
+		CounterAssetID: counterAssetId,
+		CounterAmount:  counterAmount,
+		BaseIsSeller:   soldAssetId < boughtAssetId,
 
+		BaseAddress:    baseAddress,
+		CounterAddress: counterAddress,
+	}
+	ingest.rowsToInsert = append(ingest.rowsToInsert, tradeR)
 	return nil
 }
 
@@ -391,26 +411,19 @@ func (ingest *Ingestion) Transaction(
 // transaction with id `tx`, creating a new row in the
 // `history_transaction_participants` table.
 func (ingest *Ingestion) TransactionParticipants(tx int64, aids []xdr.AccountId) error {
-	sql := ingest.transaction_participants
-
 	for _, aid := range aids {
-		haid, err := ingest.GetCreateAccountID(aid)
-		if err != nil {
-			return err
+		transactionParticipant := &transactionParticipantRow{
+			TransactionID: tx,
+			Address:       aid.Address(),
 		}
-		sql = sql.Values(tx, haid)
-	}
-
-	_, err := ingest.DB.Exec(sql)
-	if err != nil {
-		return err
+		ingest.rowsToInsert = append(ingest.rowsToInsert, transactionParticipant)
 	}
 
 	return nil
 }
 
 func (ingest *Ingestion) createOperationsInsertBuilder() {
-	ingest.operations = sq.Insert("history_operations").Columns(
+	ingest.builders[OperationsTableName] = sq.Insert(string(OperationsTableName)).Columns(
 		"id",
 		"transaction_id",
 		"application_order",
@@ -421,14 +434,21 @@ func (ingest *Ingestion) createOperationsInsertBuilder() {
 }
 
 func (ingest *Ingestion) createOperationParticipantsInsertBuilder() {
-	ingest.operation_participants = sq.Insert("history_operation_participants").Columns(
+	ingest.builders[OperationParticipantsTableName] = sq.Insert(string(OperationParticipantsTableName)).Columns(
 		"history_operation_id",
 		"history_account_id",
 	)
 }
 
+func (ingest *Ingestion) createTransactionParticipantsInsertBuilder() {
+	ingest.builders[TransactionParticipantsTableName] = sq.Insert(string(TransactionParticipantsTableName)).Columns(
+		"history_transaction_id",
+		"history_account_id",
+	)
+}
+
 func (ingest *Ingestion) createEffectsInsertBuilder() {
-	ingest.effects = sq.Insert("history_effects").Columns(
+	ingest.builders[EffectsTableName] = sq.Insert(string(EffectsTableName)).Columns(
 		"history_account_id",
 		"history_operation_id",
 		"\"order\"",
@@ -437,7 +457,42 @@ func (ingest *Ingestion) createEffectsInsertBuilder() {
 	)
 }
 
+func (ingest *Ingestion) createTradesInsertBuilder() {
+	ingest.builders[TradesTableName] = sq.Insert(string(TradesTableName)).Columns(
+		"history_operation_id",
+		"\"order\"",
+		"ledger_closed_at",
+		"offer_id",
+		"base_account_id",
+		"base_asset_id",
+		"base_amount",
+		"counter_account_id",
+		"counter_asset_id",
+		"counter_amount",
+		"base_is_seller",
+	)
+}
+
+func (ingest *Ingestion) createInsertBuilderByTableName(name TableName) {
+	switch name {
+	case OperationsTableName:
+		ingest.createOperationsInsertBuilder()
+	case EffectsTableName:
+		ingest.createEffectsInsertBuilder()
+	case TradesTableName:
+		ingest.createTradesInsertBuilder()
+	case OperationParticipantsTableName:
+		ingest.createOperationParticipantsInsertBuilder()
+	case TransactionParticipantsTableName:
+		ingest.createTransactionParticipantsInsertBuilder()
+	default:
+		panic("Invalid table name")
+	}
+}
+
 func (ingest *Ingestion) createInsertBuilders() {
+	ingest.builders = make(map[TableName]sq.InsertBuilder)
+
 	ingest.ledgers = sq.Insert("history_ledgers").Columns(
 		"importer_version",
 		"id",
@@ -456,10 +511,6 @@ func (ingest *Ingestion) createInsertBuilders() {
 		"operation_count",
 		"protocol_version",
 		"ledger_header",
-	)
-
-	ingest.accounts = sq.Insert("history_accounts").Columns(
-		"address",
 	)
 
 	ingest.transactions = sq.Insert("history_transactions").Columns(
@@ -483,28 +534,11 @@ func (ingest *Ingestion) createInsertBuilders() {
 		"updated_at",
 	)
 
-	ingest.transaction_participants = sq.Insert("history_transaction_participants").Columns(
-		"history_transaction_id",
-		"history_account_id",
-	)
-
 	ingest.createOperationsInsertBuilder()
 	ingest.createOperationParticipantsInsertBuilder()
+	ingest.createTransactionParticipantsInsertBuilder()
 	ingest.createEffectsInsertBuilder()
-
-	ingest.trades = sq.Insert("history_trades").Columns(
-		"history_operation_id",
-		"\"order\"",
-		"ledger_closed_at",
-		"offer_id",
-		"base_account_id",
-		"base_asset_id",
-		"base_amount",
-		"counter_account_id",
-		"counter_asset_id",
-		"counter_amount",
-		"base_is_seller",
-	)
+	ingest.createTradesInsertBuilder()
 
 	ingest.assetStats = sq.Insert("asset_stats").Columns(
 		"id",
