@@ -1,12 +1,17 @@
 package ingest
 
+import (
+	"fmt"
+	"strings"
+)
+
 func (r effectRow) GetParams() []interface{} {
 	return []interface{}{
 		r.AccountID,
 		r.OperationID,
 		r.Order,
 		r.Type,
-		r.Details,
+		string(r.Details),
 	}
 }
 
@@ -29,7 +34,7 @@ func (r operationRow) GetParams() []interface{} {
 		r.Order,
 		r.Source,
 		r.Type,
-		r.Details,
+		string(r.Details),
 	}
 }
 
@@ -64,6 +69,38 @@ func (r operationParticipantRow) GetTableName() TableName {
 	return OperationParticipantsTableName
 }
 
+func (r ledgerRow) GetParams() []interface{} {
+	return []interface{}{
+		r.ImporterVersion,
+		r.ID,
+		r.Sequence,
+		r.LedgerHash,
+		r.PreviousLedgerHash,
+		r.TotalCoins,
+		r.FeePool,
+		r.BaseFee,
+		r.BaseReserve,
+		r.MaxTxSetSize,
+		r.ClosedAt,
+		r.CreatedAt,
+		r.UpdatedAt,
+		r.TransactionCount,
+		r.OperationCount,
+		r.ProtocolVersion,
+		r.LedgerHeaderXDR,
+	}
+}
+
+func (r ledgerRow) UpdateAccountIDs(accounts map[string]int64) {}
+
+func (r ledgerRow) GetAddresses() []string {
+	return []string{}
+}
+
+func (r ledgerRow) GetTableName() TableName {
+	return LedgersTableName
+}
+
 func (r tradeRow) GetParams() []interface{} {
 	return []interface{}{
 		r.OperationID,
@@ -91,6 +128,44 @@ func (r tradeRow) GetAddresses() []string {
 
 func (r tradeRow) GetTableName() TableName {
 	return TradesTableName
+}
+
+func (r transactionRow) GetParams() []interface{} {
+	signaturesString := fmt.Sprintf(
+		"{{%s}}",
+		strings.Join(r.Signatures, "},{"),
+	)
+
+	return []interface{}{
+		r.ID,
+		r.TransactionHash,
+		r.LedgerSequence,
+		r.ApplicationOrder,
+		r.Account,
+		r.AccountSequence,
+		r.FeePaid,
+		r.OperationCount,
+		r.TxEnvelope,
+		r.TxResult,
+		r.TxMeta,
+		r.TxFeeMeta,
+		signaturesString,
+		r.TimeBounds,
+		r.MemoType,
+		r.Memo,
+		r.CreatedAt,
+		r.UpdatedAt,
+	}
+}
+
+func (r transactionRow) UpdateAccountIDs(accounts map[string]int64) {}
+
+func (r transactionRow) GetAddresses() []string {
+	return []string{}
+}
+
+func (r transactionRow) GetTableName() TableName {
+	return TransactionParticipantsTableName
 }
 
 func (r transactionParticipantRow) GetParams() []interface{} {

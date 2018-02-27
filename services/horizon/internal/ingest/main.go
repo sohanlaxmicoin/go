@@ -8,6 +8,7 @@ import (
 	"time"
 
 	sq "github.com/Masterminds/squirrel"
+	"github.com/guregu/null"
 	metrics "github.com/rcrowley/go-metrics"
 	"github.com/stellar/go/services/horizon/internal/db2/core"
 	"github.com/stellar/go/services/horizon/internal/db2/history"
@@ -25,6 +26,18 @@ const (
 	// to re-ingest old data with the new algorithm, providing a seamless
 	// transition when the ingested data's structure changes.
 	CurrentVersion = 11
+)
+
+type TableName string
+
+const (
+	EffectsTableName                 TableName = "history_effects"
+	LedgersTableName                 TableName = "history_ledgers"
+	OperationParticipantsTableName   TableName = "history_operation_participants"
+	OperationsTableName              TableName = "history_operations"
+	TradesTableName                  TableName = "history_trades"
+	TransactionParticipantsTableName TableName = "history_transaction_participants"
+	TransactionsTableName            TableName = "history_transactions"
 )
 
 // Cursor iterates through a stellar core database's ledgers
@@ -112,16 +125,6 @@ type IngesterMetrics struct {
 // AssetsModified tracks all the assets modified during a cycle of ingestion
 type AssetsModified map[string]xdr.Asset
 
-type TableName string
-
-const (
-	OperationsTableName              TableName = "history_operations"
-	EffectsTableName                 TableName = "history_effects"
-	TransactionParticipantsTableName TableName = "history_transaction_participants"
-	TradesTableName                  TableName = "trades"
-	OperationParticipantsTableName   TableName = "history_operation_participants"
-)
-
 // row should be implemented by objects added to DB during ingestion.
 type row interface {
 	// GetParams returns fields to be added to DB. Objects can contain
@@ -161,6 +164,26 @@ type operationParticipantRow struct {
 	Address string
 }
 
+type ledgerRow struct {
+	ImporterVersion    int32
+	ID                 int64
+	Sequence           int32
+	LedgerHash         string
+	PreviousLedgerHash null.String
+	TotalCoins         int64
+	FeePool            int64
+	BaseFee            int32
+	BaseReserve        int32
+	MaxTxSetSize       int32
+	ClosedAt           time.Time
+	CreatedAt          time.Time
+	UpdatedAt          time.Time
+	TransactionCount   int32
+	OperationCount     int32
+	ProtocolVersion    int32
+	LedgerHeaderXDR    null.String
+}
+
 type tradeRow struct {
 	OperationID      int64
 	Order            int32
@@ -178,6 +201,27 @@ type tradeRow struct {
 	CounterAddress string
 }
 
+type transactionRow struct {
+	ID               int64
+	TransactionHash  string
+	LedgerSequence   int32
+	ApplicationOrder int32
+	Account          string
+	AccountSequence  int64
+	FeePaid          int32
+	OperationCount   int
+	TxEnvelope       string
+	TxResult         string
+	TxMeta           string
+	TxFeeMeta        string
+	Signatures       []string
+	TimeBounds       interface{}
+	MemoType         string
+	Memo             null.String
+	CreatedAt        time.Time
+	UpdatedAt        time.Time
+}
+
 type transactionParticipantRow struct {
 	TransactionID int64
 	AccountID     int64
@@ -191,17 +235,7 @@ type Ingestion struct {
 	// database.
 	DB *db.Session
 
-	builders map[TableName]sq.InsertBuilder
-
-	ledgers                  sq.InsertBuilder
-	transactions             sq.InsertBuilder
-	transaction_participants sq.InsertBuilder
-	operations               sq.InsertBuilder
-	operation_participants   sq.InsertBuilder
-	effects                  sq.InsertBuilder
-	trades                   sq.InsertBuilder
-	assetStats               sq.InsertBuilder
-
+	assetStats   sq.InsertBuilder
 	rowsToInsert []row
 }
 

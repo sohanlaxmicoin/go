@@ -27,13 +27,6 @@ func (is *Session) Run() {
 		return
 	}
 
-	start2 := time.Now()
-
-	defer func() {
-		elapsed := time.Now().Sub(start2)
-		fmt.Println("Session.Run", elapsed)
-	}()
-
 	is.Err = is.Ingestion.Start()
 	if is.Err != nil {
 		return
@@ -42,27 +35,36 @@ func (is *Session) Run() {
 	defer is.Ingestion.Rollback()
 
 	for is.Cursor.NextLedger() {
+		fmt.Println("is.validateLedger()")
 		is.validateLedger()
+		fmt.Println("is.clearLedger()")
 		is.clearLedger()
+		fmt.Println("is.ingestLedger()")
 		is.ingestLedger()
+		fmt.Println("is.flush()")
 		is.flush()
 
 		if is.Err != nil {
-			break
+			return
 		}
 	}
+	fmt.Println("is.Cursor.AssetsModified.UpdateAssetStats(is)")
 	is.Cursor.AssetsModified.UpdateAssetStats(is)
 
 	if is.Err != nil {
+		fmt.Println(is.Err)
+		fmt.Println("is.Ingestion.Rollback()")
 		is.Ingestion.Rollback()
 		return
 	}
 
+	fmt.Println("if is.Cursor.Err != nil {")
 	if is.Cursor.Err != nil {
 		is.Err = is.Cursor.Err
 		return
 	}
 
+	fmt.Println("is.Ingestion.Close()")
 	is.Err = is.Ingestion.Close()
 	if is.Err != nil {
 		return
@@ -329,21 +331,24 @@ func (is *Session) ingestEffects() {
 
 // ingestLedger ingests the current ledger
 func (is *Session) ingestLedger() {
+	start2 := time.Now()
+
+	defer func() {
+		elapsed := time.Now().Sub(start2)
+		fmt.Println("Session.ingestLedger", elapsed)
+	}()
+
 	if is.Err != nil {
 		return
 	}
 
 	start := time.Now()
-	is.Err = is.Ingestion.Ledger(
+	is.Ingestion.Ledger(
 		is.Cursor.LedgerID(),
 		is.Cursor.Ledger(),
 		is.Cursor.SuccessfulTransactionCount(),
 		is.Cursor.SuccessfulLedgerOperationCount(),
 	)
-
-	if is.Err != nil {
-		return
-	}
 
 	for is.Cursor.NextTx() {
 		is.ingestTransaction()
@@ -554,14 +559,11 @@ func (is *Session) ingestTransaction() {
 	if !is.Cursor.Transaction().IsSuccessful() {
 		return
 	}
-	is.Err = is.Ingestion.Transaction(
+	is.Ingestion.Transaction(
 		is.Cursor.TransactionID(),
 		is.Cursor.Transaction(),
 		is.Cursor.TransactionFee(),
 	)
-	if is.Err != nil {
-		return
-	}
 
 	for is.Cursor.NextOp() {
 		is.ingestOperation()

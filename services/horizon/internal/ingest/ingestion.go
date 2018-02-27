@@ -9,9 +9,10 @@ import (
 
 	sq "github.com/Masterminds/squirrel"
 	"github.com/guregu/null"
+	"github.com/jmoiron/sqlx"
+	"github.com/lib/pq"
 	"github.com/stellar/go/services/horizon/internal/db2/core"
 	"github.com/stellar/go/services/horizon/internal/db2/history"
-	"github.com/stellar/go/services/horizon/internal/db2/sqx"
 	"github.com/stellar/go/support/errors"
 	"github.com/stellar/go/xdr"
 )
@@ -95,41 +96,40 @@ func (ingest *Ingestion) Flush() error {
 		return errors.Wrap(err, "Error while updating account ids")
 	}
 
-	// Inserts
-	paramsCount := map[TableName]int{}
-	for _, row := range ingest.rowsToInsert {
-		tableName := row.GetTableName()
-		params := row.GetParams()
-
-		if _, ok := ingest.builders[tableName]; !ok {
-			return errors.Errorf("%s insert builder does not exist", tableName)
-		}
-
-		ingest.builders[tableName] = ingest.builders[tableName].Values(params...)
-		paramsCount[tableName] += len(params)
-
-		// PostgreSQL supports up to 65535 parameters.
-		if paramsCount[tableName] > 65000 {
-			fmt.Println("flushing", tableName)
-			_, err = ingest.DB.Exec(ingest.builders[tableName])
-			if err != nil {
-				return err
-			}
-			paramsCount[tableName] = 0
-			ingest.createInsertBuilderByTableName(tableName)
-		}
+	// COPY IN rows
+	tables := []TableName{
+		EffectsTableName,
+		LedgersTableName,
+		OperationParticipantsTableName,
+		OperationsTableName,
+		TradesTableName,
+		TransactionParticipantsTableName,
+		TransactionsTableName,
 	}
 
-	fmt.Println("paramsCount", paramsCount)
+	for _, tableName := range tables {
+		stmt, err := ingest.createStmtForTable(tableName)
+		if err != nil {
+			return err
+		}
 
-	// Exec the rest
-	for tableName, params := range paramsCount {
-		if params > 0 {
-			fmt.Println("last flushing", tableName)
-			_, err = ingest.DB.Exec(ingest.builders[tableName])
-			if err != nil {
-				return err
+		for _, row := range ingest.rowsToInsert {
+			if row.GetTableName() != tableName {
+				continue
 			}
+
+			params := row.GetParams()
+			_, err = stmt.Exec(params...)
+			if err != nil {
+				// Exit reading from STDIN
+				stmt.Exec()
+				return errors.Wrap(err, fmt.Sprintf("COPY FROM STDIN: %s", tableName))
+			}
+		}
+
+		_, err = stmt.Exec()
+		if err != nil {
+			return err
 		}
 	}
 
@@ -147,34 +147,28 @@ func (ingest *Ingestion) Ledger(
 	header *core.LedgerHeader,
 	txs int,
 	ops int,
-) error {
+) {
 
-	sql := ingest.ledgers.Values(
-		CurrentVersion,
-		id,
-		header.Sequence,
-		header.LedgerHash,
-		null.NewString(header.PrevHash, header.Sequence > 1),
-		header.Data.TotalCoins,
-		header.Data.FeePool,
-		header.Data.BaseFee,
-		header.Data.BaseReserve,
-		header.Data.MaxTxSetSize,
-		time.Unix(header.CloseTime, 0).UTC(),
-		time.Now().UTC(),
-		time.Now().UTC(),
-		txs,
-		ops,
-		header.Data.LedgerVersion,
-		header.DataXDR(),
-	)
-
-	_, err := ingest.DB.Exec(sql)
-	if err != nil {
-		return err
+	ledger := ledgerRow{
+		ImporterVersion:    CurrentVersion,
+		ID:                 id,
+		Sequence:           int32(header.Sequence),
+		LedgerHash:         header.LedgerHash,
+		PreviousLedgerHash: null.NewString(header.PrevHash, header.Sequence > 1),
+		TotalCoins:         int64(header.Data.TotalCoins),
+		FeePool:            int64(header.Data.FeePool),
+		BaseFee:            int32(header.Data.BaseFee),
+		BaseReserve:        int32(header.Data.BaseReserve),
+		MaxTxSetSize:       int32(header.Data.MaxTxSetSize),
+		ClosedAt:           time.Unix(header.CloseTime, 0).UTC(),
+		CreatedAt:          time.Now().UTC(),
+		UpdatedAt:          time.Now().UTC(),
+		TransactionCount:   int32(txs),
+		OperationCount:     int32(ops),
+		ProtocolVersion:    int32(header.Data.LedgerVersion),
+		LedgerHeaderXDR:    null.StringFrom(header.DataXDR()),
 	}
-
-	return nil
+	ingest.rowsToInsert = append(ingest.rowsToInsert, ledger)
 }
 
 // Operation ingests the provided operation data into a new row in the
@@ -303,38 +297,18 @@ func (ingest *Ingestion) Start() (err error) {
 		return
 	}
 
-	// We need to recreate builders and clear `rowsToInsert` because `Ingestion`
-	// object can be used to ingest more than one ledger.
-	ingest.createInsertBuilders()
+	ingest.assetStats = sq.Insert("asset_stats").Columns(
+		"id",
+		"amount",
+		"num_accounts",
+		"flags",
+		"toml",
+	)
+
+	// We need to clear `rowsToInsert` because `Ingestion` object can be used
+	// to ingest more than one ledger.
 	ingest.rowsToInsert = []row{}
 	return
-}
-
-// transactionInsertBuilder returns sql.InsertBuilder for a single transaction
-func (ingest *Ingestion) transactionInsertBuilder(id int64, tx *core.Transaction, fee *core.TransactionFee) sq.InsertBuilder {
-	// Enquote empty signatures
-	signatures := tx.Base64Signatures()
-
-	return ingest.transactions.Values(
-		id,
-		tx.TransactionHash,
-		tx.LedgerSequence,
-		tx.Index,
-		tx.SourceAddress(),
-		tx.Sequence(),
-		tx.Fee(),
-		len(tx.Envelope.Tx.Operations),
-		tx.EnvelopeXDR(),
-		tx.ResultXDR(),
-		tx.ResultMetaXDR(),
-		fee.ChangesXDR(),
-		sqx.StringArray(signatures),
-		ingest.formatTimeBounds(tx.Envelope.Tx.TimeBounds),
-		tx.MemoType(),
-		tx.Memo(),
-		time.Now().UTC(),
-		time.Now().UTC(),
-	)
 }
 
 // Trade records a trade into the history_trades table
@@ -396,15 +370,30 @@ func (ingest *Ingestion) Transaction(
 	id int64,
 	tx *core.Transaction,
 	fee *core.TransactionFee,
-) error {
+) {
+	signatures := tx.Base64Signatures()
 
-	sql := ingest.transactionInsertBuilder(id, tx, fee)
-	_, err := ingest.DB.Exec(sql)
-	if err != nil {
-		return err
+	transaction := transactionRow{
+		ID:               id,
+		TransactionHash:  tx.TransactionHash,
+		LedgerSequence:   tx.LedgerSequence,
+		ApplicationOrder: tx.Index,
+		Account:          tx.SourceAddress(),
+		AccountSequence:  tx.Sequence(),
+		FeePaid:          tx.Fee(),
+		OperationCount:   len(tx.Envelope.Tx.Operations),
+		TxEnvelope:       tx.EnvelopeXDR(),
+		TxResult:         tx.ResultXDR(),
+		TxMeta:           tx.ResultMetaXDR(),
+		TxFeeMeta:        fee.ChangesXDR(),
+		Signatures:       signatures,
+		TimeBounds:       ingest.formatTimeBounds(tx.Envelope.Tx.TimeBounds),
+		MemoType:         tx.MemoType(),
+		Memo:             tx.Memo(),
+		CreatedAt:        time.Now().UTC(),
+		UpdatedAt:        time.Now().UTC(),
 	}
-
-	return nil
+	ingest.rowsToInsert = append(ingest.rowsToInsert, transaction)
 }
 
 // TransactionParticipants ingests the provided account ids as participants of
@@ -422,45 +411,52 @@ func (ingest *Ingestion) TransactionParticipants(tx int64, aids []xdr.AccountId)
 	return nil
 }
 
-func (ingest *Ingestion) createOperationsInsertBuilder() {
-	ingest.builders[OperationsTableName] = sq.Insert(string(OperationsTableName)).Columns(
-		"id",
-		"transaction_id",
-		"application_order",
-		"source_account",
-		"type",
-		"details",
-	)
+func (ingest *Ingestion) createStmtForTable(tableName TableName) (*sqlx.Stmt, error) {
+	switch tableName {
+	case EffectsTableName:
+		return ingest.createEffectsStmt()
+	case LedgersTableName:
+		return ingest.createLedgersStmt()
+	case OperationParticipantsTableName:
+		return ingest.createOperationParticipantsStmt()
+	case OperationsTableName:
+		return ingest.createOperationsStmt()
+	case TradesTableName:
+		return ingest.createTradesStmt()
+	case TransactionParticipantsTableName:
+		return ingest.createTransactionParticipantsStmt()
+	case TransactionsTableName:
+		return ingest.createTransactionsStmt()
+	default:
+		return nil, errors.Errorf("Unknown table name: %s", tableName)
+	}
 }
 
-func (ingest *Ingestion) createOperationParticipantsInsertBuilder() {
-	ingest.builders[OperationParticipantsTableName] = sq.Insert(string(OperationParticipantsTableName)).Columns(
+func (ingest *Ingestion) createOperationsStmt() (*sqlx.Stmt, error) {
+	query := pq.CopyIn(string(OperationsTableName), "id", "transaction_id", "application_order", "source_account", "type", "details")
+	return ingest.DB.PrepareRaw(query)
+}
+
+func (ingest *Ingestion) createOperationParticipantsStmt() (*sqlx.Stmt, error) {
+	query := pq.CopyIn(string(OperationParticipantsTableName), "history_operation_id", "history_account_id")
+	return ingest.DB.PrepareRaw(query)
+}
+
+func (ingest *Ingestion) createTransactionParticipantsStmt() (*sqlx.Stmt, error) {
+	query := pq.CopyIn(string(TransactionParticipantsTableName), "history_transaction_id", "history_account_id")
+	return ingest.DB.PrepareRaw(query)
+}
+
+func (ingest *Ingestion) createEffectsStmt() (*sqlx.Stmt, error) {
+	query := pq.CopyIn(string(EffectsTableName), "history_account_id", "history_operation_id", "order", "type", "details")
+	return ingest.DB.PrepareRaw(query)
+}
+
+func (ingest *Ingestion) createTradesStmt() (*sqlx.Stmt, error) {
+	query := pq.CopyIn(
+		string(TradesTableName),
 		"history_operation_id",
-		"history_account_id",
-	)
-}
-
-func (ingest *Ingestion) createTransactionParticipantsInsertBuilder() {
-	ingest.builders[TransactionParticipantsTableName] = sq.Insert(string(TransactionParticipantsTableName)).Columns(
-		"history_transaction_id",
-		"history_account_id",
-	)
-}
-
-func (ingest *Ingestion) createEffectsInsertBuilder() {
-	ingest.builders[EffectsTableName] = sq.Insert(string(EffectsTableName)).Columns(
-		"history_account_id",
-		"history_operation_id",
-		"\"order\"",
-		"type",
-		"details",
-	)
-}
-
-func (ingest *Ingestion) createTradesInsertBuilder() {
-	ingest.builders[TradesTableName] = sq.Insert(string(TradesTableName)).Columns(
-		"history_operation_id",
-		"\"order\"",
+		"order",
 		"ledger_closed_at",
 		"offer_id",
 		"base_account_id",
@@ -471,29 +467,12 @@ func (ingest *Ingestion) createTradesInsertBuilder() {
 		"counter_amount",
 		"base_is_seller",
 	)
+	return ingest.DB.PrepareRaw(query)
 }
 
-func (ingest *Ingestion) createInsertBuilderByTableName(name TableName) {
-	switch name {
-	case OperationsTableName:
-		ingest.createOperationsInsertBuilder()
-	case EffectsTableName:
-		ingest.createEffectsInsertBuilder()
-	case TradesTableName:
-		ingest.createTradesInsertBuilder()
-	case OperationParticipantsTableName:
-		ingest.createOperationParticipantsInsertBuilder()
-	case TransactionParticipantsTableName:
-		ingest.createTransactionParticipantsInsertBuilder()
-	default:
-		panic("Invalid table name")
-	}
-}
-
-func (ingest *Ingestion) createInsertBuilders() {
-	ingest.builders = make(map[TableName]sq.InsertBuilder)
-
-	ingest.ledgers = sq.Insert("history_ledgers").Columns(
+func (ingest *Ingestion) createLedgersStmt() (*sqlx.Stmt, error) {
+	query := pq.CopyIn(
+		string(LedgersTableName),
 		"importer_version",
 		"id",
 		"sequence",
@@ -512,8 +491,12 @@ func (ingest *Ingestion) createInsertBuilders() {
 		"protocol_version",
 		"ledger_header",
 	)
+	return ingest.DB.PrepareRaw(query)
+}
 
-	ingest.transactions = sq.Insert("history_transactions").Columns(
+func (ingest *Ingestion) createTransactionsStmt() (*sqlx.Stmt, error) {
+	query := pq.CopyIn(
+		string(TransactionsTableName),
 		"id",
 		"transaction_hash",
 		"ledger_sequence",
@@ -533,20 +516,7 @@ func (ingest *Ingestion) createInsertBuilders() {
 		"created_at",
 		"updated_at",
 	)
-
-	ingest.createOperationsInsertBuilder()
-	ingest.createOperationParticipantsInsertBuilder()
-	ingest.createTransactionParticipantsInsertBuilder()
-	ingest.createEffectsInsertBuilder()
-	ingest.createTradesInsertBuilder()
-
-	ingest.assetStats = sq.Insert("asset_stats").Columns(
-		"id",
-		"amount",
-		"num_accounts",
-		"flags",
-		"toml",
-	)
+	return ingest.DB.PrepareRaw(query)
 }
 
 func (ingest *Ingestion) commit() error {

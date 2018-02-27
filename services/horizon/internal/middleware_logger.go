@@ -43,23 +43,23 @@ func LoggerMiddleware(c *web.C, h http.Handler) http.Handler {
 }
 
 func logStartOfRequest(ctx context.Context, r *http.Request) {
-	log.Ctx(ctx).WithFields(log.F{
-		"path":   r.URL.String(),
-		"method": r.Method,
-		"ip":     r.RemoteAddr,
-		"host":   r.Host,
-	}).Info("Starting request")
+	// log.Ctx(ctx).WithFields(log.F{
+	// 	"path":   r.URL.String(),
+	// 	"method": r.Method,
+	// 	"ip":     r.RemoteAddr,
+	// 	"host":   r.Host,
+	// }).Info("Starting request")
 }
 
 func logEndOfRequest(ctx context.Context, r *http.Request, duration time.Duration, mw mutil.WriterProxy, streaming bool) {
-	log.Ctx(ctx).WithFields(log.F{
-		"path":      r.URL.String(),
-		"method":    r.Method,
-		"ip":        r.RemoteAddr,
-		"host":      r.Host,
-		"status":    mw.Status(),
-		"bytes":     mw.BytesWritten(),
-		"duration":  duration,
-		"streaming": streaming,
-	}).Info("Finished request")
+	// log.Ctx(ctx).WithFields(log.F{
+	// 	"path":      r.URL.String(),
+	// 	"method":    r.Method,
+	// 	"ip":        r.RemoteAddr,
+	// 	"host":      r.Host,
+	// 	"status":    mw.Status(),
+	// 	"bytes":     mw.BytesWritten(),
+	// 	"duration":  duration,
+	// 	"streaming": streaming,
+	// }).Info("Finished request")
 }

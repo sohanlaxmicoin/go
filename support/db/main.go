@@ -31,6 +31,7 @@ type Conn interface {
 	Get(dest interface{}, query string, args ...interface{}) error
 	Rebind(sql string) string
 	Queryx(query string, args ...interface{}) (*sqlx.Rows, error)
+	Preparex(query string) (*sqlx.Stmt, error)
 	Select(dest interface{}, query string, args ...interface{}) error
 }
 

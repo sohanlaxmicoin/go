@@ -202,6 +202,19 @@ func (s *Session) QueryRaw(query string, args ...interface{}) (*sqlx.Rows, error
 	return nil, errors.Wrap(err, "query failed")
 }
 
+// PrepareRaw prepares a new statement
+func (s *Session) PrepareRaw(query string) (*sqlx.Stmt, error) {
+	start := time.Now()
+	stmt, err := s.conn().Preparex(query)
+	s.log("prepare query", start, query, nil)
+
+	if err == nil {
+		return stmt, nil
+	}
+
+	return nil, errors.Wrap(err, "prepare query failed")
+}
+
 // ReplacePlaceholders replaces the '?' parameter placeholders in the provided
 // sql query with a sql dialect appropriate version. Use '??' to escape a
 // placeholder.
