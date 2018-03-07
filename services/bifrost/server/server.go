@@ -32,7 +32,7 @@ func (s *Server) Start() error {
 	s.BitcoinListener.TransactionHandler = s.onNewBitcoinTransaction
 	s.EthereumListener.TransactionHandler = s.onNewEthereumTransaction
 	s.StellarAccountConfigurator.OnAccountCreated = s.onStellarAccountCreated
-	s.StellarAccountConfigurator.OnAccountCredited = s.onStellarAccountCredited
+	s.StellarAccountConfigurator.OnExchanged = s.onExchanged
 
 	if !s.BitcoinListener.Enabled && !s.EthereumListener.Enabled {
 		return errors.New("At least one listener (BitcoinListener or EthereumListener) must be enabled")
@@ -228,6 +228,7 @@ func (s *Server) handlerGenerateAddress(w http.ResponseWriter, r *http.Request, 
 		ProtocolVersion: ProtocolVersion,
 		Chain:           string(chain),
 		Address:         address,
+		Signer:          s.SignerPublicKey,
 	}
 
 	responseBytes, err := json.Marshal(response)
