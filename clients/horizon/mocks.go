@@ -1,8 +1,9 @@
 package horizon
 
 import (
+	"context"
+
 	"github.com/stretchr/testify/mock"
-	"golang.org/x/net/context"
 )
 
 // MockClient is a mockable horizon client.
@@ -43,10 +44,22 @@ func (m *MockClient) LoadAccountOffers(accountID string, params ...interface{}) 
 	return a.Get(0).(OffersPage), a.Error(1)
 }
 
+// LoadAccountMergeAmount is a mocking a method
+func (m *MockClient) LoadAccountMergeAmount(p *Payment) error {
+	a := m.Called(p)
+	return a.Error(0)
+}
+
 // LoadMemo is a mocking a method
 func (m *MockClient) LoadMemo(p *Payment) error {
 	a := m.Called(p)
 	return a.Error(0)
+}
+
+// LoadMemo is a mocking a method
+func (m *MockClient) LoadOperation(operationID string) (payment Payment, err error) {
+	a := m.Called(operationID)
+	return a.Get(0).(Payment), a.Error(1)
 }
 
 // LoadOrderBook is a mocking a method
