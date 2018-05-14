@@ -24,7 +24,7 @@ and not attempt to submit the transaction again. Only in cases where a
 transaction's status is unknown (and thus will have a chance of being included
 into a ledger) will a resubmission to the network occur.
 
-Information about [building transactions](https://www.stellar.org/developers/js-stellar-base/learn/building-transactions.html) in JavaScript.
+Information about [building transactions](https://www.stellar.org/developers/js-rover-base/learn/building-transactions.html) in JavaScript.
 
 ## Request
 

@@ -1,5 +1,5 @@
 // Package ingest contains the ingestion system for orbit.  This system takes
-// data produced by the connected stellar-core database, transforms it and
+// data produced by the connected rover-core database, transforms it and
 // inserts it into the orbit database.
 package ingest
 
@@ -42,7 +42,7 @@ const (
 	TransactionsTableName            TableName = "history_transactions"
 )
 
-// Cursor iterates through a stellar core database's ledgers
+// Cursor iterates through a rover core database's ledgers
 type Cursor struct {
 	// FirstLedger is the beginning of the range of ledgers (inclusive) that will
 	// attempt to be ingested in this session.
@@ -51,7 +51,7 @@ type Cursor struct {
 	// attempt to be ingested in this session.
 	LastLedger int32
 
-	// CoreDB is the stellar-core db that data is ingested from.
+	// CoreDB is the rover-core db that data is ingested from.
 	CoreDB *db.Session
 
 	Metrics        *IngesterMetrics
@@ -92,7 +92,7 @@ type System struct {
 	// be written to.
 	HorizonDB *db.Session
 
-	// CoreDB is the stellar-core db that data is ingested from.
+	// CoreDB is the rover-core db that data is ingested from.
 	CoreDB *db.Session
 
 	Metrics IngesterMetrics
@@ -100,13 +100,13 @@ type System struct {
 	// Network is the passphrase for the network being imported
 	Network string
 
-	// StellarCoreURL is the http endpoint of the stellar-core that data is being
+	// StellarCoreURL is the http endpoint of the rover-core that data is being
 	// ingested from.
 	StellarCoreURL string
 
 	// SkipCursorUpdate causes the ingestor to skip
 	// reporting the "last imported ledger" cursor to
-	// stellar-core
+	// rover-core
 	SkipCursorUpdate bool
 
 	// HistoryRetentionCount is the desired minimum number of ledgers to
@@ -155,7 +155,7 @@ type Session struct {
 	// Network is the passphrase for the network being imported
 	Network string
 
-	// StellarCoreURL is the http endpoint of the stellar-core that data is being
+	// StellarCoreURL is the http endpoint of the rover-core that data is being
 	// ingested from.
 	StellarCoreURL string
 
@@ -165,7 +165,7 @@ type Session struct {
 
 	// SkipCursorUpdate causes the session to skip
 	// reporting the "last imported ledger" cursor to
-	// stellar-core
+	// rover-core
 	SkipCursorUpdate bool
 
 	// Metrics is a reference to where the session should record its metric information
@@ -183,7 +183,7 @@ type Session struct {
 	Ingested int
 }
 
-// New initializes the ingester, causing it to begin polling the stellar-core
+// New initializes the ingester, causing it to begin polling the rover-core
 // database for now ledgers and ingesting data into the orbit database.
 func New(network string, coreURL string, core, orbit *db.Session) *System {
 	i := &System{

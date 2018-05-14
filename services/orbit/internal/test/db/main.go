@@ -41,7 +41,7 @@ func HorizonURL() string {
 	return *horizonUrl
 }
 
-// StellarCore returns a connection to the stellar core test database
+// StellarCore returns a connection to the rover core test database
 func StellarCore(t *testing.T) *sqlx.DB {
 	if coreDB != nil {
 		return coreDB
@@ -53,7 +53,7 @@ func StellarCore(t *testing.T) *sqlx.DB {
 }
 
 // StellarCoreURL returns the database connection the url any test
-// use when connecting to the stellar-core database
+// use when connecting to the rover-core database
 func StellarCoreURL() string {
 	if coreUrl == nil {
 		log.Panic(fmt.Errorf("StellarCore not initialized"))

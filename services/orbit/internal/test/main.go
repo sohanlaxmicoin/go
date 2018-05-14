@@ -119,7 +119,7 @@ func Start(t *testing.T) *T {
 	return result
 }
 
-// StellarCoreDatabase returns a connection to the stellar core test database
+// StellarCoreDatabase returns a connection to the rover core test database
 //
 // DEPRECATED:  use `StellarCore()` from test/db package
 func StellarCoreDatabase(t *testing.T) *sqlx.DB {
@@ -127,7 +127,7 @@ func StellarCoreDatabase(t *testing.T) *sqlx.DB {
 }
 
 // StellarCoreDatabaseURL returns the database connection the url any test
-// use when connecting to the stellar-core database
+// use when connecting to the rover-core database
 //
 // DEPRECATED:  use `StellarCoreURL()` from test/db package
 func StellarCoreDatabaseURL() string {

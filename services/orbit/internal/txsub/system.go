@@ -12,7 +12,7 @@ import (
 
 // System represents a completely configured transaction submission system.
 // Its methods tie together the various pieces used to reliably submit transactions
-// to a stellar-core instance.
+// to a rover-core instance.
 type System struct {
 	initializer sync.Once
 
@@ -26,7 +26,7 @@ type System struct {
 
 	Metrics struct {
 		// SubmissionTimer exposes timing metrics about the rate and latency of
-		// submissions to stellar-core
+		// submissions to rover-core
 		SubmissionTimer metrics.Timer
 
 		// BufferedSubmissionGauge tracks the count of submissions buffered
@@ -146,7 +146,7 @@ func (sys *System) Submit(ctx context.Context, env string) (result <-chan Result
 // Submit submits the provided base64 encoded transaction envelope to the
 // network using this submission system.
 func (sys *System) submitOnce(ctx context.Context, env string) SubmissionResult {
-	// submit to stellar-core
+	// submit to rover-core
 	sr := sys.Submitter.Submit(ctx, env)
 	sys.Metrics.SubmissionTimer.Update(sr.Duration)
 

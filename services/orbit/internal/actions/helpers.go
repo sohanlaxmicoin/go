@@ -179,8 +179,8 @@ func (base *Base) GetPageQuery() db2.PageQuery {
 	return r
 }
 
-// GetAddress retrieves a stellar address.  It confirms the value loaded is a
-// valid stellar address, setting an invalid field error if it is not.
+// GetAddress retrieves a rover address.  It confirms the value loaded is a
+// valid rover address, setting an invalid field error if it is not.
 func (base *Base) GetAddress(name string) (result string) {
 	if base.Err != nil {
 		return
@@ -224,7 +224,7 @@ func (base *Base) GetAccountID(name string) (result xdr.AccountId) {
 }
 
 // GetAmount returns a native amount (i.e. 64-bit integer) by parsing
-// the string at the provided name in accordance with the stellar client
+// the string at the provided name in accordance with the rover client
 // conventions
 func (base *Base) GetAmount(name string) (result xdr.Int64) {
 	var err error

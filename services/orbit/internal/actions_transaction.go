@@ -132,7 +132,7 @@ func (action *TransactionShowAction) JSON() {
 	)
 }
 
-// TransactionCreateAction submits a transaction to the stellar-core network
+// TransactionCreateAction submits a transaction to the rover-core network
 // on behalf of the requesting client.
 type TransactionCreateAction struct {
 	Action
@@ -194,7 +194,7 @@ func (action *TransactionCreateAction) loadResource() {
 			Type:   "transaction_failed",
 			Title:  "Transaction Failed",
 			Status: http.StatusBadRequest,
-			Detail: "The transaction failed when submitted to the stellar network. " +
+			Detail: "The transaction failed when submitted to the rover network. " +
 				"The `extras.result_codes` field on this response contains further " +
 				"details.  Descriptions of each code can be found at: " +
 				"https://www.stellar.org/developers/learn/concepts/list-of-operations.html",

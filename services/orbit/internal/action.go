@@ -31,7 +31,7 @@ type Action struct {
 	cq *core.Q
 }
 
-// CoreQ provides access to queries that access the stellar core database.
+// CoreQ provides access to queries that access the rover core database.
 func (action *Action) CoreQ() *core.Q {
 	if action.cq == nil {
 		action.cq = &core.Q{Session: action.App.CoreSession(action.Ctx)}

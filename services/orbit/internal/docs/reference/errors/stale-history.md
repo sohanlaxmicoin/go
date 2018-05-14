@@ -24,7 +24,7 @@ $ curl -X GET "https://orbit-testnet.stellar.org/transactions?cursor=1&order=des
   "type": "stale_history",
   "title": "Historical DB Is Too Stale",
   "status": 503,
-  "detail": "This orbit instance is configured to reject client requests when it can determine that the history database is lagging too far behind the connected instance of stellar-core.  If you operate this server, please ensure that the ingestion system is properly running.",
-  "instance": "orbit-testnet-001.prd.stellar001.internal.stellar-ops.com/ngUFNhn76T-078058"
+  "detail": "This orbit instance is configured to reject client requests when it can determine that the history database is lagging too far behind the connected instance of rover-core.  If you operate this server, please ensure that the ingestion system is properly running.",
+  "instance": "orbit-testnet-001.prd.stellar001.internal.rover-ops.com/ngUFNhn76T-078058"
 }
 ```

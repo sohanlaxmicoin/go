@@ -13,7 +13,7 @@ func TestDefaultSubmitter(t *testing.T) {
 
 	Convey("submitter (The default Submitter implementation)", t, func() {
 
-		Convey("submits to the configured stellar-core instance correctly", func() {
+		Convey("submits to the configured rover-core instance correctly", func() {
 			server := test.NewStaticMockServer(`{
 				"status": "PENDING",
 				"error": null
@@ -27,7 +27,7 @@ func TestDefaultSubmitter(t *testing.T) {
 			So(server.LastRequest.URL.Query().Get("blob"), ShouldEqual, "hello")
 		})
 
-		Convey("succeeds when the stellar-core responds with DUPLICATE status", func() {
+		Convey("succeeds when the rover-core responds with DUPLICATE status", func() {
 			server := test.NewStaticMockServer(`{
 				"status": "DUPLICATE",
 				"error": null
@@ -39,25 +39,25 @@ func TestDefaultSubmitter(t *testing.T) {
 			So(sr.Err, ShouldBeNil)
 		})
 
-		Convey("errors when the stellar-core url is empty", func() {
+		Convey("errors when the rover-core url is empty", func() {
 			s := NewDefaultSubmitter(http.DefaultClient, "")
 			sr := s.Submit(ctx, "hello")
 			So(sr.Err, ShouldNotBeNil)
 		})
 
-		Convey("errors when the stellar-core url is not parseable", func() {
+		Convey("errors when the rover-core url is not parseable", func() {
 			s := NewDefaultSubmitter(http.DefaultClient, "http://Not a url")
 			sr := s.Submit(ctx, "hello")
 			So(sr.Err, ShouldNotBeNil)
 		})
 
-		Convey("errors when the stellar-core url is not reachable", func() {
+		Convey("errors when the rover-core url is not reachable", func() {
 			s := NewDefaultSubmitter(http.DefaultClient, "http://127.0.0.1:65535")
 			sr := s.Submit(ctx, "hello")
 			So(sr.Err, ShouldNotBeNil)
 		})
 
-		Convey("errors when the stellar-core returns an unparseable response", func() {
+		Convey("errors when the rover-core returns an unparseable response", func() {
 			server := test.NewStaticMockServer(`{`)
 			defer server.Close()
 
@@ -66,7 +66,7 @@ func TestDefaultSubmitter(t *testing.T) {
 			So(sr.Err, ShouldNotBeNil)
 		})
 
-		Convey("errors when the stellar-core returns an exception response", func() {
+		Convey("errors when the rover-core returns an exception response", func() {
 			server := test.NewStaticMockServer(`{"exception": "Invalid XDR"}`)
 			defer server.Close()
 
@@ -76,7 +76,7 @@ func TestDefaultSubmitter(t *testing.T) {
 			So(sr.Err.Error(), ShouldContainSubstring, "Invalid XDR")
 		})
 
-		Convey("errors when the stellar-core returns an unrecognized status", func() {
+		Convey("errors when the rover-core returns an unrecognized status", func() {
 			server := test.NewStaticMockServer(`{"status": "NOTREAL"}`)
 			defer server.Close()
 
@@ -86,7 +86,7 @@ func TestDefaultSubmitter(t *testing.T) {
 			So(sr.Err.Error(), ShouldContainSubstring, "NOTREAL")
 		})
 
-		Convey("errors when the stellar-core returns an error response", func() {
+		Convey("errors when the rover-core returns an error response", func() {
 			server := test.NewStaticMockServer(`{"status": "ERROR", "error": "1234"}`)
 			defer server.Close()
 

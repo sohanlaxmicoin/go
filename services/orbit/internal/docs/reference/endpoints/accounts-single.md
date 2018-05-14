@@ -29,7 +29,7 @@ curl "https://orbit-testnet.stellar.org/accounts/GCEZWKCA5VLDNRLN3RPRJMRZOX3Z6G5
 ### JavaScript Example Request
 
 ```js
-var StellarSdk = require('stellar-sdk');
+var StellarSdk = require('rover-sdk');
 var server = new StellarSdk.Server('https://orbit-testnet.stellar.org');
 
 server.accounts()

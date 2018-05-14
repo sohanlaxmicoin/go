@@ -56,7 +56,7 @@ func (i *System) ClearAll() error {
 	return nil
 }
 
-// RebaseHistory re-establishes orbit's history database by clearing it, ingesting the latest ledger in stellar-core then backfilling as many ledgers as possible
+// RebaseHistory re-establishes orbit's history database by clearing it, ingesting the latest ledger in rover-core then backfilling as many ledgers as possible
 func (i *System) RebaseHistory() error {
 	var latest int32
 	var elder int32
@@ -215,7 +215,7 @@ func (i *System) Tick() *Session {
 	return is
 }
 
-// run causes the importer to check stellar-core to see if we can import new
+// run causes the importer to check rover-core to see if we can import new
 // data.
 func (i *System) runOnce() {
 	defer func() {
@@ -249,7 +249,7 @@ func (i *System) runOnce() {
 	}
 
 	if ls.CoreLatest == 1 {
-		log.Warn("ingest: waiting for stellar-core sync")
+		log.Warn("ingest: waiting for rover-core sync")
 		return
 	}
 
@@ -281,8 +281,8 @@ func (i *System) runOnce() {
 
 // trimAbandondedLedgers deletes all "abandonded" ledgers from the history
 // database. An abandonded ledger, in this context, means a ledger known to
-// orbit but is no longer present in the stellar-core database source.  The
-// usual cause for this situation is a stellar-core that uses the CATCHUP_RECENT
+// orbit but is no longer present in the rover-core database source.  The
+// usual cause for this situation is a rover-core that uses the CATCHUP_RECENT
 // mode.
 func (i *System) trimAbandondedLedgers() error {
 	var coreElder int32

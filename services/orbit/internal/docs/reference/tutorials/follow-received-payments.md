@@ -3,7 +3,7 @@ title: Follow Received Payments
 ---
 
 This tutorial shows how easy it is to use Horizon to watch for incoming payments on an [account](../../reference/resources/account.md)
-using JavaScript and `EventSource`.  We will eschew using [`js-stellar-sdk`](https://github.com/stellar/js-stellar-sdk), the
+using JavaScript and `EventSource`.  We will eschew using [`js-rover-sdk`](https://github.com/stellar/js-rover-sdk), the
 high-level helper library, to show that it is possible for you to perform this
 task on your own, with whatever programming language you would like to use.
 
@@ -28,7 +28,7 @@ Let's get started by building our project skeleton:
 ```bash
 $ mkdir follow_tutorial
 $ cd follow_tutorial
-$ npm install --save stellar-base
+$ npm install --save rover-base
 $ npm install --save eventsource
 ```
 
@@ -36,7 +36,7 @@ This should have created a `package.json` in the `follow_tutorial` directory.
 You can check that everything went well by running the following command:
 
 ```bash
-$ node -e "require('stellar-base')"
+$ node -e "require('rover-base')"
 ```
 
 Everything was successful if no output it generated from the above command.  Now
@@ -47,7 +47,7 @@ let's write a script to create a new account.
 Create a new file named `make_account.js` and paste the following text into it:
 
 ```javascript
-var Keypair = require("stellar-base").Keypair;
+var Keypair = require("rover-base").Keypair;
 
 var newAccount = Keypair.random();
 
@@ -130,7 +130,7 @@ Every time you receive a new payment you will get a new row of data. Payments is
 ## Following payments using `EventStream`
 
 > **Warning!** `EventSource` object does not reconnect for certain error types so it can stop working.
-> If you need a reliable streaming connection please use our [SDK](https://github.com/stellar/js-stellar-sdk).
+> If you need a reliable streaming connection please use our [SDK](https://github.com/stellar/js-rover-sdk).
 
 Another way to follow payments is writing a simple JS script that will stream payments and print them to console. Create `stream_payments.js` file and paste the following code into it:
 
@@ -183,7 +183,7 @@ Sequence number can be found under the `sequence` field. The current sequence nu
 Now, create `make_payment.js` file and paste the following code into it:
 
 ```js
-var StellarBase = require("stellar-base");
+var StellarBase = require("rover-base");
 StellarBase.Network.useTestNetwork();
 
 var keypair = StellarBase.Keypair.fromSecret('SCU36VV2OYTUMDSSU4EIVX4UUHY3XC7N44VL4IJ26IOG6HVNC7DY5UJO');
@@ -202,7 +202,7 @@ transaction.sign(keypair);
 console.log(transaction.toEnvelope().toXDR().toString("base64"));
 ```
 
-After running this script you should see a signed transaction blob. To submit this transaction we send it to orbit or stellar-core. But before we do, let's open a new console and start our previous script by `node stream_payments.js`.
+After running this script you should see a signed transaction blob. To submit this transaction we send it to orbit or rover-core. But before we do, let's open a new console and start our previous script by `node stream_payments.js`.
 
 Now to send a transaction just use orbit:
 

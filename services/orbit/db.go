@@ -132,7 +132,7 @@ var dbReapCmd = &cobra.Command{
 
 var dbRebaseCmd = &cobra.Command{
 	Use:   "rebase",
-	Short: "rebases clears the orbit db and ingests the latest ledger segment from stellar-core",
+	Short: "rebases clears the orbit db and ingests the latest ledger segment from rover-core",
 	Long:  "...",
 	Run: func(cmd *cobra.Command, args []string) {
 		initConfig()

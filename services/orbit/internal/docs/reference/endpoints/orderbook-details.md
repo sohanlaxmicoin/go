@@ -35,7 +35,7 @@ curl "https://orbit-testnet.stellar.org/order_book?selling_asset_type=native&buy
 ### JavaScript Example Request
 
 ```js
-var StellarSdk = require('stellar-sdk');
+var StellarSdk = require('rover-sdk');
 var server = new StellarSdk.Server('https://orbit-testnet.stellar.org');
 
 server.orderbook(new StellarSdk.Asset.native(), new StellarSdk.Asset('FOO', 'GBAUUA74H4XOQYRSOW2RZUA4QL5PB37U3JS5NE3RTB2ELJVMIF5RLMAG'))

@@ -32,7 +32,7 @@ curl "https://orbit-testnet.stellar.org/transactions?limit=200&order=desc"
 ### JavaScript Example Request
 
 ```js
-var StellarSdk = require('stellar-sdk');
+var StellarSdk = require('rover-sdk');
 var server = new StellarSdk.Server('https://orbit-testnet.stellar.org');
 
 server.transactions()

@@ -1,7 +1,7 @@
 # Horizon
 [![Build Status](https://travis-ci.org/stellar/orbit.svg?branch=master)](https://travis-ci.org/stellar/orbit)
 
-Horizon is the [client facing API](/docs) server for the Stellar ecosystem.  It acts as the interface between stellar-core and applications that want to access the Stellar network. It allows you to submit transactions to the network, check the status of accounts, subscribe to event streams, etc. See [an overview of the Stellar ecosystem](https://www.stellar.org/developers/guides/get-started/) for more details.
+Horizon is the [client facing API](/docs) server for the Stellar ecosystem.  It acts as the interface between rover-core and applications that want to access the Stellar network. It allows you to submit transactions to the network, check the status of accounts, subscribe to event streams, etc. See [an overview of the Stellar ecosystem](https://www.stellar.org/developers/guides/get-started/) for more details.
 
 ## Downloading the server
 [Prebuilt binaries](https://github.com/stellar/go/releases) of orbit are available on the 

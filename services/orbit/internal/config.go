@@ -38,6 +38,6 @@ type Config struct {
 	StaleThreshold uint
 
 	// SkipCursorUpdate causes the ingestor to skip reporting the "last imported
-	// ledger" state to stellar-core.
+	// ledger" state to rover-core.
 	SkipCursorUpdate bool
 }

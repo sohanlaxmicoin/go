@@ -38,7 +38,7 @@ type LedgerHeader struct {
 	Data           xdr.LedgerHeader `db:"data"`
 }
 
-// Offer is row of data from the `offers` table from stellar-core
+// Offer is row of data from the `offers` table from rover-core
 type Offer struct {
 	SellerID string `db:"sellerid"`
 	OfferID  int64  `db:"offerid"`
@@ -90,14 +90,14 @@ type SequenceProvider struct {
 	Q *Q
 }
 
-// Signer is a row of data from the `signers` table from stellar-core
+// Signer is a row of data from the `signers` table from rover-core
 type Signer struct {
 	Accountid string
 	Publickey string
 	Weight    int32
 }
 
-// Transaction is row of data from the `txhistory` table from stellar-core
+// Transaction is row of data from the `txhistory` table from rover-core
 type Transaction struct {
 	TransactionHash string                    `db:"txid"`
 	LedgerSequence  int32                     `db:"ledgerseq"`
@@ -107,7 +107,7 @@ type Transaction struct {
 	ResultMeta      xdr.TransactionMeta       `db:"txmeta"`
 }
 
-// TransactionFee is row of data from the `txfeehistory` table from stellar-core
+// TransactionFee is row of data from the `txfeehistory` table from rover-core
 type TransactionFee struct {
 	TransactionHash string                 `db:"txid"`
 	LedgerSequence  int32                  `db:"ledgerseq"`
@@ -115,7 +115,7 @@ type TransactionFee struct {
 	Changes         xdr.LedgerEntryChanges `db:"txchanges"`
 }
 
-// Trustline is a row of data from the `trustlines` table from stellar-core
+// Trustline is a row of data from the `trustlines` table from rover-core
 type Trustline struct {
 	Accountid string
 	Assettype xdr.AssetType
@@ -176,7 +176,7 @@ func AssetFromDB(typ xdr.AssetType, code string, issuer string) (result xdr.Asse
 }
 
 // ElderLedger represents the oldest "ingestable" ledger known to the
-// stellar-core database this ingestion system is communicating with.  Horizon,
+// rover-core database this ingestion system is communicating with.  Horizon,
 // which wants to operate on a contiguous range of ledger data (i.e. free from
 // gaps) uses the elder ledger to start importing in the case of an empty
 // database.  NOTE:  This current query used is correct, but slow.  Please keep

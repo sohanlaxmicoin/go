@@ -18,7 +18,7 @@ type System struct {
 	nextRun time.Time
 }
 
-// New initializes the reaper, causing it to begin polling the stellar-core
+// New initializes the reaper, causing it to begin polling the rover-core
 // database for now ledgers and ingesting data into the orbit database.
 func New(retention uint, orbit *db.Session) *System {
 	r := &System{

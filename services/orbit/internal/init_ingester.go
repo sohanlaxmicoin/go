@@ -12,7 +12,7 @@ func initIngester(app *App) {
 	}
 
 	if app.networkPassphrase == "" {
-		log.Fatal("Cannot start ingestion without network passphrase.  Please confirm connectivity with stellar-core.")
+		log.Fatal("Cannot start ingestion without network passphrase.  Please confirm connectivity with rover-core.")
 	}
 
 	app.ingester = ingest.New(

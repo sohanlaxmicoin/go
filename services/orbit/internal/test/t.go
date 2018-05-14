@@ -10,7 +10,7 @@ import (
 	"github.com/stellar/go/support/db"
 )
 
-// CoreSession returns a db.Session instance pointing at the stellar core test database
+// CoreSession returns a db.Session instance pointing at the rover core test database
 func (t *T) CoreSession() *db.Session {
 	return &db.Session{
 		DB:  t.CoreDB,

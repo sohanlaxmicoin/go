@@ -32,7 +32,7 @@ curl "https://orbit-testnet.stellar.org/ledgers/69859/effects"
 ### JavaScript Example Request
 
 ```javascript
-var StellarSdk = require('stellar-sdk');
+var StellarSdk = require('rover-sdk');
 var server = new StellarSdk.Server('https://orbit-testnet.stellar.org');
 
 server.effects()

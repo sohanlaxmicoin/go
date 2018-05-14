@@ -37,7 +37,7 @@ curl "https://orbit-testnet.stellar.org/payments?cursor=1234&order=desc"
 ### JavaScript Example Request
 
 ```js
-var StellarSdk = require('stellar-sdk');
+var StellarSdk = require('rover-sdk');
 var server = new StellarSdk.Server('https://orbit-testnet.stellar.org');
 
 server.payments()

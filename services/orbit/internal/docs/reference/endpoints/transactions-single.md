@@ -27,7 +27,7 @@ curl "https://orbit-testnet.stellar.org/transactions/6391dd190f15f7d1665ba53c638
 ### JavaScript Example Request
 
 ```js
-var StellarSdk = require('stellar-sdk');
+var StellarSdk = require('rover-sdk');
 var server = new StellarSdk.Server('https://orbit-testnet.stellar.org');
 
 server.transactions()

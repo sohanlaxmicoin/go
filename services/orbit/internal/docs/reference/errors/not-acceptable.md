@@ -29,7 +29,7 @@ $ curl -X GET -H "Accept: application/xml" "https://orbit-testnet.stellar.org/ac
   "type": "not_acceptable",
   "title": "An acceptable response content-type could not be provided for this request",
   "status": 406,
-  "instance": "orbit-testnet-001.prd.stellar001.internal.stellar-ops.com/hCYL7oezXs-062662"
+  "instance": "orbit-testnet-001.prd.stellar001.internal.rover-ops.com/hCYL7oezXs-062662"
 }
 ```
 

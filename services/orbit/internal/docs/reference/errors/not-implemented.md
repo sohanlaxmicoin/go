@@ -28,7 +28,7 @@ $ curl -X GET "https://orbit-testnet.stellar.org/ledgers/200/effects"
   "title": "Resource Not Yet Implemented",
   "status": 404,
   "detail": "While the requested URL is expected to eventually point to a valid resource, the work to implement the resource has not yet been completed.",
-  "instance": "orbit-testnet-001.prd.stellar001.internal.stellar-ops.com/hCYL7oezXs-141917"
+  "instance": "orbit-testnet-001.prd.stellar001.internal.rover-ops.com/hCYL7oezXs-141917"
 }
 ```
 

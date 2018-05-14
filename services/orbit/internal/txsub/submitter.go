@@ -17,7 +17,7 @@ const (
 )
 
 // NewDefaultSubmitter returns a new, simple Submitter implementation
-// that submits directly to the stellar-core at `url` using the http client
+// that submits directly to the rover-core at `url` using the http client
 // `h`.
 func NewDefaultSubmitter(h *http.Client, url string) Submitter {
 	return &submitter{
@@ -26,7 +26,7 @@ func NewDefaultSubmitter(h *http.Client, url string) Submitter {
 	}
 }
 
-// coreSubmissionResponse is the json response from stellar-core's tx endpoint
+// coreSubmissionResponse is the json response from rover-core's tx endpoint
 type coreSubmissionResponse struct {
 	Exception string `json:"exception"`
 	Error     string `json:"error"`
@@ -34,14 +34,14 @@ type coreSubmissionResponse struct {
 }
 
 // submitter is the default implementation for the Submitter interface.  It
-// submits directly to the configured stellar-core instance using the
+// submits directly to the configured rover-core instance using the
 // configured http client.
 type submitter struct {
 	http    *http.Client
 	coreURL string
 }
 
-// Submit sends the provided envelope to stellar-core and parses the response into
+// Submit sends the provided envelope to rover-core and parses the response into
 // a SubmissionResult
 func (sub *submitter) Submit(ctx context.Context, env string) (result SubmissionResult) {
 	start := time.Now()
@@ -83,7 +83,7 @@ func (sub *submitter) Submit(ctx context.Context, env string) (result Submission
 
 	// interpet response
 	if cresp.Exception != "" {
-		result.Err = errors.Errorf("stellar-core exception: %s", cresp.Exception)
+		result.Err = errors.Errorf("rover-core exception: %s", cresp.Exception)
 		return
 	}
 
@@ -93,7 +93,7 @@ func (sub *submitter) Submit(ctx context.Context, env string) (result Submission
 	case StatusPending, StatusDuplicate:
 		//noop.  A nil Err indicates success
 	default:
-		result.Err = errors.Errorf("Unrecognized stellar-core status response: %s", cresp.Status)
+		result.Err = errors.Errorf("Unrecognized rover-core status response: %s", cresp.Status)
 	}
 
 	return

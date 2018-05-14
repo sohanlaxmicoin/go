@@ -15,7 +15,7 @@ func (this *Signer) Populate(ctx context.Context, row core.Signer) {
 	this.Type = MustKeyTypeFromAddress(this.PublicKey)
 }
 
-// PopulateMaster fills out the fields of the signer, using a stellar account to
+// PopulateMaster fills out the fields of the signer, using a rover account to
 // provide the data.
 func (this *Signer) PopulateMaster(row core.Account) {
 	this.PublicKey = row.Accountid

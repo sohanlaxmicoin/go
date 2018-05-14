@@ -8,7 +8,7 @@ import (
 )
 
 // Finder implements the paths.Finder interface and searchs for
-// payment paths using a simple breadth first search of the offers table of a stellar-core.
+// payment paths using a simple breadth first search of the offers table of a rover-core.
 //
 // This implementation is not meant to be fast or to provide the lowest costs paths, but
 // rather is meant to be a simple implementation that gives usable paths.

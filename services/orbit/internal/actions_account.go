@@ -10,7 +10,7 @@ import (
 
 // This file contains the actions:
 //
-// AccountShowAction: details for single account (including stellar-core state)
+// AccountShowAction: details for single account (including rover-core state)
 
 // AccountShowAction renders a account summary found by its address.
 type AccountShowAction struct {

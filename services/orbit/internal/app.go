@@ -131,14 +131,14 @@ func (a *App) HorizonSession(ctx context.Context) *db.Session {
 	return &db.Session{DB: a.historyQ.Session.DB, Ctx: ctx}
 }
 
-// CoreSession returns a new session that loads data from the stellar core
+// CoreSession returns a new session that loads data from the rover core
 // database. The returned session is bound to `ctx`.
 func (a *App) CoreSession(ctx context.Context) *db.Session {
 	return &db.Session{DB: a.coreQ.Session.DB, Ctx: ctx}
 }
 
 // CoreQ returns a helper object for performing sql queries aginst the
-// stellar core database.
+// rover core database.
 func (a *App) CoreQ() *core.Q {
 	return a.coreQ
 }
@@ -193,7 +193,7 @@ func (a *App) UpdateStellarCoreInfo() {
 	}
 
 	fail := func(err error) {
-		log.Warnf("could not load stellar-core info: %s", err)
+		log.Warnf("could not load rover-core info: %s", err)
 	}
 
 	core := &stellarcore.Client{
@@ -236,7 +236,7 @@ func (a *App) DeleteUnretainedHistory() error {
 func (a *App) Tick() {
 	var wg sync.WaitGroup
 	log.Debug("ticking app")
-	// update ledger state and stellar-core info in parallel
+	// update ledger state and rover-core info in parallel
 	wg.Add(2)
 	go func() { a.UpdateLedgerState(); wg.Done() }()
 	go func() { a.UpdateStellarCoreInfo(); wg.Done() }()

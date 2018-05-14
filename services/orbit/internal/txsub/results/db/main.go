@@ -1,5 +1,5 @@
 // Package results provides an implementation of the txsub.ResultProvider interface
-// backed using the SQL databases used by both stellar core and orbit
+// backed using the SQL databases used by both rover core and orbit
 package results
 
 import (
@@ -15,7 +15,7 @@ import (
 )
 
 // DB provides transactio submission results by querying the
-// connected orbit and stellar core databases.
+// connected orbit and rover core databases.
 type DB struct {
 	Core    *core.Q
 	History *history.Q

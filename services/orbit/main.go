@@ -28,8 +28,8 @@ func init() {
 
 	viper.BindEnv("port", "PORT")
 	viper.BindEnv("db-url", "DATABASE_URL")
-	viper.BindEnv("stellar-core-db-url", "STELLAR_CORE_DATABASE_URL")
-	viper.BindEnv("stellar-core-url", "STELLAR_CORE_URL")
+	viper.BindEnv("rover-core-db-url", "STELLAR_CORE_DATABASE_URL")
+	viper.BindEnv("rover-core-url", "STELLAR_CORE_URL")
 	viper.BindEnv("per-hour-rate-limit", "PER_HOUR_RATE_LIMIT")
 	viper.BindEnv("redis-url", "REDIS_URL")
 	viper.BindEnv("ruby-orbit-url", "RUBY_HORIZON_URL")
@@ -48,8 +48,8 @@ func init() {
 
 	rootCmd = &cobra.Command{
 		Use:   "orbit",
-		Short: "client-facing api server for the stellar network",
-		Long:  "client-facing api server for the stellar network",
+		Short: "client-facing api server for the rover network",
+		Long:  "client-facing api server for the rover network",
 		Run: func(cmd *cobra.Command, args []string) {
 			initApp(cmd, args)
 			app.Serve()
@@ -63,15 +63,15 @@ func init() {
 	)
 
 	rootCmd.PersistentFlags().String(
-		"stellar-core-db-url",
+		"rover-core-db-url",
 		"",
-		"stellar-core postgres database to connect with",
+		"rover-core postgres database to connect with",
 	)
 
 	rootCmd.PersistentFlags().String(
-		"stellar-core-url",
+		"rover-core-url",
 		"",
-		"stellar-core to connect with (for http commands)",
+		"rover-core to connect with (for http commands)",
 	)
 
 	rootCmd.PersistentFlags().Int(
@@ -137,7 +137,7 @@ func init() {
 	rootCmd.PersistentFlags().Bool(
 		"ingest",
 		false,
-		"causes this orbit process to ingest data from stellar-core into orbit's db",
+		"causes this orbit process to ingest data from rover-core into orbit's db",
 	)
 
 	rootCmd.PersistentFlags().String(
@@ -155,7 +155,7 @@ func init() {
 	rootCmd.PersistentFlags().Uint(
 		"history-stale-threshold",
 		0,
-		"the maximum number of ledgers the history db is allowed to be out of date from the connected stellar-core db before orbit considers history stale",
+		"the maximum number of ledgers the history db is allowed to be out of date from the connected rover-core db before orbit considers history stale",
 	)
 
 	rootCmd.AddCommand(dbCmd)
@@ -179,12 +179,12 @@ func initConfig() {
 		log.Fatal("Invalid config: db-url is blank.  Please specify --db-url on the command line or set the DATABASE_URL environment variable.")
 	}
 
-	if viper.GetString("stellar-core-db-url") == "" {
-		log.Fatal("Invalid config: stellar-core-db-url is blank.  Please specify --stellar-core-db-url on the command line or set the STELLAR_CORE_DATABASE_URL environment variable.")
+	if viper.GetString("rover-core-db-url") == "" {
+		log.Fatal("Invalid config: rover-core-db-url is blank.  Please specify --rover-core-db-url on the command line or set the STELLAR_CORE_DATABASE_URL environment variable.")
 	}
 
-	if viper.GetString("stellar-core-url") == "" {
-		log.Fatal("Invalid config: stellar-core-url is blank.  Please specify --stellar-core-url on the command line or set the STELLAR_CORE_URL environment variable.")
+	if viper.GetString("rover-core-url") == "" {
+		log.Fatal("Invalid config: rover-core-url is blank.  Please specify --rover-core-url on the command line or set the STELLAR_CORE_URL environment variable.")
 	}
 
 	ll, err := logrus.ParseLevel(viper.GetString("log-level"))
@@ -206,8 +206,8 @@ func initConfig() {
 
 	config = orbit.Config{
 		DatabaseURL:            viper.GetString("db-url"),
-		StellarCoreDatabaseURL: viper.GetString("stellar-core-db-url"),
-		StellarCoreURL:         viper.GetString("stellar-core-url"),
+		StellarCoreDatabaseURL: viper.GetString("rover-core-db-url"),
+		StellarCoreURL:         viper.GetString("rover-core-url"),
 		Port:                   viper.GetInt("port"),
 		RateLimit:              throttled.PerHour(viper.GetInt("per-hour-rate-limit")),
 		RedisURL:               viper.GetString("redis-url"),
