@@ -19,7 +19,7 @@ type Root struct {
 	Links struct {
 		Account             Link `json:"account"`
 		AccountTransactions Link `json:"account_transactions"`
-		Dakibot           Link `json:"dakibot"`
+		Dakibot           	Link `json:"dakibot"`
 		Metrics             Link `json:"metrics"`
 		OrderBook           Link `json:"order_book"`
 		Self                Link `json:"self"`
@@ -27,7 +27,7 @@ type Root struct {
 		Transactions        Link `json:"transactions"`
 	} `json:"_links"`
 
-	HorizonVersion       string `json:"horizon_version"`
+	HorizonVersion       string `json:"orbit_version"`
 	StellarCoreVersion   string `json:"core_version"`
 	HorizonSequence      int32  `json:"history_latest_ledger"`
 	HistoryElderSequence int32  `json:"history_elder_ledger"`

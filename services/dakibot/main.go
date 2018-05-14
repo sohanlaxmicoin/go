@@ -22,7 +22,7 @@ type Config struct {
 	Port              int               `toml:"port" valid:"required"`
 	DakibotSecret   string            	`toml:"daki_secret" valid:"required"`
 	NetworkPassphrase string            `toml:"network_passphrase" valid:"required"`
-	HorizonURL        string            `toml:"horizon_url" valid:"required"`
+	HorizonURL        string            `toml:"orbit_url" valid:"required"`
 	StartingBalance   string            `toml:"starting_balance" valid:"required"`
 	TLS               *server.TLSConfig `valid:"optional"`
 }
