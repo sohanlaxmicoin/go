@@ -72,7 +72,7 @@ Since this release changes both the schema and the data ingestion system, we rec
 ### Changed
 
 - BREAKING CHANGE: The `base_fee` property of the ledger resource has been renamed to `base_fee_in_mint` 
-- BREAKING CHANGE: The `base_reserve` property of the ledger resource has been renamed to `base_reserve_in_mint` and is now expressed in mint (rather than lumens) and as a JSON number. 
+- BREAKING CHANGE: The `base_reserve` property of the ledger resource has been renamed to `base_reserve_in_mint` and is now expressed in mint (rather than laxmicoins) and as a JSON number. 
 - BREAKING CHANGE: The "Orderbook Trades" (`/orderbook/trades`) endpoint has been removed and replaced by the "All Trades" (`/trades`) endpoint.
 - BREAKING CHANGE: The Trade resource has been modified to generalize assets as (`base`, `counter`) pairs, rather than the previous (`sold`,`bought`) pairs.  
 - Full reingestion (i.e. running `orbit db reingest`) now runs in reverse chronological order.  

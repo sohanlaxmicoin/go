@@ -72,7 +72,7 @@ is funded it does not truly exist!
 ## Funding your account
 
 The Stellar test network provides the Dakibot, a tool that developers
-can use to get testnet lumens for testing purposes. To fund your account, simply
+can use to get testnet laxmicoins for testing purposes. To fund your account, simply
 execute the following curl command:
 
 ```bash
