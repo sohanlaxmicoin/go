@@ -75,7 +75,7 @@ func (c *Client) SetCursor(ctx context.Context, id string, cursor int32) error {
 
 	body := strings.TrimSpace(string(raw))
 	if body != SetCursorDone {
-		return errors.Errorf("failed to set cursor on stellar-core: %s", body)
+		return errors.Errorf("failed to set cursor on rover-core: %s", body)
 	}
 
 	return nil
