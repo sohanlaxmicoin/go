@@ -19,7 +19,7 @@ type Root struct {
 	Links struct {
 		Account             Link `json:"account"`
 		AccountTransactions Link `json:"account_transactions"`
-		Friendbot           Link `json:"friendbot"`
+		Dakibot           Link `json:"dakibot"`
 		Metrics             Link `json:"metrics"`
 		OrderBook           Link `json:"order_book"`
 		Self                Link `json:"self"`

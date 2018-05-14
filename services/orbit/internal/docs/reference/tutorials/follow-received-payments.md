@@ -18,7 +18,7 @@ This tutorial assumes that you:
 In this tutorial we will learn:
 
 - How to create a new account.
-- How to fund your account using friendbot.
+- How to fund your account using dakibot.
 - How to follow payments to your account using curl and EventSource.
 
 ## Project Skeleton
@@ -71,12 +71,12 @@ is funded it does not truly exist!
 
 ## Funding your account
 
-The Stellar test network provides the Friendbot, a tool that developers
+The Stellar test network provides the Dakibot, a tool that developers
 can use to get testnet lumens for testing purposes. To fund your account, simply
 execute the following curl command:
 
 ```bash
-$ curl "https://friendbot.stellar.org/?addr=GB7JFK56QXQ4DVJRNPDBXABNG3IVKIXWWJJRJICHRU22Z5R5PI65GAK3"
+$ curl "https://dakibot.stellar.org/?addr=GB7JFK56QXQ4DVJRNPDBXABNG3IVKIXWWJJRJICHRU22Z5R5PI65GAK3"
 ```
 
 Don't forget to replace the account id above with your own.  If the request

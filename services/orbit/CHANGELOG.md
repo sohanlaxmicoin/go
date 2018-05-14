@@ -79,7 +79,7 @@ Since this release changes both the schema and the data ingestion system, we rec
 
 ### Removed
 
-- BREAKING CHANGE: Friendbot has been extracted to an external microservice.
+- BREAKING CHANGE: Dakibot has been extracted to an external microservice.
 
 
 ## [v0.11.0] - 2017-08-15
@@ -164,7 +164,7 @@ This release was retracted due to a bug discovered after release.
 ### Bug fixes
 
 - Fixes paging_token attribute of account resource
-- Fixes race conditions in friendbot
+- Fixes race conditions in dakibot
 - Fixes #202: Add price and price_r to "manage_offer" operation resources
 - Fixes #318: order books for the native currency now filters correctly.
 

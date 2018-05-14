@@ -33,7 +33,7 @@ func init() {
 	viper.BindEnv("per-hour-rate-limit", "PER_HOUR_RATE_LIMIT")
 	viper.BindEnv("redis-url", "REDIS_URL")
 	viper.BindEnv("ruby-orbit-url", "RUBY_HORIZON_URL")
-	viper.BindEnv("friendbot-url", "FRIENDBOT_URL")
+	viper.BindEnv("dakibot-url", "DAKIBOT_URL")
 	viper.BindEnv("log-level", "LOG_LEVEL")
 	viper.BindEnv("sentry-dsn", "SENTRY_DSN")
 	viper.BindEnv("loggly-token", "LOGGLY_TOKEN")
@@ -93,9 +93,9 @@ func init() {
 	)
 
 	rootCmd.PersistentFlags().String(
-		"friendbot-url",
+		"dakibot-url",
 		"",
-		"friendbot service to redirect to",
+		"dakibot service to redirect to",
 	)
 
 	rootCmd.PersistentFlags().String(
@@ -211,7 +211,7 @@ func initConfig() {
 		Port:                   viper.GetInt("port"),
 		RateLimit:              throttled.PerHour(viper.GetInt("per-hour-rate-limit")),
 		RedisURL:               viper.GetString("redis-url"),
-		FriendbotURL:           viper.GetString("friendbot-url"),
+		DakibotURL:             viper.GetString("dakibot-url"),
 		LogLevel:               ll,
 		SentryDSN:              viper.GetString("sentry-dsn"),
 		LogglyToken:            viper.GetString("loggly-token"),

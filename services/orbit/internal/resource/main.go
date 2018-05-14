@@ -175,7 +175,7 @@ type Root struct {
 		Account             hal.Link `json:"account"`
 		AccountTransactions hal.Link `json:"account_transactions"`
 		Assets              hal.Link `json:"assets"`
-		Friendbot           hal.Link `json:"friendbot"`
+		Dakibot           hal.Link `json:"dakibot"`
 		Metrics             hal.Link `json:"metrics"`
 		OrderBook           hal.Link `json:"order_book"`
 		Self                hal.Link `json:"self"`

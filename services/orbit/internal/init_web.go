@@ -128,13 +128,13 @@ func initWebActions(app *App) {
 	// Asset related endpoints
 	r.Get("/assets", &AssetsAction{})
 
-	// friendbot
-	redirectFriendbot := func(w http.ResponseWriter, r *http.Request) {
-		redirectURL := app.config.FriendbotURL + "?" + r.URL.RawQuery
+	// dakibot
+	redirectDakibot := func(w http.ResponseWriter, r *http.Request) {
+		redirectURL := app.config.DakibotURL + "?" + r.URL.RawQuery
 		http.Redirect(w, r, redirectURL, http.StatusTemporaryRedirect)
 	}
-	r.Post("/friendbot", redirectFriendbot)
-	r.Get("/friendbot", redirectFriendbot)
+	r.Post("/dakibot", redirectDakibot)
+	r.Get("/dakibot", redirectDakibot)
 
 	r.NotFound(&NotFoundAction{})
 }
