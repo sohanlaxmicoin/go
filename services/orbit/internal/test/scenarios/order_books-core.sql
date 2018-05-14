@@ -399,7 +399,7 @@ INSERT INTO scpquorums VALUES ('cf7ad18d001d4722cf9d86b6acf2f8ff0aeb21b744b85813
 --
 
 INSERT INTO storestate VALUES ('databaseschema                  ', '5');
-INSERT INTO storestate VALUES ('networkpassphrase               ', 'Test SDF Network ; September 2015');
+INSERT INTO storestate VALUES ('networkpassphrase               ', 'Rover Testnet ; April 2018');
 INSERT INTO storestate VALUES ('forcescponnextlaunch            ', 'false');
 INSERT INTO storestate VALUES ('ledgerupgrades                  ', '{
     "time": 0,

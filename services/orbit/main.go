@@ -28,11 +28,11 @@ func init() {
 
 	viper.BindEnv("port", "PORT")
 	viper.BindEnv("db-url", "DATABASE_URL")
-	viper.BindEnv("rover-core-db-url", "STELLAR_CORE_DATABASE_URL")
-	viper.BindEnv("rover-core-url", "STELLAR_CORE_URL")
+	viper.BindEnv("rover-core-db-url", "ROVER_CORE_DATABASE_URL")
+	viper.BindEnv("rover-core-url", "ROVER_CORE_URL")
 	viper.BindEnv("per-hour-rate-limit", "PER_HOUR_RATE_LIMIT")
 	viper.BindEnv("redis-url", "REDIS_URL")
-	viper.BindEnv("ruby-orbit-url", "RUBY_HORIZON_URL")
+	viper.BindEnv("ruby-orbit-url", "RUBY_ORBIT_URL")
 	viper.BindEnv("dakibot-url", "DAKIBOT_URL")
 	viper.BindEnv("log-level", "LOG_LEVEL")
 	viper.BindEnv("sentry-dsn", "SENTRY_DSN")
@@ -180,11 +180,11 @@ func initConfig() {
 	}
 
 	if viper.GetString("rover-core-db-url") == "" {
-		log.Fatal("Invalid config: rover-core-db-url is blank.  Please specify --rover-core-db-url on the command line or set the STELLAR_CORE_DATABASE_URL environment variable.")
+		log.Fatal("Invalid config: rover-core-db-url is blank.  Please specify --rover-core-db-url on the command line or set the ROVER_CORE_DATABASE_URL environment variable.")
 	}
 
 	if viper.GetString("rover-core-url") == "" {
-		log.Fatal("Invalid config: rover-core-url is blank.  Please specify --rover-core-url on the command line or set the STELLAR_CORE_URL environment variable.")
+		log.Fatal("Invalid config: rover-core-url is blank.  Please specify --rover-core-url on the command line or set the ROVER_CORE_URL environment variable.")
 	}
 
 	ll, err := logrus.ParseLevel(viper.GetString("log-level"))

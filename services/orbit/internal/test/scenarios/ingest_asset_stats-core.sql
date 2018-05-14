@@ -394,7 +394,7 @@ INSERT INTO scpquorums VALUES ('766396732811fdda9ab9a01361de2c0876f278a0d14516c2
 
 INSERT INTO storestate VALUES ('lastscpdata                     ', 'AAAAAgAAAAC8RoKzVes6KFYFg0j4BXuS2Xts8R5YRur0sRYCthiYyAAAAAAAAAAJAAAAA3ZjlnMoEf3amrmgE2HeLAh28nig0UUWwrIVR04laiXQAAAAAQAAADCMNe8TCwCzC8rtkEeGGgYOofcBJuLitcY7HXn5dBlbaAAAAABag3fQAAAAAAAAAAAAAAABAAAAMIw17xMLALMLyu2QR4YaBg6h9wEm4uK1xjsdefl0GVtoAAAAAFqDd9AAAAAAAAAAAAAAAEDUpmwOBHHj3jWfLgDglds+hihcolO3VuNljn+SBDU12RH0EINqptd9lEU4xYE2UW1j14THjs/Vn8yLLkONDKwCAAAAALxGgrNV6zooVgWDSPgFe5LZe2zxHlhG6vSxFgK2GJjIAAAAAAAAAAkAAAACAAAAAQAAADCMNe8TCwCzC8rtkEeGGgYOofcBJuLitcY7HXn5dBlbaAAAAABag3fQAAAAAAAAAAAAAAABdmOWcygR/dqauaATYd4sCHbyeKDRRRbCshVHTiVqJdAAAABAgL2Eq0Rq8/3tmh+1QDyCaQytvb3GnC75zKXhjAF+B7diRW6VFxlf1NGyx02qfeaGpEz4snapJPsO7f78Im5yDAAAAAGCmKAEJHyRIWPY8WoK2dQmXCu0aKCfn727r09tdT19dgAAAAAAAAABAAAAAQAAAAEAAAAAvEaCs1XrOihWBYNI+AV7ktl7bPEeWEbq9LEWArYYmMgAAAAA');
 INSERT INTO storestate VALUES ('databaseschema                  ', '5');
-INSERT INTO storestate VALUES ('networkpassphrase               ', 'Test SDF Network ; September 2015');
+INSERT INTO storestate VALUES ('networkpassphrase               ', 'Rover Testnet ; April 2018');
 INSERT INTO storestate VALUES ('forcescponnextlaunch            ', 'false');
 INSERT INTO storestate VALUES ('ledgerupgrades                  ', '{
     "time": 0,

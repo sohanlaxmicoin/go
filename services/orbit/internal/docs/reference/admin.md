@@ -61,8 +61,8 @@ As you will see if you run the command above, orbit defines a large number of fl
 | flag                    | envvar                      | example                              |
 |-------------------------|-----------------------------|--------------------------------------|
 | `--db-url`              | `DATABASE_URL`              | postgres://localhost/horizon_testnet |
-| `--rover-core-db-url` | `STELLAR_CORE_DATABASE_URL` | postgres://localhost/core_testnet    |
-| `--rover-core-url`    | `STELLAR_CORE_URL`          | http://localhost:11626               |
+| `--rover-core-db-url` | `ROVER_CORE_DATABASE_URL` | postgres://localhost/core_testnet    |
+| `--rover-core-url`    | `ROVER_CORE_URL`          | http://localhost:11626               |
 
 `--db-url` specifies the orbit database, and its value should be a valid [PostgreSQL Connection URI](http://www.postgresql.org/docs/9.2/static/libpq-connect.html#AEN38419).  `--rover-core-db-url` specifies a rover-core database which will be used to load data about the rover ledger.  Finally, `--rover-core-url` specifies the HTTP control port for an instance of rover-core.  This URL should be associated with the rover-core that is writing to the database at `--rover-core-db-url`.
 
@@ -113,7 +113,7 @@ We recommend you configure the HISTORY_RETENTION_COUNT in orbit to a value less 
 
 1.  Stop orbit.
 2.  run `orbit db reap` to clear the historical database.
-3.  Clear the cursor for orbit by running `rover-core -c "dropcursor?id=HORIZON"` (ensure capitilization is maintained).
+3.  Clear the cursor for orbit by running `rover-core -c "dropcursor?id=ORBIT"` (ensure capitilization is maintained).
 4.  Clear ledger metadata from before the gap by running `rover-core -c "maintenance?queue=true"`.
 5.  Restart orbit.    
 

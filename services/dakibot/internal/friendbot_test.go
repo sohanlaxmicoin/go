@@ -12,7 +12,7 @@ import (
 func TestDakibot_makeTx(t *testing.T) {
 	fb := &Bot{
 		Secret:          "SAQWC7EPIYF3XGILYVJM4LVAVSLZKT27CTEI3AFBHU2VRCMQ3P3INPG5",
-		Network:         "Test SDF Network ; September 2015",
+		Network:         "Rover Testnet ; April 2018",
 		StartingBalance: "100.00",
 		sequence:        2,
 	}

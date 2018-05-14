@@ -66,7 +66,7 @@ https://bifrost.stellar.org/
   * `issuer_public_key` - public key of the assets issuer or hot wallet,
   * `signer_secret_key` - issuer's secret key if only one instance of Bifrost is deployed OR [channel](https://www.stellar.org/developers/guides/channels.html)'s secret key if more than one instance of Bifrost is deployed. Signer's sequence number will be consumed in transaction's sequence number.
   * `horizon` - URL to [horizon](https://github.com/rover/go/tree/master/services/horizon) server
-  * `network_passphrase` - Stellar network passphrase (`Public Global Stellar Network ; September 2015` for production network, `Test SDF Network ; September 2015` for test network)
+  * `network_passphrase` - Stellar network passphrase (`Public Global Stellar Network ; September 2015` for production network, `Rover Testnet ; April 2018` for test network)
   * `starting_balance` - Stellar XLM amount issued to created account (41 by default)
 * `database`
   * `type` - currently the only supported database type is: `postgres`
