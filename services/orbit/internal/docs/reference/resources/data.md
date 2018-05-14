@@ -2,7 +2,7 @@
 title: Data
 ---
 
-Each account in Stellar network can contain multiple key/value pairs associated with it. Horizon can be used to retrieve value of each data key.
+Each account in Stellar network can contain multiple key/value pairs associated with it. Orbit can be used to retrieve value of each data key.
 
 When orbit returns information about a single account data key it uses the following format:
 

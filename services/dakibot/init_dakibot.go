@@ -18,7 +18,7 @@ func initDakibot(dakibotSecret string, networkPassphrase string, horizonURL stri
 
 	return &internal.Bot{
 		Secret: dakibotSecret,
-		Horizon: &orbit.Client{
+		Orbit: &orbit.Client{
 			URL:  horizonURL,
 			HTTP: http.DefaultClient,
 		},

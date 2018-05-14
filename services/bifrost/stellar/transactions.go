@@ -76,7 +76,7 @@ func (ac *AccountConfigurator) submitTransaction(mutators ...build.TransactionMu
 	localLog := log.WithField("tx", tx)
 	localLog.Info("Submitting transaction")
 
-	_, err = ac.Horizon.SubmitTransaction(tx)
+	_, err = ac.Orbit.SubmitTransaction(tx)
 	if err != nil {
 		fields := log.F{"err": err}
 		if err, ok := err.(*orbit.Error); ok {
@@ -113,7 +113,7 @@ func (ac *AccountConfigurator) updateSequence() error {
 	ac.sequenceMutex.Lock()
 	defer ac.sequenceMutex.Unlock()
 
-	account, err := ac.Horizon.LoadAccount(ac.signerPublicKey)
+	account, err := ac.Orbit.LoadAccount(ac.signerPublicKey)
 	if err != nil {
 		err = errors.Wrap(err, "Error loading issuing account")
 		ac.log.Error(err)

@@ -46,9 +46,9 @@ func Context() context.Context {
 
 // Database returns a connection to the orbit test database
 //
-// DEPRECATED:  use `Horizon()` from test/db package
+// DEPRECATED:  use `Orbit()` from test/db package
 func Database(t *testing.T) *sqlx.DB {
-	return tdb.Horizon(t)
+	return tdb.Orbit(t)
 }
 
 // DatabaseURL returns the database connection the url any test

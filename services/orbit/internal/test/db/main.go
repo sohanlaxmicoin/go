@@ -21,8 +21,8 @@ var (
 	horizonUrl *string
 )
 
-// Horizon returns a connection to the orbit test database
-func Horizon(t *testing.T) *sqlx.DB {
+// Orbit returns a connection to the orbit test database
+func Orbit(t *testing.T) *sqlx.DB {
 	if horizonDB != nil {
 		return horizonDB
 	}
@@ -36,7 +36,7 @@ func Horizon(t *testing.T) *sqlx.DB {
 // use when connecting to the history/orbit database
 func HorizonURL() string {
 	if horizonUrl == nil {
-		log.Panic(fmt.Errorf("Horizon not initialized"))
+		log.Panic(fmt.Errorf("Orbit not initialized"))
 	}
 	return *horizonUrl
 }

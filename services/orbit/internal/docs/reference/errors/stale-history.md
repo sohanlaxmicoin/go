@@ -6,7 +6,7 @@ A orbit server may be configured to reject historical requests when the history 
 
 ## Attributes
 
-As with all errors Horizon returns, `stale_history` follows the [Problem Details for HTTP APIs](https://tools.ietf.org/html/draft-ietf-appsawg-http-problem-00) draft specification guide and thus has the following attributes:
+As with all errors Orbit returns, `stale_history` follows the [Problem Details for HTTP APIs](https://tools.ietf.org/html/draft-ietf-appsawg-http-problem-00) draft specification guide and thus has the following attributes:
 
 | Attribute | Type   | Description                                                                                                                     |
 | --------- | ----   | ------------------------------------------------------------------------------------------------------------------------------- |

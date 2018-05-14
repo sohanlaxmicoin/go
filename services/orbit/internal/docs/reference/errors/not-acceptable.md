@@ -2,7 +2,7 @@
 title: Not Acceptable
 ---
 
-When your client only accepts certain formats of data from Horizon and Horizon cannot fulfill that request, Horizon will return a not_acceptable error. This is analogous to the [HTTP 406 Error](https://developer.mozilla.org/en-US/docs/Web/HTTP/Response_codes).
+When your client only accepts certain formats of data from Orbit and Orbit cannot fulfill that request, Orbit will return a not_acceptable error. This is analogous to the [HTTP 406 Error](https://developer.mozilla.org/en-US/docs/Web/HTTP/Response_codes).
 
 If you are encountering this error, please check to make sure the criteria for content you’ll accept is correct.
 
@@ -10,7 +10,7 @@ If you are encountering this error, please check to make sure the criteria for c
 ## Attributes
 
 
-As with all errors Horizon returns, `not_acceptable` follows the [Problem Details for HTTP APIs](https://tools.ietf.org/html/draft-ietf-appsawg-http-problem-00) draft specification guide and thus has the following attributes:
+As with all errors Orbit returns, `not_acceptable` follows the [Problem Details for HTTP APIs](https://tools.ietf.org/html/draft-ietf-appsawg-http-problem-00) draft specification guide and thus has the following attributes:
 
 | Attribute | Type   | Description                                                                                                                     |
 | --------- | ----   | ------------------------------------------------------------------------------------------------------------------------------- |

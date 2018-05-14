@@ -2,13 +2,13 @@
 title: Bad Request
 ---
 
-If Horizon cannot understand a request due to invalid parameters, it will return a `bad_request` error. This is analogous to the [HTTP 400 Error](https://developer.mozilla.org/en-US/docs/Web/HTTP/Response_codes).
+If Orbit cannot understand a request due to invalid parameters, it will return a `bad_request` error. This is analogous to the [HTTP 400 Error](https://developer.mozilla.org/en-US/docs/Web/HTTP/Response_codes).
 
 If you are encountering this error, check the `invalid_field` attribute on the `extras` object to see what field is triggering the error. 
 
 ## Attributes
 
-As with all errors Horizon returns, `bad_request` follows the [Problem Details for HTTP APIs](https://tools.ietf.org/html/draft-ietf-appsawg-http-problem-00) draft specification guide and thus has the following attributes:
+As with all errors Orbit returns, `bad_request` follows the [Problem Details for HTTP APIs](https://tools.ietf.org/html/draft-ietf-appsawg-http-problem-00) draft specification guide and thus has the following attributes:
 
 | Attribute | Type   | Description                                                                                                                     |
 | --------- | ----   | ------------------------------------------------------------------------------------------------------------------------------- |

@@ -128,8 +128,8 @@ This command will create 3 server.Server's listening on ports 8000-8002.`,
 
 		accounts := make(chan server.GenerateAddressResponse)
 		users := stress.Users{
-			Horizon: &orbit.Client{
-				URL: cfg.Stellar.Horizon,
+			Orbit: &orbit.Client{
+				URL: cfg.Stellar.Orbit,
 				HTTP: &http.Client{
 					Timeout: 60 * time.Second,
 				},
@@ -368,7 +368,7 @@ func createServer(cfg config.Config, stressTest bool) *server.Server {
 	}
 
 	horizonClient := &orbit.Client{
-		URL: cfg.Stellar.Horizon,
+		URL: cfg.Stellar.Orbit,
 		HTTP: &http.Client{
 			Timeout: 20 * time.Second,
 		},

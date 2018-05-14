@@ -58,9 +58,9 @@ var (
 	ErrEnvelopeNotPopulated = errors.New("envelope_xdr not populated")
 )
 
-// Client struct contains data required to connect to Horizon instance
+// Client struct contains data required to connect to Orbit instance
 type Client struct {
-	// URL of Horizon server to connect
+	// URL of Orbit server to connect
 	URL string
 
 	// HTTP client to make requests with
@@ -82,7 +82,7 @@ type ClientInterface interface {
 	SubmitTransaction(txeBase64 string) (TransactionSuccess, error)
 }
 
-// Error struct contains the problem returned by Horizon
+// Error struct contains the problem returned by Orbit
 type Error struct {
 	Response *http.Response
 	Problem  Problem

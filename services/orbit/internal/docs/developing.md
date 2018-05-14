@@ -1,5 +1,5 @@
 ---
-title: Horizon Development Guide
+title: Orbit Development Guide
 ---
 
 This document contains topics related to the development of orbit.
@@ -12,7 +12,7 @@ This document contains topics related to the development of orbit.
 ---
 ## <a name="regen"></a> Regenerating generated code
 
-Horizon uses two go tools you'll need to install:
+Orbit uses two go tools you'll need to install:
 1. [go-bindata](https://github.com/jteeuwen/go-bindata) is used to bundle test data
 1. [go-codegen](https://github.com/nullstyle/go-codegen) is used to generate some boilerplate code
 
@@ -107,6 +107,6 @@ With the "bad" form of the logging example above, an operator can filter on both
 
 ## <a name="TLS"></a> Enabling TLS on your local workstation
 
-Horizon support HTTP/2 when served using TLS.  To enable TLS on your local workstation, you must generate a certificate and configure orbit to use it.  We've written a helper script at `tls/regen.sh` to make this simple.  Run the script from your terminal, and simply choose all the default options.  This will create two files: `tls/server.crt` and `tls/server.key`.  
+Orbit support HTTP/2 when served using TLS.  To enable TLS on your local workstation, you must generate a certificate and configure orbit to use it.  We've written a helper script at `tls/regen.sh` to make this simple.  Run the script from your terminal, and simply choose all the default options.  This will create two files: `tls/server.crt` and `tls/server.key`.  
 
 Now you must configure orbit to use them: You can simply add `--tls-cert tls/server.crt --tls-key tls/server.key` to your command line invocations of orbit, or you may specify `TLS_CERT` and `TLS_KEY` environment variables.

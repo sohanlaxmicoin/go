@@ -8,7 +8,7 @@ type Config struct {
 	AccessControlAllowOriginHeader string          `valid:"optional" toml:"access-control-allow-origin-header"`
 
 	Stellar struct {
-		Horizon           string `valid:"required" toml:"orbit"`
+		Orbit           string `valid:"required" toml:"orbit"`
 		NetworkPassphrase string `valid:"required" toml:"network_passphrase"`
 		// TokenAssetCode is asset code of token that will be purchased using BTC or ETH.
 		TokenAssetCode string `valid:"required" toml:"token_asset_code"`

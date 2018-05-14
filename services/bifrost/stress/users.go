@@ -26,7 +26,7 @@ func (u *Users) Start(accounts chan<- server.GenerateAddressResponse) {
 
 	go func() {
 		cursor := orbit.Cursor("now")
-		err := u.Horizon.StreamPayments(context.Background(), u.IssuerPublicKey, &cursor, u.onNewPayment)
+		err := u.Orbit.StreamPayments(context.Background(), u.IssuerPublicKey, &cursor, u.onNewPayment)
 		if err != nil {
 			panic(err)
 		}
@@ -160,7 +160,7 @@ func (u *Users) newUser(kp *keypair.Full) server.GenerateAddressResponse {
 			panic(err)
 		}
 
-		_, err = u.Horizon.SubmitTransaction(txeB64)
+		_, err = u.Orbit.SubmitTransaction(txeB64)
 		if err != nil {
 			fmt.Println(txeB64)
 			panic(err)
@@ -237,7 +237,7 @@ func (u *Users) newUser(kp *keypair.Full) server.GenerateAddressResponse {
 			panic(err)
 		}
 
-		_, err = u.Horizon.SubmitTransaction(txeB64)
+		_, err = u.Orbit.SubmitTransaction(txeB64)
 		if err != nil {
 			if herr, ok := err.(*orbit.Error); ok {
 				fmt.Println(herr.Problem)
@@ -282,7 +282,7 @@ func (u *Users) updateUserState(publicKey string, state UserState) {
 
 func (u *Users) getAccount(account string) (orbit.Account, bool, error) {
 	var hAccount orbit.Account
-	hAccount, err := u.Horizon.LoadAccount(account)
+	hAccount, err := u.Orbit.LoadAccount(account)
 	if err != nil {
 		if err, ok := err.(*orbit.Error); ok && err.Response.StatusCode == http.StatusNotFound {
 			return hAccount, false, nil

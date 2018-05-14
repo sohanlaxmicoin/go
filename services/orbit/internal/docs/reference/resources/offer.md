@@ -4,7 +4,7 @@ title: Offer
 
 Accounts on the Stellar network can make [offers](http://stellar.org/developers/learn/concepts/exchange.html) to buy or sell assets.  Users can create offers with the [Manage Offer](http://stellar.org/developers/learn/concepts/list-of-operations.html) operation.
 
-Horizon only returns offers that belong to a particular account.  When it does, it uses the following format:
+Orbit only returns offers that belong to a particular account.  When it does, it uses the following format:
 
 ## Attributes
 | Attribute    | Type             |                                                                                                                        |

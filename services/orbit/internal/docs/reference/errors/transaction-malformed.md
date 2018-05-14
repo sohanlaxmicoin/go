@@ -2,7 +2,7 @@
 title: Transaction Malformed
 ---
 
-When you submit a malformed transaction to Horizon, Horizon will return a `transaction_malformed` error. There are many ways in which a transaction is malformed, including
+When you submit a malformed transaction to Orbit, Orbit will return a `transaction_malformed` error. There are many ways in which a transaction is malformed, including
 * you submitted an empty string
 * your base64-encoded string is invalid
 * your [XDR](../../learn/xdr.md) structure is invalid
@@ -12,7 +12,7 @@ If you are encountering this error, please check the contents of the transaction
 
 ## Attributes
 
-As with all errors Horizon returns, `transaction_malformed` follows the [Problem Details for HTTP APIs](https://tools.ietf.org/html/draft-ietf-appsawg-http-problem-00) draft specification guide and thus has the following attributes:
+As with all errors Orbit returns, `transaction_malformed` follows the [Problem Details for HTTP APIs](https://tools.ietf.org/html/draft-ietf-appsawg-http-problem-00) draft specification guide and thus has the following attributes:
 
 | Attribute | Type   | Description                                                                                                                     |
 | --------- | ----   | ------------------------------------------------------------------------------------------------------------------------------- |

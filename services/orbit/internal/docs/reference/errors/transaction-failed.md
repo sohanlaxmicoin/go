@@ -12,7 +12,7 @@ In almost every case, this error indicates that the transaction submitted in the
 
 ## Attributes
 
-As with all errors Horizon returns, `transaction_failed` follows the [Problem Details for HTTP APIs](https://tools.ietf.org/html/draft-ietf-appsawg-http-problem-00) draft specification guide and thus has the following attributes:
+As with all errors Orbit returns, `transaction_failed` follows the [Problem Details for HTTP APIs](https://tools.ietf.org/html/draft-ietf-appsawg-http-problem-00) draft specification guide and thus has the following attributes:
 
 | Attribute | Type   | Description                                                                                                                     |
 | --------- | ----   | ------------------------------------------------------------------------------------------------------------------------------- |

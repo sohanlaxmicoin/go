@@ -2,7 +2,7 @@
 title: Administration
 ---
 
-Horizon is responsible for providing an HTTP API to data in the Stellar network. It ingests and re-serves the data produced by the rover network in a form that is easier to consume than the performance-oriented data representations used by rover-core.
+Orbit is responsible for providing an HTTP API to data in the Stellar network. It ingests and re-serves the data produced by the rover network in a form that is easier to consume than the performance-oriented data representations used by rover-core.
 
 ## Why run orbit?
 
@@ -14,8 +14,8 @@ The rover development foundation runs two orbit servers, one for the public netw
 
 ## Prerequisites
 
-Horizon is a dependent upon a rover-core server.  Horizon needs access to both the SQL database and the HTTP API that is published by rover-core. See [the administration guide](https://www.stellar.org/developers/rover-core/learn/admin.html
-) to learn how to set up and administer a rover-core server.  Secondly, orbit is dependent upon a postgresql server, which it uses to store processed core data for ease of use. Horizon requires postgres version >= 9.3.
+Orbit is a dependent upon a rover-core server.  Orbit needs access to both the SQL database and the HTTP API that is published by rover-core. See [the administration guide](https://www.stellar.org/developers/rover-core/learn/admin.html
+) to learn how to set up and administer a rover-core server.  Secondly, orbit is dependent upon a postgresql server, which it uses to store processed core data for ease of use. Orbit requires postgres version >= 9.3.
 
 In addition to the two required prerequisites above, you may optionally install a redis server to be used for rate limiting requests.
 
@@ -52,7 +52,7 @@ Note:  Building directly on windows is not supported.
 
 ## Configuring
 
-Horizon is configured using command line flags or environment variables.  To see the list of command line flags that are available (and their default values) for your version of orbit, run:
+Orbit is configured using command line flags or environment variables.  To see the list of command line flags that are available (and their default values) for your version of orbit, run:
 
 `orbit --help`
 
@@ -89,7 +89,7 @@ The log line above announces that orbit is ready to serve client requests. Note:
 
 ## Ingesting rover-core data
 
-Horizon provides most of its utility through ingested data.  Your orbit server can be configured to listen for and ingest transaction results from the connected rover-core.  We recommend that within your infrastructure you run one (and only one) orbit process that is configured in this way.   While running multiple ingestion processes will not corrupt the orbit database, your error logs will quickly fill up as the two instances race to ingest the data from rover-core.  We may develop a system that coordinates multiple orbit processes in the future, but we would also be happy to include an external contribution that accomplishes this.
+Orbit provides most of its utility through ingested data.  Your orbit server can be configured to listen for and ingest transaction results from the connected rover-core.  We recommend that within your infrastructure you run one (and only one) orbit process that is configured in this way.   While running multiple ingestion processes will not corrupt the orbit database, your error logs will quickly fill up as the two instances race to ingest the data from rover-core.  We may develop a system that coordinates multiple orbit processes in the future, but we would also be happy to include an external contribution that accomplishes this.
 
 To enable ingestion, you must either pass `--ingest=true` on the command line or set the `INGEST` environment variable to "true".
 
@@ -99,7 +99,7 @@ Given an empty orbit database, any and all available history on the attached rov
 
 ### Surviving rover-core downtime
 
-Horizon tries to maintain a gap-free window into the history of the rover-network.  This reduces the number of edge cases that orbit-dependent software must deal with, aiming to make the integration process simpler.  To maintain a gap-free history, orbit needs access to all of the metadata produced by rover-core in the process of closing a ledger, and there are instances when this metadata can be lost.  Usually, this loss of metadata occurs because the rover-core node went offline and performed a catchup operation when restarted.
+Orbit tries to maintain a gap-free window into the history of the rover-network.  This reduces the number of edge cases that orbit-dependent software must deal with, aiming to make the integration process simpler.  To maintain a gap-free history, orbit needs access to all of the metadata produced by rover-core in the process of closing a ledger, and there are instances when this metadata can be lost.  Usually, this loss of metadata occurs because the rover-core node went offline and performed a catchup operation when restarted.
 
 To ensure that the metadata required by orbit is maintained, you have several options: You may either set the `CATCHUP_COMPLETE` rover-core configuration option to `true` or configure `CATCHUP_RECENT` to determine the amount of time your rover-core can be offline without having to rebuild your orbit database.
 
@@ -119,7 +119,7 @@ We recommend you configure the HISTORY_RETENTION_COUNT in orbit to a value less 
 
 ## Managing Stale Historical Data
 
-Horizon ingests ledger data from a connected instance of rover-core.  In the event that rover-core stops running (or if orbit stops ingesting data for any other reason), the view provided by orbit will start to lag behind reality.  For simpler applications, this may be fine, but in many cases this lag is unacceptable and the application should not continue operating until the lag is resolved.
+Orbit ingests ledger data from a connected instance of rover-core.  In the event that rover-core stops running (or if orbit stops ingesting data for any other reason), the view provided by orbit will start to lag behind reality.  For simpler applications, this may be fine, but in many cases this lag is unacceptable and the application should not continue operating until the lag is resolved.
 
 To help applications that cannot tolerate lag, orbit provides a configurable "staleness" threshold.  Given that enough lag has accumulated to surpass this threshold (expressed in number of ledgers), orbit will only respond with an error: [`stale_history`](./errors/stale-history.md).  To configure this option, use either the `--history-stale-threshold` command line flag or the `HISTORY_STALE_THRESHOLD` environment variable.  NOTE:  non-historical requests (such as submitting transactions or finding payment paths) will not error out when the staleness threshold is surpassed.
 
@@ -127,7 +127,7 @@ To help applications that cannot tolerate lag, orbit provides a configurable "st
 
 To ensure that your instance of orbit is performing correctly we encourage you to monitor it, and provide both logs and metrics to do so.  
 
-Horizon will output logs to standard out.  Information about what requests are coming in will be reported, but more importantly and warnings or errors will also be emitted by default.  A correctly running orbit instance will not ouput any warning or error log entries.
+Orbit will output logs to standard out.  Information about what requests are coming in will be reported, but more importantly and warnings or errors will also be emitted by default.  A correctly running orbit instance will not ouput any warning or error log entries.
 
 Metrics are collected while a orbit process is running and they are exposed at the `/metrics` path.  You can see an example at (https://orbit-testnet.stellar.org/metrics).
 

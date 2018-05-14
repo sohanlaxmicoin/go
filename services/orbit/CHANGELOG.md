@@ -101,7 +101,7 @@ Since this release changes both the schema and the data ingestion system, we rec
 ## [v0.10.1] - 2017-03-29
 
 ### Fixed
-- Ingestion was fixed to protect against text memos that contain null bytes.  While memos with null bytes are legal in rover-core, PostgreSQL does not support such values in string columns.  Horizon now strips those null bytes to fix the issue. 
+- Ingestion was fixed to protect against text memos that contain null bytes.  While memos with null bytes are legal in rover-core, PostgreSQL does not support such values in string columns.  Orbit now strips those null bytes to fix the issue. 
 
 ## [v0.10.0] - 2017-03-20
 
@@ -126,7 +126,7 @@ This is a fix release for v0.9.0 and v0.9.1
 This release was retracted due to a bug discovered after release.
 
 ### Added
-- Horizon now exposes the rover network protocol in several places:  It shows the currently reported protocol version (as returned by the rover-core `info` command) on the root endpoint, and it reports the protocol version of each ledger resource.
+- Orbit now exposes the rover network protocol in several places:  It shows the currently reported protocol version (as returned by the rover-core `info` command) on the root endpoint, and it reports the protocol version of each ledger resource.
 - Trade resources now include a `created_at` timestamp.
 
 ### Fixed
@@ -190,7 +190,7 @@ This release contains the initial implementation of the "Abridged History System
 - *Elder* ledgers have been introduced:  An elder ledger is the oldest ledger known to a db.  For example, the `core_elder_ledger` attribute on the root endpoint refers to the oldest known ledger stored in the connected rover-core database.
 - Added the `history-retention-count` command line flag, used to specify the amount of historical data to keep in the history db.  This is expressed as a number of ledgers, for example a value of `362880` would retain roughly 6 weeks of data given an average of 10 seconds per ledger.
 - Added the `history-stale-threshold` command line flag to enable stale history protection.  See the admin guide for more info.
-- Horizon now reports the last ledger ingested to rover-core using the `setcursor` command.
+- Orbit now reports the last ledger ingested to rover-core using the `setcursor` command.
 - Requests for data that precede the recorded window of history stored by orbit will receive a `410 Gone` http response to allow software to differentiate from other "not found" situations.
 - The new `db reap` command will manually trigger the deletion of unretained historical data
 - A background process on the server now deletes unretained historical once per hour.
@@ -199,7 +199,7 @@ This release contains the initial implementation of the "Abridged History System
 
 - BREAKING: When making a streaming request, a normal error response will be returned if an error occurs prior to sending the first event.  Additionally, the initial http response and streaming preamble will not be sent until the first event is available.
 - BREAKING: `horizon_latest_ledger` has renamed to `history_latest_ledger`
-- Horizon no longer needs to begin the ingestion of historical data from ledger sequence 1.  
+- Orbit no longer needs to begin the ingestion of historical data from ledger sequence 1.  
 - Rows in the `history_accounts` table are no longer identified using the "Total Order ID" that other historical records  use, but are rather using a simple auto-incremented id.
 
 ### Removed
@@ -220,7 +220,7 @@ This release contains the initial implementation of the "Abridged History System
 
 ### Added
 
-- BREAKING: Horizon can now import data from rover-core without the aid of the orbit-importer project.  This process is now known as "ingestion", and is enabled by either setting the `INGEST` environment variable to "true" or specifying "--ingest" on the launch arguments for the orbit process.  Only one process should be running in this mode for any given orbit database.
+- BREAKING: Orbit can now import data from rover-core without the aid of the orbit-importer project.  This process is now known as "ingestion", and is enabled by either setting the `INGEST` environment variable to "true" or specifying "--ingest" on the launch arguments for the orbit process.  Only one process should be running in this mode for any given orbit database.
 - Add `orbit db init`, used to install the latest bundled schema for the orbit database.
 - Add `orbit db reingest` command, used to update outdated or corrupt orbit database information.  Admins may now use `orbit db reingest outdated` to migrate any old data when updated orbit.
 - Added `network_passphrase` field to root resource.

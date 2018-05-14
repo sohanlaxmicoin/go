@@ -2,13 +2,13 @@
 title: Not Implemented
 ---
 
-If your [request method](http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html) is not supported by Horizon, Horizon will return a `not_implemented` error. This is analogous to a [HTTP 501 Error](https://developer.mozilla.org/en-US/docs/Web/HTTP/Response_codes).
+If your [request method](http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html) is not supported by Orbit, Orbit will return a `not_implemented` error. This is analogous to a [HTTP 501 Error](https://developer.mozilla.org/en-US/docs/Web/HTTP/Response_codes).
 
-If you are encountering this error, Horizon does not have the functionality you are requesting yet.
+If you are encountering this error, Orbit does not have the functionality you are requesting yet.
 
 ## Attributes
 
-As with all errors Horizon returns, `not_implemented` follows the [Problem Details for HTTP APIs](https://tools.ietf.org/html/draft-ietf-appsawg-http-problem-00) draft specification guide and thus has the following attributes:
+As with all errors Orbit returns, `not_implemented` follows the [Problem Details for HTTP APIs](https://tools.ietf.org/html/draft-ietf-appsawg-http-problem-00) draft specification guide and thus has the following attributes:
 
 | Attribute | Type   | Description                                                                                                                     |
 | --------- | ----   | ------------------------------------------------------------------------------------------------------------------------------- |

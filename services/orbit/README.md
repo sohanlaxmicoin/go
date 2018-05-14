@@ -1,7 +1,7 @@
-# Horizon
+# Orbit
 [![Build Status](https://travis-ci.org/rover/orbit.svg?branch=master)](https://travis-ci.org/rover/orbit)
 
-Horizon is the [client facing API](/docs) server for the Stellar ecosystem.  It acts as the interface between rover-core and applications that want to access the Stellar network. It allows you to submit transactions to the network, check the status of accounts, subscribe to event streams, etc. See [an overview of the Stellar ecosystem](https://www.stellar.org/developers/guides/get-started/) for more details.
+Orbit is the [client facing API](/docs) server for the Stellar ecosystem.  It acts as the interface between rover-core and applications that want to access the Stellar network. It allows you to submit transactions to the network, check the status of accounts, subscribe to event streams, etc. See [an overview of the Stellar ecosystem](https://www.stellar.org/developers/guides/get-started/) for more details.
 
 ## Downloading the server
 [Prebuilt binaries](https://github.com/rover/go/releases) of orbit are available on the 
@@ -19,7 +19,7 @@ Alternatively, you can [build](#building) the binary yourself.
 
 ## Dependencies
 
-Horizon requires go 1.6 or higher to build. See (https://golang.org/doc/install) for installation instructions.
+Orbit requires go 1.6 or higher to build. See (https://golang.org/doc/install) for installation instructions.
 
 ## Building
 
@@ -44,7 +44,7 @@ completion, you should find `orbit` is present in your `$GOPATH/bin` directory.
 
 More detailed intructions and [admin guide](internal/docs/reference/admin.md). 
 
-## Developing Horizon
+## Developing Orbit
 
 See [the development guide](internal/docs/developing.md).
 

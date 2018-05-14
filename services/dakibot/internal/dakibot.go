@@ -13,7 +13,7 @@ import (
 
 // Bot represents the dakibot subsystem.
 type Bot struct {
-	Horizon         *orbit.Client
+	Orbit         *orbit.Client
 	Secret          string
 	Network         string
 	StartingBalance string
@@ -62,7 +62,7 @@ func (bot *Bot) lockedPay(channel chan interface{}, destAddress string) (bool, *
 }
 
 func (bot *Bot) asyncSubmitTransaction(channel chan interface{}, signed string) {
-	result, err := bot.Horizon.SubmitTransaction(signed)
+	result, err := bot.Orbit.SubmitTransaction(signed)
 	if err != nil {
 		switch e := err.(type) {
 		case *orbit.Error:
@@ -123,7 +123,7 @@ func (bot *Bot) makeTx(destAddress string) (string, error) {
 
 // refreshes the sequence from the bot account
 func (bot *Bot) refreshSequence() error {
-	botAccount, err := bot.Horizon.LoadAccount(bot.address())
+	botAccount, err := bot.Orbit.LoadAccount(bot.address())
 	if err != nil {
 		bot.sequence = 0
 		return err

@@ -14,10 +14,10 @@ func (lb *LedgerBundle) Load(db *db.Session) error {
 	// Load Header
 	err := q.LedgerHeaderBySequence(&lb.Header, lb.Sequence)
 	if err != nil {
-		// Remove when Horizon is able to handle gaps in rover-core DB.
+		// Remove when Orbit is able to handle gaps in rover-core DB.
 		// More info: https://github.com/rover/go/issues/335
 		if err == sql.ErrNoRows {
-			return errors.New("Gap detected in rover-core database. Please recreate Horizon DB.")
+			return errors.New("Gap detected in rover-core database. Please recreate Orbit DB.")
 		}
 		return errors.Wrap(err, "failed to load header")
 	}

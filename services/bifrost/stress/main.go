@@ -58,7 +58,7 @@ const (
 // * Once account is funded, create a trustline.
 // * Wait for BTC/ETH payment.
 type Users struct {
-	Horizon           orbit.ClientInterface
+	Orbit           orbit.ClientInterface
 	NetworkPassphrase string
 	UsersPerSecond    int
 	BifrostPorts      []int

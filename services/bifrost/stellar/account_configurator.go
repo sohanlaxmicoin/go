@@ -31,9 +31,9 @@ func (ac *AccountConfigurator) Start() error {
 
 	ac.signerPublicKey = kp.Address()
 
-	root, err := ac.Horizon.Root()
+	root, err := ac.Orbit.Root()
 	if err != nil {
-		err = errors.Wrap(err, "Error loading Horizon root")
+		err = errors.Wrap(err, "Error loading Orbit root")
 		ac.log.Error(err)
 		return err
 	}
@@ -85,7 +85,7 @@ func (ac *AccountConfigurator) ConfigureAccount(destination, assetCode, amount s
 	for {
 		_, exists, err := ac.getAccount(destination)
 		if err != nil {
-			localLog.WithField("err", err).Error("Error loading account from Horizon")
+			localLog.WithField("err", err).Error("Error loading account from Orbit")
 			time.Sleep(2 * time.Second)
 			continue
 		}
@@ -111,7 +111,7 @@ func (ac *AccountConfigurator) ConfigureAccount(destination, assetCode, amount s
 
 	// Wait for trust line to be created...
 	for {
-		account, err := ac.Horizon.LoadAccount(destination)
+		account, err := ac.Orbit.LoadAccount(destination)
 		if err != nil {
 			localLog.WithField("err", err).Error("Error loading account to check trustline")
 			time.Sleep(2 * time.Second)
@@ -152,7 +152,7 @@ func (ac *AccountConfigurator) ConfigureAccount(destination, assetCode, amount s
 
 func (ac *AccountConfigurator) getAccount(account string) (orbit.Account, bool, error) {
 	var hAccount orbit.Account
-	hAccount, err := ac.Horizon.LoadAccount(account)
+	hAccount, err := ac.Orbit.LoadAccount(account)
 	if err != nil {
 		if err, ok := err.(*orbit.Error); ok && err.Response.StatusCode == http.StatusNotFound {
 			return hAccount, false, nil

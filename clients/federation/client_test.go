@@ -124,7 +124,7 @@ func TestLookupByAddress(t *testing.T) {
 
 func TestLookupByID(t *testing.T) {
 	horizonMock := &orbit.MockClient{}
-	client := &Client{Horizon: horizonMock}
+	client := &Client{Orbit: horizonMock}
 
 	horizonMock.On("HomeDomainForAccount", "GASTNVNLHVR3NFO3QACMHCJT3JUSIV4NBXDHDO4VTPDTNN65W3B2766C").
 		Return("", errors.New("homedomain not set"))

@@ -176,7 +176,7 @@ func AssetFromDB(typ xdr.AssetType, code string, issuer string) (result xdr.Asse
 }
 
 // ElderLedger represents the oldest "ingestable" ledger known to the
-// rover-core database this ingestion system is communicating with.  Horizon,
+// rover-core database this ingestion system is communicating with.  Orbit,
 // which wants to operate on a contiguous range of ledger data (i.e. free from
 // gaps) uses the elder ledger to start importing in the case of an empty
 // database.  NOTE:  This current query used is correct, but slow.  Please keep

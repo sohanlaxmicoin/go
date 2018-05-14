@@ -15,14 +15,14 @@ const FederationResponseMaxSize = 100 * 1024
 // DefaultTestNetClient is a default federation client for testnet
 var DefaultTestNetClient = &Client{
 	HTTP:        http.DefaultClient,
-	Horizon:     orbit.DefaultTestNetClient,
+	Orbit:     orbit.DefaultTestNetClient,
 	StellarTOML: stellartoml.DefaultClient,
 }
 
 // DefaultPublicNetClient is a default federation client for pubnet
 var DefaultPublicNetClient = &Client{
 	HTTP:        http.DefaultClient,
-	Horizon:     orbit.DefaultPublicNetClient,
+	Orbit:     orbit.DefaultPublicNetClient,
 	StellarTOML: stellartoml.DefaultClient,
 }
 
@@ -31,7 +31,7 @@ var DefaultPublicNetClient = &Client{
 type Client struct {
 	StellarTOML StellarTOML
 	HTTP        HTTP
-	Horizon     Horizon
+	Orbit     Orbit
 	AllowHTTP   bool
 }
 
@@ -41,9 +41,9 @@ type ClientInterface interface {
 	ForwardRequest(domain string, fields url.Values) (*proto.NameResponse, error)
 }
 
-// Horizon represents a orbit client that can be consulted for data when
+// Orbit represents a orbit client that can be consulted for data when
 // needed as part of the federation protocol
-type Horizon interface {
+type Orbit interface {
 	HomeDomainForAccount(aid string) (string, error)
 }
 

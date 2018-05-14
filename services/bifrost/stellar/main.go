@@ -10,7 +10,7 @@ import (
 // AccountConfigurator is responsible for configuring new Stellar accounts that
 // participate in ICO.
 type AccountConfigurator struct {
-	Horizon           orbit.ClientInterface `inject:""`
+	Orbit           orbit.ClientInterface `inject:""`
 	NetworkPassphrase string
 	IssuerPublicKey   string
 	SignerSecretKey   string

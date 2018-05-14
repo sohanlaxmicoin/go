@@ -3,7 +3,7 @@ title: Response Format
 ---
 
 Rather than using a fully custom way of representing the resources we expose in
-Horizon, we use [HAL](http://stateless.co/hal_specification.html). HAL is a
+Orbit, we use [HAL](http://stateless.co/hal_specification.html). HAL is a
 hypermedia format in JSON that remains simple while giving us a couple of
 benefits such as simpler client integration for several languages. See [this
 wiki page](https://github.com/mikekelly/hal_specification/wiki/Libraries) for a
@@ -49,7 +49,7 @@ links between documents.  Let's look at a simple example:
 
 The above response is for the genesis ledger of the Stellar test network, and
 the links in the `_links` attribute provide links to other relavant resources in
-Horizon.  Notice the object beneath the `transactions` key.  The key of each
+Orbit.  Notice the object beneath the `transactions` key.  The key of each
 link specifies that links relation to the current resource, and in this case
 `transactions` means "Transactions that occurred in this ledger".  Logically,
 you should expect that resource to respond with a collection of transactions
@@ -75,5 +75,5 @@ Read more about paging in following docs:
 
 ## Streaming
 
-Certain endpoints in Horizon can be called in streaming mode using Server-Sent Events. This mode will keep the connection to orbit open and orbit will continue to return responses as ledgers close. All parameters for the endpoints that allow this mode are the same. The way a caller initiates this mode is by setting `Accept: text/event-stream` in the HTTP header when you make the request.
+Certain endpoints in Orbit can be called in streaming mode using Server-Sent Events. This mode will keep the connection to orbit open and orbit will continue to return responses as ledgers close. All parameters for the endpoints that allow this mode are the same. The way a caller initiates this mode is by setting `Accept: text/event-stream` in the HTTP header when you make the request.
 You can read an example of using the streaming mode in the [Follow Received Payments](./tutorials/follow-received-payments.md) tutorial.

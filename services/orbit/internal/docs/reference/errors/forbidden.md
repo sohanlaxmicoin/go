@@ -2,14 +2,14 @@
 title: Forbidden
 ---
 
-If you request data from Horizon you are not authorized to see, Horizon will return a `forbidden` error response. This is analogous to a [HTTP 403
+If you request data from Orbit you are not authorized to see, Orbit will return a `forbidden` error response. This is analogous to a [HTTP 403
 Error][codes].
 
 If you are encountering this error, please check your request and make sure you have permission to receive that data.
 
 ## Attributes
 
-As with all errors Horizon returns, `forbidden` follows the [Problem Details for HTTP APIs](https://tools.ietf.org/html/draft-ietf-appsawg-http-problem-00) draft specification guide and thus has the following attributes:
+As with all errors Orbit returns, `forbidden` follows the [Problem Details for HTTP APIs](https://tools.ietf.org/html/draft-ietf-appsawg-http-problem-00) draft specification guide and thus has the following attributes:
 
 | Attribute | Type   | Description                                                                                                                     |
 | --------- | ----   | ------------------------------------------------------------------------------------------------------------------------------- |

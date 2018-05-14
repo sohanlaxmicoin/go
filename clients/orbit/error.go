@@ -9,7 +9,7 @@ import (
 )
 
 func (herr Error) Error() string {
-	return `Horizon error: "` + herr.Problem.Title + `". Check orbit.Error.Problem for more information.`
+	return `Orbit error: "` + herr.Problem.Title + `". Check orbit.Error.Problem for more information.`
 }
 
 // ToProblem converts the Prolem to a problem.P

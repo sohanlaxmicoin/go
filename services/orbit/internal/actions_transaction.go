@@ -209,7 +209,7 @@ func (action *TransactionCreateAction) loadResource() {
 			Type:   "transaction_malformed",
 			Title:  "Transaction Malformed",
 			Status: http.StatusBadRequest,
-			Detail: "Horizon could not decode the transaction envelope in this " +
+			Detail: "Orbit could not decode the transaction envelope in this " +
 				"request. A transaction should be an XDR TransactionEnvelope struct " +
 				"encoded using base64.  The envelope read from this request is " +
 				"echoed in the `extras.envelope_xdr` field of this response for your " +
