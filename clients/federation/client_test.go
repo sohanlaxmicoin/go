@@ -7,7 +7,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/rover/go/clients/horizon"
+	"github.com/rover/go/clients/orbit"
 	"github.com/rover/go/clients/stellartoml"
 	"github.com/rover/go/support/http/httptest"
 	"github.com/stretchr/testify/assert"
@@ -123,7 +123,7 @@ func TestLookupByAddress(t *testing.T) {
 }
 
 func TestLookupByID(t *testing.T) {
-	horizonMock := &horizon.MockClient{}
+	horizonMock := &orbit.MockClient{}
 	client := &Client{Horizon: horizonMock}
 
 	horizonMock.On("HomeDomainForAccount", "GASTNVNLHVR3NFO3QACMHCJT3JUSIV4NBXDHDO4VTPDTNN65W3B2766C").

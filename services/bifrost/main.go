@@ -15,7 +15,7 @@ import (
 	"github.com/facebookgo/inject"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
-	"github.com/rover/go/clients/horizon"
+	"github.com/rover/go/clients/orbit"
 	"github.com/rover/go/services/bifrost/bitcoin"
 	"github.com/rover/go/services/bifrost/config"
 	"github.com/rover/go/services/bifrost/database"
@@ -128,7 +128,7 @@ This command will create 3 server.Server's listening on ports 8000-8002.`,
 
 		accounts := make(chan server.GenerateAddressResponse)
 		users := stress.Users{
-			Horizon: &horizon.Client{
+			Horizon: &orbit.Client{
 				URL: cfg.Stellar.Horizon,
 				HTTP: &http.Client{
 					Timeout: 60 * time.Second,
@@ -367,7 +367,7 @@ func createServer(cfg config.Config, stressTest bool) *server.Server {
 		stellarAccountConfigurator.StartingBalance = "41"
 	}
 
-	horizonClient := &horizon.Client{
+	horizonClient := &orbit.Client{
 		URL: cfg.Stellar.Horizon,
 		HTTP: &http.Client{
 			Timeout: 20 * time.Second,

@@ -1,4 +1,4 @@
-package horizon
+package orbit
 
 import (
 	"encoding/json"
@@ -9,7 +9,7 @@ import (
 )
 
 func (herr Error) Error() string {
-	return `Horizon error: "` + herr.Problem.Title + `". Check horizon.Error.Problem for more information.`
+	return `Horizon error: "` + herr.Problem.Title + `". Check orbit.Error.Problem for more information.`
 }
 
 // ToProblem converts the Prolem to a problem.P

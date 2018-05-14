@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/rover/go/clients/horizon"
+	"github.com/rover/go/clients/orbit"
 	"github.com/rover/go/clients/stellartoml"
 	proto "github.com/rover/go/protocols/federation"
 )
@@ -15,14 +15,14 @@ const FederationResponseMaxSize = 100 * 1024
 // DefaultTestNetClient is a default federation client for testnet
 var DefaultTestNetClient = &Client{
 	HTTP:        http.DefaultClient,
-	Horizon:     horizon.DefaultTestNetClient,
+	Horizon:     orbit.DefaultTestNetClient,
 	StellarTOML: stellartoml.DefaultClient,
 }
 
 // DefaultPublicNetClient is a default federation client for pubnet
 var DefaultPublicNetClient = &Client{
 	HTTP:        http.DefaultClient,
-	Horizon:     horizon.DefaultPublicNetClient,
+	Horizon:     orbit.DefaultPublicNetClient,
 	StellarTOML: stellartoml.DefaultClient,
 }
 
@@ -41,7 +41,7 @@ type ClientInterface interface {
 	ForwardRequest(domain string, fields url.Values) (*proto.NameResponse, error)
 }
 
-// Horizon represents a horizon client that can be consulted for data when
+// Horizon represents a orbit client that can be consulted for data when
 // needed as part of the federation protocol
 type Horizon interface {
 	HomeDomainForAccount(aid string) (string, error)

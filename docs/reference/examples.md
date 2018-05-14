@@ -16,7 +16,7 @@ import (
 	"fmt"
 
 	b "github.com/rover/go/build"
-	"github.com/rover/go/clients/horizon"
+	"github.com/rover/go/clients/orbit"
 )
 
 func main() {
@@ -29,7 +29,7 @@ func main() {
 	tx, err := b.Transaction(
 		b.SourceAccount{AddressOrSeed: from},
 		b.TestNetwork,
-		b.AutoSequence{SequenceProvider: horizon.DefaultTestNetClient},
+		b.AutoSequence{SequenceProvider: orbit.DefaultTestNetClient},
 		b.Payment(
 			b.Destination{AddressOrSeed: to},
 			b.NativeAmount{Amount: "0.1"},
@@ -54,7 +54,7 @@ func main() {
 }
 ```
 
-The above program will output something similar to `tx base64: AAAAAH0t3PCq/ZCAvioV7ThK3edEcX3PcUrhoc0vngMsqGGWAAAAZAA1fpcAAAABAAAAAAAAAAAAAAABAAAAAAAAAAEAAAAANg+Af8x49GLeB3Un+Qr9ESJJAnsZmqTNpOqM9dTDnhkAAAAAAAAAAAAPQkAAAAAAAAAAASyoYZYAAABA/L7Du9hlYzCtR9F89Mp9/alkCXsq9CWuJ1Mpql+Q16fHE4P2+H62p4cx+b2YUp/fUX73ucW+RPxOgSXmeV6uBQ==`, the transaction blob.  Now we need to submit the transaction to the testnet using a horizon client:
+The above program will output something similar to `tx base64: AAAAAH0t3PCq/ZCAvioV7ThK3edEcX3PcUrhoc0vngMsqGGWAAAAZAA1fpcAAAABAAAAAAAAAAAAAAABAAAAAAAAAAEAAAAANg+Af8x49GLeB3Un+Qr9ESJJAnsZmqTNpOqM9dTDnhkAAAAAAAAAAAAPQkAAAAAAAAAAASyoYZYAAABA/L7Du9hlYzCtR9F89Mp9/alkCXsq9CWuJ1Mpql+Q16fHE4P2+H62p4cx+b2YUp/fUX73ucW+RPxOgSXmeV6uBQ==`, the transaction blob.  Now we need to submit the transaction to the testnet using a orbit client:
 
 
 ```go
@@ -64,13 +64,13 @@ package main
 import (
 	"fmt"
 
-	"github.com/rover/go/clients/horizon"
+	"github.com/rover/go/clients/orbit"
 )
 
 func main() {
 	blob := "AAAAAH0t3PCq/ZCAvioV7ThK3edEcX3PcUrhoc0vngMsqGGWAAAAZAA1fpcAAAABAAAAAAAAAAAAAAABAAAAAAAAAAEAAAAANg+Af8x49GLeB3Un+Qr9ESJJAnsZmqTNpOqM9dTDnhkAAAAAAAAAAAAPQkAAAAAAAAAAASyoYZYAAABA/L7Du9hlYzCtR9F89Mp9/alkCXsq9CWuJ1Mpql+Q16fHE4P2+H62p4cx+b2YUp/fUX73ucW+RPxOgSXmeV6uBQ=="
 
-	resp, err := horizon.DefaultTestNetClient.SubmitTransaction(blob)
+	resp, err := orbit.DefaultTestNetClient.SubmitTransaction(blob)
 	if err != nil {
 		panic(err)
 	}

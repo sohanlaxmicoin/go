@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/rover/go/clients/horizon"
+	"github.com/rover/go/clients/orbit"
 	"github.com/rover/go/keypair"
 	"github.com/rover/go/services/bifrost/common"
 	"github.com/rover/go/support/errors"
@@ -150,11 +150,11 @@ func (ac *AccountConfigurator) ConfigureAccount(destination, assetCode, amount s
 	localLog.Info("Account successully configured")
 }
 
-func (ac *AccountConfigurator) getAccount(account string) (horizon.Account, bool, error) {
-	var hAccount horizon.Account
+func (ac *AccountConfigurator) getAccount(account string) (orbit.Account, bool, error) {
+	var hAccount orbit.Account
 	hAccount, err := ac.Horizon.LoadAccount(account)
 	if err != nil {
-		if err, ok := err.(*horizon.Error); ok && err.Response.StatusCode == http.StatusNotFound {
+		if err, ok := err.(*orbit.Error); ok && err.Response.StatusCode == http.StatusNotFound {
 			return hAccount, false, nil
 		}
 		return hAccount, false, err
@@ -163,7 +163,7 @@ func (ac *AccountConfigurator) getAccount(account string) (horizon.Account, bool
 	return hAccount, true, nil
 }
 
-func (ac *AccountConfigurator) trustlineExists(account horizon.Account, assetCode string) bool {
+func (ac *AccountConfigurator) trustlineExists(account orbit.Account, assetCode string) bool {
 	for _, balance := range account.Balances {
 		if balance.Asset.Issuer == ac.IssuerPublicKey && balance.Asset.Code == assetCode {
 			return true

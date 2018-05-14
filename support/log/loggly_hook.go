@@ -10,7 +10,7 @@ import (
 
 // NewLogglyHook creates a new hook
 func NewLogglyHook(token string) *LogglyHook {
-	client := loggly.New(token, "horizon")
+	client := loggly.New(token, "orbit")
 	host, err := os.Hostname()
 
 	if err != nil {

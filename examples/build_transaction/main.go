@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	b "github.com/rover/go/build"
-	"github.com/rover/go/clients/horizon"
+	"github.com/rover/go/clients/orbit"
 	"github.com/rover/go/network"
 )
 
@@ -20,7 +20,7 @@ func main() {
 	tx, err := b.Transaction(
 		b.Network{passphrase},
 		b.SourceAccount{from},
-		b.AutoSequence{horizon.DefaultTestNetClient},
+		b.AutoSequence{orbit.DefaultTestNetClient},
 		b.Payment(
 			b.Destination{to},
 			b.NativeAmount{"0.1"},

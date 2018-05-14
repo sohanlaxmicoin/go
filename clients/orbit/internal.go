@@ -1,4 +1,4 @@
-package horizon
+package orbit
 
 import (
 	"bytes"
@@ -23,7 +23,7 @@ func decodeResponse(resp *http.Response, object interface{}) (err error) {
 		}
 		decodeError := decoder.Decode(&horizonError.Problem)
 		if decodeError != nil {
-			return errors.Wrap(decodeError, "error decoding horizon.Problem")
+			return errors.Wrap(decodeError, "error decoding orbit.Problem")
 		}
 		return horizonError
 	}

@@ -3,14 +3,14 @@ package stellar
 import (
 	"sync"
 
-	"github.com/rover/go/clients/horizon"
+	"github.com/rover/go/clients/orbit"
 	"github.com/rover/go/support/log"
 )
 
 // AccountConfigurator is responsible for configuring new Stellar accounts that
 // participate in ICO.
 type AccountConfigurator struct {
-	Horizon           horizon.ClientInterface `inject:""`
+	Horizon           orbit.ClientInterface `inject:""`
 	NetworkPassphrase string
 	IssuerPublicKey   string
 	SignerSecretKey   string

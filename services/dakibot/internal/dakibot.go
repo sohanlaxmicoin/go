@@ -6,14 +6,14 @@ import (
 	"sync"
 
 	b "github.com/rover/go/build"
-	"github.com/rover/go/clients/horizon"
+	"github.com/rover/go/clients/orbit"
 	"github.com/rover/go/keypair"
 	"github.com/rover/go/support/errors"
 )
 
 // Bot represents the dakibot subsystem.
 type Bot struct {
-	Horizon         *horizon.Client
+	Horizon         *orbit.Client
 	Secret          string
 	Network         string
 	StartingBalance string
@@ -25,7 +25,7 @@ type Bot struct {
 }
 
 // Pay funds the account at `destAddress`
-func (bot *Bot) Pay(destAddress string) (*horizon.TransactionSuccess, error) {
+func (bot *Bot) Pay(destAddress string) (*orbit.TransactionSuccess, error) {
 	channel := make(chan interface{})
 	shouldReadChannel, result, err := bot.lockedPay(channel, destAddress)
 	if !shouldReadChannel {
@@ -34,7 +34,7 @@ func (bot *Bot) Pay(destAddress string) (*horizon.TransactionSuccess, error) {
 
 	v := <-channel
 	switch tv := v.(type) {
-	case horizon.TransactionSuccess:
+	case orbit.TransactionSuccess:
 		return &tv, nil
 	case error:
 		return nil, tv
@@ -43,7 +43,7 @@ func (bot *Bot) Pay(destAddress string) (*horizon.TransactionSuccess, error) {
 	}
 }
 
-func (bot *Bot) lockedPay(channel chan interface{}, destAddress string) (bool, *horizon.TransactionSuccess, error) {
+func (bot *Bot) lockedPay(channel chan interface{}, destAddress string) (bool, *orbit.TransactionSuccess, error) {
 	bot.lock.Lock()
 	defer bot.lock.Unlock()
 
@@ -65,7 +65,7 @@ func (bot *Bot) asyncSubmitTransaction(channel chan interface{}, signed string) 
 	result, err := bot.Horizon.SubmitTransaction(signed)
 	if err != nil {
 		switch e := err.(type) {
-		case *horizon.Error:
+		case *orbit.Error:
 			bot.checkHandleBadSequence(e)
 		}
 
@@ -75,7 +75,7 @@ func (bot *Bot) asyncSubmitTransaction(channel chan interface{}, signed string) 
 	}
 }
 
-func (bot *Bot) checkHandleBadSequence(err *horizon.Error) {
+func (bot *Bot) checkHandleBadSequence(err *orbit.Error) {
 	resCode, e := err.ResultCodes()
 	isTxBadSeqCode := e == nil && resCode.TransactionCode == "tx_bad_seq"
 	if !isTxBadSeqCode {

@@ -1,4 +1,4 @@
-package horizon
+package orbit
 
 import (
 	"bufio"
@@ -31,7 +31,7 @@ func (c *Client) fixURL() {
 	c.URL = strings.TrimRight(c.URL, "/")
 }
 
-// Root loads the root endpoint of horizon
+// Root loads the root endpoint of orbit
 func (c *Client) Root() (root Root, err error) {
 	c.fixURLOnce.Do(c.fixURL)
 	resp, err := c.HTTP.Get(c.URL)
@@ -43,8 +43,8 @@ func (c *Client) Root() (root Root, err error) {
 	return
 }
 
-// LoadAccount loads the account state from horizon. err can be either error
-// object or horizon.Error object.
+// LoadAccount loads the account state from orbit. err can be either error
+// object or orbit.Error object.
 func (c *Client) LoadAccount(accountID string) (account Account, err error) {
 	c.fixURLOnce.Do(c.fixURL)
 	resp, err := c.HTTP.Get(c.URL + "/accounts/" + accountID)
@@ -56,8 +56,8 @@ func (c *Client) LoadAccount(accountID string) (account Account, err error) {
 	return
 }
 
-// LoadAccountOffers loads the account offers from horizon. err can be either
-// error object or horizon.Error object.
+// LoadAccountOffers loads the account offers from orbit. err can be either
+// error object or orbit.Error object.
 func (c *Client) LoadAccountOffers(accountID string, params ...interface{}) (offers OffersPage, err error) {
 	c.fixURLOnce.Do(c.fixURL)
 	endpoint := ""
@@ -303,7 +303,7 @@ func (c *Client) StreamTransactions(ctx context.Context, accountID string, curso
 	})
 }
 
-// SubmitTransaction submits a transaction to the network. err can be either error object or horizon.Error object.
+// SubmitTransaction submits a transaction to the network. err can be either error object or orbit.Error object.
 func (c *Client) SubmitTransaction(transactionEnvelopeXdr string) (response TransactionSuccess, err error) {
 	c.fixURLOnce.Do(c.fixURL)
 	v := url.Values{}

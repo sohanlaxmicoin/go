@@ -4,7 +4,7 @@ import (
 	"strconv"
 
 	"github.com/rover/go/build"
-	"github.com/rover/go/clients/horizon"
+	"github.com/rover/go/clients/orbit"
 	"github.com/rover/go/support/errors"
 	"github.com/rover/go/support/log"
 )
@@ -79,7 +79,7 @@ func (ac *AccountConfigurator) submitTransaction(mutators ...build.TransactionMu
 	_, err = ac.Horizon.SubmitTransaction(tx)
 	if err != nil {
 		fields := log.F{"err": err}
-		if err, ok := err.(*horizon.Error); ok {
+		if err, ok := err.(*orbit.Error); ok {
 			fields["result"] = string(err.Problem.Extras["result_xdr"])
 			ac.updateSequence()
 		}

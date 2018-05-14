@@ -65,7 +65,7 @@ https://bifrost.stellar.org/
   * `token_asset_code` - asset code for the token that will be distributed
   * `issuer_public_key` - public key of the assets issuer or hot wallet,
   * `signer_secret_key` - issuer's secret key if only one instance of Bifrost is deployed OR [channel](https://www.stellar.org/developers/guides/channels.html)'s secret key if more than one instance of Bifrost is deployed. Signer's sequence number will be consumed in transaction's sequence number.
-  * `horizon` - URL to [horizon](https://github.com/rover/go/tree/master/services/horizon) server
+  * `orbit` - URL to [orbit](https://github.com/rover/go/tree/master/services/orbit) server
   * `network_passphrase` - Stellar network passphrase (`Public Global Stellar Network ; September 2015` for production network, `Rover Testnet ; April 2018` for test network)
   * `starting_balance` - Stellar XLM amount issued to created account (41 by default)
 * `database`
@@ -94,12 +94,12 @@ Here's the proposed architecture diagram of high-availability deployment:
 * Check if public master key correct. Use CLI tool (`bifrost check-keys`) to generate a few addresses and ensure you have corresponding private keys! You should probably send test transactions to some of these addresses and check if you can withdraw funds.
 * Make sure `using_proxy` variable is set to correct value. Otherwise you will see your proxy IP instead of users' IPs in logs.
 * Make sure you're not connecting to testnets.
-* Deploy at least 2 bifrost, bitcoin-core, geth, stellar-core and horizon servers. Use multi-AZ database.
-* Do not use SDF's horizon servers. There is no SLA and we cannot guarantee it will handle your load.
+* Deploy at least 2 bifrost, bitcoin-core, geth, stellar-core and orbit servers. Use multi-AZ database.
+* Do not use SDF's orbit servers. There is no SLA and we cannot guarantee it will handle your load.
 * Make sure bifrost <-> bitcoin-core and bifrost <-> geth connections are not public or are encrypted (mitm attacks).
 * It's a good idea to set "Authorization required" and "Authorization revocable" [flags](https://www.stellar.org/developers/guides/concepts/accounts.html#flags) on issuing account during ICO stage to remove trustlines to accounts with lost keys. You need to set `stellar.needs_authorize` in config to `true` if you want to use this feature.
 * Monitor bifrost logs and react to all WARN and ERROR entries.
 * Make sure you are using geth >= 1.7.1 and bitcoin-core >= 0.15.0.
-* Increase horizon rate limiting to handle expected load.
+* Increase orbit rate limiting to handle expected load.
 * Make sure you configured minimum accepted value for Bitcoin and Ethereum transactions to the value you really want.
 * Make sure you start from a fresh Bifrost DB in production. If Bifrost was running, you stopped bitcoin-core or geth and then started it again then all the Bitcoin and Ethereum blocks mined during that period will be processed which can take a lot of time.

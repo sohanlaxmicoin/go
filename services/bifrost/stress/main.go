@@ -7,7 +7,7 @@ import (
 	"github.com/btcsuite/btcd/chaincfg/chainhash"
 	"github.com/btcsuite/btcd/wire"
 	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/rover/go/clients/horizon"
+	"github.com/rover/go/clients/orbit"
 	"github.com/rover/go/support/log"
 )
 
@@ -58,7 +58,7 @@ const (
 // * Once account is funded, create a trustline.
 // * Wait for BTC/ETH payment.
 type Users struct {
-	Horizon           horizon.ClientInterface
+	Horizon           orbit.ClientInterface
 	NetworkPassphrase string
 	UsersPerSecond    int
 	BifrostPorts      []int

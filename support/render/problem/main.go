@@ -45,7 +45,7 @@ func Inflate(p *P) {
 	//TODO: add requesting url to extra info
 
 	//TODO: make this prefix configurable
-	p.Type = "https://stellar.org/horizon-errors/" + p.Type
+	p.Type = "https://stellar.org/orbit-errors/" + p.Type
 
 	p.Instance = ""
 }
@@ -122,7 +122,7 @@ var ServerError = P{
 	Detail: "An error occurred while processing this request.  This is usually due " +
 		"to a bug within the server software.  Trying this request again may " +
 		"succeed if the bug is transient, otherwise please report this issue " +
-		"to the issue tracker at: https://github.com/rover/go/services/horizon/internal/issues." +
+		"to the issue tracker at: https://github.com/rover/go/services/orbit/internal/issues." +
 		" Please include this response in your issue.",
 }
 

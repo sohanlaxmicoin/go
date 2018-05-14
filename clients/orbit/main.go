@@ -1,10 +1,10 @@
-// Package horizon provides client access to a horizon server, allowing an
+// Package orbit provides client access to a orbit server, allowing an
 // application to post transactions and lookup ledger information.
 //
 // Create an instance of `Client` to customize the server used, or alternatively
 // use `DefaultTestNetClient` or `DefaultPublicNetClient` to access the SDF run
-// horizon servers.
-package horizon
+// orbit servers.
+package orbit
 
 import (
 	"context"
@@ -18,18 +18,18 @@ import (
 
 // DefaultTestNetClient is a default client to connect to test network
 var DefaultTestNetClient = &Client{
-	URL:  "https://horizon-testnet.stellar.org",
+	URL:  "https://orbit-testnet.stellar.org",
 	HTTP: http.DefaultClient,
 }
 
 // DefaultPublicNetClient is a default client to connect to public network
 var DefaultPublicNetClient = &Client{
-	URL:  "https://horizon.stellar.org",
+	URL:  "https://orbit.stellar.org",
 	HTTP: http.DefaultClient,
 }
 
 // At is a paging parameter that can be used to override the URL loaded in a
-// remote method call to horizon.
+// remote method call to orbit.
 type At string
 
 // Cursor represents `cursor` param in queries
@@ -88,7 +88,7 @@ type Error struct {
 	Problem  Problem
 }
 
-// HTTP represents the HTTP client that a horizon client uses to communicate
+// HTTP represents the HTTP client that a orbit client uses to communicate
 type HTTP interface {
 	Do(req *http.Request) (resp *http.Response, err error)
 	Get(url string) (resp *http.Response, err error)
@@ -104,8 +104,8 @@ type PaymentHandler func(Payment)
 // TransactionHandler is a function that is called when a new transaction is received
 type TransactionHandler func(Transaction)
 
-// ensure that the horizon client can be used as a SequenceProvider
+// ensure that the orbit client can be used as a SequenceProvider
 var _ build.SequenceProvider = &Client{}
 
-// ensure that the horizon client implements ClientInterface
+// ensure that the orbit client implements ClientInterface
 var _ ClientInterface = &Client{}

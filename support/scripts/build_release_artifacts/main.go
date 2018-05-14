@@ -207,7 +207,7 @@ func buildSnapshots() {
 // extractFromTag extracts the name of the binary that should be packaged in the
 // course of execution this script as well as the version it should be packaged
 // as, based on the name of the tag in the TRAVIS_TAG environment variable.
-// Tags must be of the form `NAME-vSEMVER`, such as `horizon-v1.0.0` to be
+// Tags must be of the form `NAME-vSEMVER`, such as `orbit-v1.0.0` to be
 // matched by this function.
 //
 // In the event that the TRAVIS_TAG is missing or the match fails, an empty

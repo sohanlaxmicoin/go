@@ -13,7 +13,7 @@ import (
 	"time"
 
 	"github.com/rover/go/build"
-	"github.com/rover/go/clients/horizon"
+	"github.com/rover/go/clients/orbit"
 	"github.com/rover/go/keypair"
 	"github.com/rover/go/services/bifrost/common"
 	"github.com/rover/go/services/bifrost/server"
@@ -25,7 +25,7 @@ func (u *Users) Start(accounts chan<- server.GenerateAddressResponse) {
 	u.users = map[string]*User{}
 
 	go func() {
-		cursor := horizon.Cursor("now")
+		cursor := orbit.Cursor("now")
 		err := u.Horizon.StreamPayments(context.Background(), u.IssuerPublicKey, &cursor, u.onNewPayment)
 		if err != nil {
 			panic(err)
@@ -56,7 +56,7 @@ func (u *Users) Start(accounts chan<- server.GenerateAddressResponse) {
 	}
 }
 
-func (u *Users) onNewPayment(payment horizon.Payment) {
+func (u *Users) onNewPayment(payment orbit.Payment) {
 	var destination string
 
 	switch payment.Type {
@@ -239,7 +239,7 @@ func (u *Users) newUser(kp *keypair.Full) server.GenerateAddressResponse {
 
 		_, err = u.Horizon.SubmitTransaction(txeB64)
 		if err != nil {
-			if herr, ok := err.(*horizon.Error); ok {
+			if herr, ok := err.(*orbit.Error); ok {
 				fmt.Println(herr.Problem)
 			}
 			panic(err)
@@ -280,11 +280,11 @@ func (u *Users) updateUserState(publicKey string, state UserState) {
 	user.State = state
 }
 
-func (u *Users) getAccount(account string) (horizon.Account, bool, error) {
-	var hAccount horizon.Account
+func (u *Users) getAccount(account string) (orbit.Account, bool, error) {
+	var hAccount orbit.Account
 	hAccount, err := u.Horizon.LoadAccount(account)
 	if err != nil {
-		if err, ok := err.(*horizon.Error); ok && err.Response.StatusCode == http.StatusNotFound {
+		if err, ok := err.(*orbit.Error); ok && err.Response.StatusCode == http.StatusNotFound {
 			return hAccount, false, nil
 		}
 		return hAccount, false, err

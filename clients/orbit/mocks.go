@@ -1,4 +1,4 @@
-package horizon
+package orbit
 
 import (
 	"context"
@@ -6,7 +6,7 @@ import (
 	"github.com/stretchr/testify/mock"
 )
 
-// MockClient is a mockable horizon client.
+// MockClient is a mockable orbit client.
 type MockClient struct {
 	mock.Mock
 }

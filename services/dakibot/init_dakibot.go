@@ -3,7 +3,7 @@ package main
 import (
 	"net/http"
 
-	"github.com/rover/go/clients/horizon"
+	"github.com/rover/go/clients/orbit"
 	"github.com/rover/go/services/dakibot/internal"
 	"github.com/rover/go/strkey"
 )
@@ -18,7 +18,7 @@ func initDakibot(dakibotSecret string, networkPassphrase string, horizonURL stri
 
 	return &internal.Bot{
 		Secret: dakibotSecret,
-		Horizon: &horizon.Client{
+		Horizon: &orbit.Client{
 			URL:  horizonURL,
 			HTTP: http.DefaultClient,
 		},
