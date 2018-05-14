@@ -4,8 +4,8 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/stellar/go/services/orbit/internal/codes"
-	"github.com/stellar/go/xdr"
+	"github.com/rover/go/services/orbit/internal/codes"
+	"github.com/rover/go/xdr"
 )
 
 var (

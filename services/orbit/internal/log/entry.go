@@ -2,7 +2,7 @@ package log
 
 import (
 	"github.com/sirupsen/logrus"
-	"github.com/stellar/go/services/orbit/internal/errors"
+	"github.com/rover/go/services/orbit/internal/errors"
 )
 
 type Entry struct {

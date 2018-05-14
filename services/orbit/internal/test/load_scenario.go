@@ -1,7 +1,7 @@
 package test
 
 import (
-	"github.com/stellar/go/services/orbit/internal/test/scenarios"
+	"github.com/rover/go/services/orbit/internal/test/scenarios"
 )
 
 func loadScenario(scenarioName string, includeHorizon bool) {

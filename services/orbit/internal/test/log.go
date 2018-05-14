@@ -2,7 +2,7 @@ package test
 
 import (
 	"github.com/sirupsen/logrus"
-	"github.com/stellar/go/services/orbit/internal/log"
+	"github.com/rover/go/services/orbit/internal/log"
 )
 
 var testLogger *log.Entry

@@ -10,13 +10,13 @@ import (
 	"github.com/go-chi/chi/middleware"
 	"github.com/rs/cors"
 	"github.com/spf13/cobra"
-	"github.com/stellar/go/handlers/federation"
-	"github.com/stellar/go/support/app"
-	"github.com/stellar/go/support/config"
-	"github.com/stellar/go/support/db"
-	"github.com/stellar/go/support/errors"
-	"github.com/stellar/go/support/http"
-	"github.com/stellar/go/support/log"
+	"github.com/rover/go/handlers/federation"
+	"github.com/rover/go/support/app"
+	"github.com/rover/go/support/config"
+	"github.com/rover/go/support/db"
+	"github.com/rover/go/support/errors"
+	"github.com/rover/go/support/http"
+	"github.com/rover/go/support/log"
 )
 
 // Config represents the configuration of a federation server

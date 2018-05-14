@@ -1,4 +1,4 @@
-# This scenario attempts to emulate the scenario that gave rise to https://github.com/stellar/horizon/issues/310
+# This scenario attempts to emulate the scenario that gave rise to https://github.com/rover/horizon/issues/310
 
 run_recipe File.dirname(__FILE__) + "/_common_accounts.rb"
 

@@ -8,7 +8,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/stellar/go/support/log"
+	"github.com/rover/go/support/log"
 )
 
 // HeartbeatDelay represents the amount of time a stream will wait before sending a new heartbeat

@@ -3,7 +3,7 @@ package resource
 import (
 	"context"
 
-	"github.com/stellar/go/services/horizon/internal/txsub"
+	"github.com/rover/go/services/horizon/internal/txsub"
 )
 
 // Populate fills out the details

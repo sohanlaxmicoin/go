@@ -1,6 +1,6 @@
 # stellar-hd-wallet
 
-Console tool to generate Stellar HD wallet for a given seed. Implements [SEP-0005](https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0005.md).
+Console tool to generate Stellar HD wallet for a given seed. Implements [SEP-0005](https://github.com/rover/stellar-protocol/blob/master/ecosystem/sep-0005.md).
 
 This is experimental software. Use at your own risk.
 

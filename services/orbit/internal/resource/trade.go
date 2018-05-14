@@ -4,10 +4,10 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/stellar/go/amount"
-	"github.com/stellar/go/services/orbit/internal/db2/history"
-	"github.com/stellar/go/services/orbit/internal/httpx"
-	"github.com/stellar/go/services/orbit/internal/render/hal"
+	"github.com/rover/go/amount"
+	"github.com/rover/go/services/orbit/internal/db2/history"
+	"github.com/rover/go/services/orbit/internal/httpx"
+	"github.com/rover/go/services/orbit/internal/render/hal"
 )
 
 // Populate fills out the details of a trade using a row from the history_trades

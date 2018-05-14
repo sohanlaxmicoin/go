@@ -1,4 +1,4 @@
-package: github.com/stellar/go
+package: github.com/rover/go
 import:
 - package: github.com/howeyc/gopass
   version: bf9dde6d0d2c004a008c27aaee91170c786f6db8
@@ -56,7 +56,7 @@ import:
   version: e355964ac565b94cf0fc7f218346626529125086
   repo: https://github.com/goji/goji
 - package: github.com/asaskevich/govalidator
-  repo: https://github.com/stellar/govalidator.git
+  repo: https://github.com/rover/govalidator.git
 - package: github.com/BurntSushi/toml
   version: 99064174e013895bbd9b025c31100bd1d9b590ca
   repo: https://github.com/BurntSushi/toml

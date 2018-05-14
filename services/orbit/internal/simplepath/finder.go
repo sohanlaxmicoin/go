@@ -2,9 +2,9 @@ package simplepath
 
 import (
 	"github.com/go-errors/errors"
-	"github.com/stellar/go/services/orbit/internal/db2/core"
-	"github.com/stellar/go/services/orbit/internal/log"
-	"github.com/stellar/go/services/orbit/internal/paths"
+	"github.com/rover/go/services/orbit/internal/db2/core"
+	"github.com/rover/go/services/orbit/internal/log"
+	"github.com/rover/go/services/orbit/internal/paths"
 )
 
 // Finder implements the paths.Finder interface and searchs for

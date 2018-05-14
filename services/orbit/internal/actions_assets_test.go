@@ -3,9 +3,9 @@ package orbit
 import (
 	"testing"
 
-	"github.com/stellar/go/services/orbit/internal/resource"
-	"github.com/stellar/go/services/orbit/internal/resource/base"
-	"github.com/stellar/go/services/orbit/internal/render/hal"
+	"github.com/rover/go/services/orbit/internal/resource"
+	"github.com/rover/go/services/orbit/internal/resource/base"
+	"github.com/rover/go/services/orbit/internal/render/hal"
 )
 
 func TestAssetsActions(t *testing.T) {

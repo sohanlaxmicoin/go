@@ -3,10 +3,10 @@ package resource
 import (
 	"context"
 
-	"github.com/stellar/go/amount"
-	"github.com/stellar/go/services/horizon/internal/db2/assets"
-	"github.com/stellar/go/services/horizon/internal/render/hal"
-	"github.com/stellar/go/xdr"
+	"github.com/rover/go/amount"
+	"github.com/rover/go/services/horizon/internal/db2/assets"
+	"github.com/rover/go/services/horizon/internal/render/hal"
+	"github.com/rover/go/xdr"
 )
 
 // Populate fills out the details

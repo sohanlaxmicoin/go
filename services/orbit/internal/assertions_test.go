@@ -6,9 +6,9 @@ import (
 
 	"net/url"
 
-	hProblem "github.com/stellar/go/services/orbit/internal/render/problem"
-	"github.com/stellar/go/services/orbit/internal/test"
-	"github.com/stellar/go/support/render/problem"
+	hProblem "github.com/rover/go/services/orbit/internal/render/problem"
+	"github.com/rover/go/services/orbit/internal/test"
+	"github.com/rover/go/support/render/problem"
 	"github.com/stretchr/testify/assert"
 )
 

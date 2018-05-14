@@ -5,10 +5,10 @@ import (
 	"strconv"
 	"sync"
 
-	b "github.com/stellar/go/build"
-	"github.com/stellar/go/clients/horizon"
-	"github.com/stellar/go/keypair"
-	"github.com/stellar/go/support/errors"
+	b "github.com/rover/go/build"
+	"github.com/rover/go/clients/horizon"
+	"github.com/rover/go/keypair"
+	"github.com/rover/go/support/errors"
 )
 
 // Bot represents the friendbot subsystem.

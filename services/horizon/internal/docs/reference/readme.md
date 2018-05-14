@@ -2,7 +2,7 @@
 title: Overview
 ---
 
-Horizon is an API server for the Stellar ecosystem.  It acts as the interface between [stellar-core](https://github.com/stellar/stellar-core) and applications that want to access the Stellar network. It allows you to submit transactions to the network, check the status of accounts, subscribe to event streams, etc. See [an overview of the Stellar ecosystem](https://www.stellar.org/developers/guides/) for details of where Horizon fits in. You can also watch a [talk on Horizon](https://www.youtube.com/watch?v=AtJ-f6Ih4A4) by Stellar.org developer Scott Fleckenstein:
+Horizon is an API server for the Stellar ecosystem.  It acts as the interface between [stellar-core](https://github.com/rover/stellar-core) and applications that want to access the Stellar network. It allows you to submit transactions to the network, check the status of accounts, subscribe to event streams, etc. See [an overview of the Stellar ecosystem](https://www.stellar.org/developers/guides/) for details of where Horizon fits in. You can also watch a [talk on Horizon](https://www.youtube.com/watch?v=AtJ-f6Ih4A4) by Stellar.org developer Scott Fleckenstein:
 
 [![Horizon: API webserver for the Stellar network](https://img.youtube.com/vi/AtJ-f6Ih4A4/sddefault.jpg "Horizon: API webserver for the Stellar network")](https://www.youtube.com/watch?v=AtJ-f6Ih4A4)
 
@@ -15,11 +15,11 @@ SDF runs a instance of Horizon that is connected to the test net: [https://horiz
 ## Libraries
 
 SDF maintained libraries:<br />
-- [JavaScript](https://github.com/stellar/js-stellar-sdk)
-- [Java](https://github.com/stellar/java-stellar-sdk)
-- [Go](https://github.com/stellar/go)
+- [JavaScript](https://github.com/rover/js-stellar-sdk)
+- [Java](https://github.com/rover/java-stellar-sdk)
+- [Go](https://github.com/rover/go)
 
 Community maintained libraries (in various states of completeness) for interacting with Horizon in other languages:<br>
-- [Ruby](https://github.com/stellar/ruby-stellar-sdk)
+- [Ruby](https://github.com/rover/ruby-stellar-sdk)
 - [Python](https://github.com/StellarCN/py-stellar-base)
 - [C#](https://github.com/QuantozTechnology/csharp-stellar-base)

@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"testing"
 
-	"github.com/stellar/go/services/orbit/internal/test"
+	"github.com/rover/go/services/orbit/internal/test"
 )
 
 func TestTransactionQueries(t *testing.T) {

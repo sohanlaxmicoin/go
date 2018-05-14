@@ -18,11 +18,11 @@ It solves many problems connected to moving tokens to Stellar network:
 
 We are releasing the **alpha version** of this software. We encourage our community of developers to test and improve it.
 
-Download the binary from [the release page](https://github.com/stellar/go/releases/tag/bifrost-v0.0.1) and use it with it's [Bifrost JS SDK](https://github.com/stellar/bifrost-js-sdk).
+Download the binary from [the release page](https://github.com/rover/go/releases/tag/bifrost-v0.0.1) and use it with it's [Bifrost JS SDK](https://github.com/rover/bifrost-js-sdk).
 
 ## How it works
 
-1. User opens the web app implemented using [Bifrost JS SDK](https://github.com/stellar/bifrost-js-sdk).
+1. User opens the web app implemented using [Bifrost JS SDK](https://github.com/rover/bifrost-js-sdk).
 1. User is presented with her public and private Stellar keys where Bitcoin/Ethereum will be sent.
 1. User selects what cryptocurrency she wants to move to Stellar network.
 1. A receiving Bitcoin/Ethereum address is generated.
@@ -65,7 +65,7 @@ https://bifrost.stellar.org/
   * `token_asset_code` - asset code for the token that will be distributed
   * `issuer_public_key` - public key of the assets issuer or hot wallet,
   * `signer_secret_key` - issuer's secret key if only one instance of Bifrost is deployed OR [channel](https://www.stellar.org/developers/guides/channels.html)'s secret key if more than one instance of Bifrost is deployed. Signer's sequence number will be consumed in transaction's sequence number.
-  * `horizon` - URL to [horizon](https://github.com/stellar/go/tree/master/services/horizon) server
+  * `horizon` - URL to [horizon](https://github.com/rover/go/tree/master/services/horizon) server
   * `network_passphrase` - Stellar network passphrase (`Public Global Stellar Network ; September 2015` for production network, `Test SDF Network ; September 2015` for test network)
   * `starting_balance` - Stellar XLM amount issued to created account (41 by default)
 * `database`

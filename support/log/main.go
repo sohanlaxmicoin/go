@@ -8,7 +8,7 @@ import (
 
 	"github.com/segmentio/go-loggly"
 	"github.com/sirupsen/logrus"
-	"github.com/stellar/go/support/http/mutil"
+	"github.com/rover/go/support/http/mutil"
 )
 
 // DefaultLogger represents the default logger that is not bound to any specific

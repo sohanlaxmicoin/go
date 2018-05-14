@@ -11,8 +11,8 @@ import (
 	"goji.io/pat"
 
 	"github.com/sirupsen/logrus"
-	serr "github.com/stellar/go/support/errors"
-	"github.com/stellar/go/support/http/httptest"
+	serr "github.com/rover/go/support/errors"
+	"github.com/rover/go/support/http/httptest"
 	"github.com/stretchr/testify/assert"
 )
 

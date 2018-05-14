@@ -22,4 +22,4 @@ into a byte stream, then decode the XDR into an in-memory data structure.
 
 Data structures in XDR are specified in an _interface definition file_ (IDL).
 The IDL files used for the Stellar Network are available
-[on GitHub](https://github.com/stellar/stellar-core/tree/master/src/xdr).
+[on GitHub](https://github.com/rover/stellar-core/tree/master/src/xdr).

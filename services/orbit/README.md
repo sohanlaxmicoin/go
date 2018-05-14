@@ -1,19 +1,19 @@
 # Horizon
-[![Build Status](https://travis-ci.org/stellar/orbit.svg?branch=master)](https://travis-ci.org/stellar/orbit)
+[![Build Status](https://travis-ci.org/rover/orbit.svg?branch=master)](https://travis-ci.org/rover/orbit)
 
 Horizon is the [client facing API](/docs) server for the Stellar ecosystem.  It acts as the interface between rover-core and applications that want to access the Stellar network. It allows you to submit transactions to the network, check the status of accounts, subscribe to event streams, etc. See [an overview of the Stellar ecosystem](https://www.stellar.org/developers/guides/get-started/) for more details.
 
 ## Downloading the server
-[Prebuilt binaries](https://github.com/stellar/go/releases) of orbit are available on the 
-[releases page](https://github.com/stellar/go/releases).
+[Prebuilt binaries](https://github.com/rover/go/releases) of orbit are available on the 
+[releases page](https://github.com/rover/go/releases).
 
-See [the old releases page](https://github.com/stellar/orbit/releases) for prior releases
+See [the old releases page](https://github.com/rover/orbit/releases) for prior releases
 
 | Platform       | Binary file name                                                                         |
 |----------------|------------------------------------------------------------------------------------------|
-| Mac OSX 64 bit | [orbit-darwin-amd64](https://github.com/stellar/go/releases/download/orbit-v0.12.0-testing/orbit-v0.12.0-testing-darwin-amd64.tar.gz)      |
-| Linux 64 bit   | [orbit-linux-amd64](https://github.com/stellar/go/releases/download/orbit-v0.12.0-testing/orbit-v0.12.0-testing-linux-amd64.tar.gz)       |
-| Windows 64 bit | [orbit-windows-amd64.exe](https://github.com/stellar/go/releases/download/orbit-v0.12.0-testing/orbit-v0.12.0-testing-windows-amd64.zip) |
+| Mac OSX 64 bit | [orbit-darwin-amd64](https://github.com/rover/go/releases/download/orbit-v0.12.0-testing/orbit-v0.12.0-testing-darwin-amd64.tar.gz)      |
+| Linux 64 bit   | [orbit-linux-amd64](https://github.com/rover/go/releases/download/orbit-v0.12.0-testing/orbit-v0.12.0-testing-linux-amd64.tar.gz)       |
+| Windows 64 bit | [orbit-windows-amd64.exe](https://github.com/rover/go/releases/download/orbit-v0.12.0-testing/orbit-v0.12.0-testing-windows-amd64.zip) |
 
 Alternatively, you can [build](#building) the binary yourself.
 
@@ -39,7 +39,7 @@ Next, you must download the source for packages that orbit depends upon. From wi
 glide install
 ```
 
-Then, simply run `go install github.com/stellar/go/services/orbit`.  After successful
+Then, simply run `go install github.com/rover/go/services/orbit`.  After successful
 completion, you should find `orbit` is present in your `$GOPATH/bin` directory.
 
 More detailed intructions and [admin guide](internal/docs/reference/admin.md). 

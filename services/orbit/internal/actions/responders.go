@@ -1,6 +1,6 @@
 package actions
 
-import "github.com/stellar/go/services/orbit/internal/render/sse"
+import "github.com/rover/go/services/orbit/internal/render/sse"
 
 // JSON implementors can respond to a request whose response type was negotiated
 // to be MimeHal or MimeJSON.

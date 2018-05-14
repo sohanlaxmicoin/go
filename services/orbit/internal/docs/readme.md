@@ -11,12 +11,12 @@ SDF runs a instance of Horizon that is connected to the test net [https://orbit-
 ## Libraries
 
 SDF maintained libraries:<br />
-- [JavaScript](https://github.com/stellar/js-rover-sdk)
-- [Java](https://github.com/stellar/java-rover-sdk)
-- [Go](https://github.com/stellar/go)
+- [JavaScript](https://github.com/rover/js-rover-sdk)
+- [Java](https://github.com/rover/java-rover-sdk)
+- [Go](https://github.com/rover/go)
 
 Community maintained libraries (in various states of completeness) for interacting with Horizon in other languages:<br>
-- [Ruby](https://github.com/stellar/ruby-rover-sdk)
+- [Ruby](https://github.com/rover/ruby-rover-sdk)
 - [Python](https://github.com/StellarCN/py-rover-base)
 - [C# .NET 2.0](https://github.com/QuantozTechnology/csharp-rover-base)
 - [C# .NET Core 2.x](https://github.com/elucidsoft/dotnetcore-rover-sdk)

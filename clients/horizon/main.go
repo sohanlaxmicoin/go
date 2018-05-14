@@ -12,8 +12,8 @@ import (
 	"net/url"
 	"sync"
 
-	"github.com/stellar/go/build"
-	"github.com/stellar/go/support/errors"
+	"github.com/rover/go/build"
+	"github.com/rover/go/support/errors"
 )
 
 // DefaultTestNetClient is a default client to connect to test network

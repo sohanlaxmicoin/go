@@ -1,8 +1,8 @@
 package ingest
 
 import (
-	"github.com/stellar/go/services/orbit/internal/db2/history"
-	"github.com/stellar/go/xdr"
+	"github.com/rover/go/services/orbit/internal/db2/history"
+	"github.com/rover/go/xdr"
 )
 
 // Add writes an effect to the database while automatically tracking the index

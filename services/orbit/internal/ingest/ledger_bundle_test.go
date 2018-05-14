@@ -3,7 +3,7 @@ package ingest
 import (
 	"testing"
 
-	"github.com/stellar/go/services/orbit/internal/test"
+	"github.com/rover/go/services/orbit/internal/test"
 )
 
 func TestLedgerBundleLoad(t *testing.T) {

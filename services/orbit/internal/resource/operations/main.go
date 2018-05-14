@@ -4,10 +4,10 @@ import (
 	"context"
 	"time"
 
-	"github.com/stellar/go/services/orbit/internal/db2/history"
-	"github.com/stellar/go/services/orbit/internal/render/hal"
-	"github.com/stellar/go/services/orbit/internal/resource/base"
-	"github.com/stellar/go/xdr"
+	"github.com/rover/go/services/orbit/internal/db2/history"
+	"github.com/rover/go/services/orbit/internal/render/hal"
+	"github.com/rover/go/services/orbit/internal/resource/base"
+	"github.com/rover/go/xdr"
 )
 
 // TypeNames maps from operation type to the string used to represent that type

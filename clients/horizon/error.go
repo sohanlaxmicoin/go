@@ -3,9 +3,9 @@ package horizon
 import (
 	"encoding/json"
 
-	"github.com/stellar/go/support/errors"
-	"github.com/stellar/go/support/render/problem"
-	"github.com/stellar/go/xdr"
+	"github.com/rover/go/support/errors"
+	"github.com/rover/go/support/render/problem"
+	"github.com/rover/go/xdr"
 )
 
 func (herr Error) Error() string {

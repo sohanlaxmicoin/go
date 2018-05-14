@@ -39,7 +39,7 @@ This release is a bug fix release for v0.12.0.  *Please see the upgrade notes be
 
 ### Bug fixes
 
-- Fixed an issue caused by un-migrated trade rows. (https://github.com/stellar/go/issues/357)
+- Fixed an issue caused by un-migrated trade rows. (https://github.com/rover/go/issues/357)
 - Command line flags are now useable for subcommands of orbit.
 
 
@@ -66,7 +66,7 @@ Since this release changes both the schema and the data ingestion system, we rec
 ### Bug fixes
 
 - Ingestion performance and stability has been improved. 
-- Changes to an account's inflation destination no longer produce erroneous "signer_updated" effects. (https://github.com/stellar/orbit/issues/390)
+- Changes to an account's inflation destination no longer produce erroneous "signer_updated" effects. (https://github.com/rover/orbit/issues/390)
 
 
 ### Changed
@@ -89,7 +89,7 @@ Since this release changes both the schema and the data ingestion system, we rec
 - The ingestion system can now properly import envelopes that contain signatures that are zero-length strings.
 - BREAKING CHANGE: specifying a `limit` of `0` now triggers an error instead of interpreting the value to mean "use the default limit".
 - Requests that ask for more records than the maximum page size now trigger a bad request error, instead of an internal server error.
-- Upstream bug fixes to xdr decoding from `github.com/stellar/go`.
+- Upstream bug fixes to xdr decoding from `github.com/rover/go`.
 
 ### Changed
 
@@ -260,20 +260,20 @@ This release contains the initial implementation of the "Abridged History System
 ### Added
 - Github releases are created from tagged travis builds automatically
 
-[v0.11.0]: https://github.com/stellar/orbit/compare/v0.10.1...v0.11.0
-[v0.10.1]: https://github.com/stellar/orbit/compare/v0.10.0...v0.10.1
-[v0.10.0]: https://github.com/stellar/orbit/compare/v0.9.1...v0.10.0
-[v0.9.1]: https://github.com/stellar/orbit/compare/v0.9.0...v0.9.1
-[v0.9.0]: https://github.com/stellar/orbit/compare/v0.8.0...v0.9.0
-[v0.8.0]: https://github.com/stellar/orbit/compare/v0.7.1...v0.8.0
-[v0.7.1]: https://github.com/stellar/orbit/compare/v0.7.0...v0.7.1
-[v0.7.0]: https://github.com/stellar/orbit/compare/v0.6.2...v0.7.0
-[v0.6.2]: https://github.com/stellar/orbit/compare/v0.6.1...v0.6.2
-[v0.6.1]: https://github.com/stellar/orbit/compare/v0.6.0...v0.6.1
-[v0.6.0]: https://github.com/stellar/orbit/compare/v0.5.1...v0.6.0
-[v0.5.1]: https://github.com/stellar/orbit/compare/v0.5.0...v0.5.1
-[v0.5.0]: https://github.com/stellar/orbit/compare/v0.4.0...v0.5.0
-[v0.4.0]: https://github.com/stellar/orbit/compare/v0.3.0...v0.4.0
-[v0.3.0]: https://github.com/stellar/orbit/compare/v0.2.0...v0.3.0
-[v0.2.0]: https://github.com/stellar/orbit/compare/v0.1.1...v0.2.0
-[v0.1.1]: https://github.com/stellar/orbit/compare/v0.1.0...v0.1.1
+[v0.11.0]: https://github.com/rover/orbit/compare/v0.10.1...v0.11.0
+[v0.10.1]: https://github.com/rover/orbit/compare/v0.10.0...v0.10.1
+[v0.10.0]: https://github.com/rover/orbit/compare/v0.9.1...v0.10.0
+[v0.9.1]: https://github.com/rover/orbit/compare/v0.9.0...v0.9.1
+[v0.9.0]: https://github.com/rover/orbit/compare/v0.8.0...v0.9.0
+[v0.8.0]: https://github.com/rover/orbit/compare/v0.7.1...v0.8.0
+[v0.7.1]: https://github.com/rover/orbit/compare/v0.7.0...v0.7.1
+[v0.7.0]: https://github.com/rover/orbit/compare/v0.6.2...v0.7.0
+[v0.6.2]: https://github.com/rover/orbit/compare/v0.6.1...v0.6.2
+[v0.6.1]: https://github.com/rover/orbit/compare/v0.6.0...v0.6.1
+[v0.6.0]: https://github.com/rover/orbit/compare/v0.5.1...v0.6.0
+[v0.5.1]: https://github.com/rover/orbit/compare/v0.5.0...v0.5.1
+[v0.5.0]: https://github.com/rover/orbit/compare/v0.4.0...v0.5.0
+[v0.4.0]: https://github.com/rover/orbit/compare/v0.3.0...v0.4.0
+[v0.3.0]: https://github.com/rover/orbit/compare/v0.2.0...v0.3.0
+[v0.2.0]: https://github.com/rover/orbit/compare/v0.1.1...v0.2.0
+[v0.1.1]: https://github.com/rover/orbit/compare/v0.1.0...v0.1.1

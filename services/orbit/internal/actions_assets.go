@@ -3,11 +3,11 @@ package orbit
 import (
 	"fmt"
 
-	"github.com/stellar/go/services/orbit/internal/db2"
-	"github.com/stellar/go/services/orbit/internal/db2/assets"
-	"github.com/stellar/go/services/orbit/internal/render/hal"
-	"github.com/stellar/go/services/orbit/internal/resource"
-	halRender "github.com/stellar/go/support/render/hal"
+	"github.com/rover/go/services/orbit/internal/db2"
+	"github.com/rover/go/services/orbit/internal/db2/assets"
+	"github.com/rover/go/services/orbit/internal/render/hal"
+	"github.com/rover/go/services/orbit/internal/resource"
+	halRender "github.com/rover/go/support/render/hal"
 )
 
 // This file contains the actions:

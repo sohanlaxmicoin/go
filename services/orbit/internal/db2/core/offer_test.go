@@ -3,8 +3,8 @@ package core
 import (
 	"testing"
 
-	"github.com/stellar/go/services/orbit/internal/db2"
-	"github.com/stellar/go/services/orbit/internal/test"
+	"github.com/rover/go/services/orbit/internal/db2"
+	"github.com/rover/go/services/orbit/internal/test"
 )
 
 func TestOffersByAddress(t *testing.T) {

@@ -3,9 +3,9 @@ package resource
 import (
 	"context"
 
-	"github.com/stellar/go/services/orbit/internal/httpx"
-	"github.com/stellar/go/services/orbit/internal/render/hal"
-	"github.com/stellar/go/services/orbit/internal/txsub"
+	"github.com/rover/go/services/orbit/internal/httpx"
+	"github.com/rover/go/services/orbit/internal/render/hal"
+	"github.com/rover/go/services/orbit/internal/txsub"
 )
 
 // Populate fills out the details

@@ -3,12 +3,12 @@ package orbit
 import (
 	"net/http"
 
-	"github.com/stellar/go/services/orbit/internal/db2/core"
-	"github.com/stellar/go/services/orbit/internal/render/sse"
-	"github.com/stellar/go/services/orbit/internal/resource"
-	"github.com/stellar/go/support/render/hal"
-	"github.com/stellar/go/support/render/problem"
-	"github.com/stellar/go/xdr"
+	"github.com/rover/go/services/orbit/internal/db2/core"
+	"github.com/rover/go/services/orbit/internal/render/sse"
+	"github.com/rover/go/services/orbit/internal/resource"
+	"github.com/rover/go/support/render/hal"
+	"github.com/rover/go/support/render/problem"
+	"github.com/rover/go/xdr"
 )
 
 // OrderBookShowAction renders a account summary found by its address.

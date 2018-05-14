@@ -5,9 +5,9 @@ import (
 	"math/big"
 
 	sq "github.com/Masterminds/squirrel"
-	"github.com/stellar/go/services/orbit/internal/assets"
-	"github.com/stellar/go/services/orbit/internal/db2/core"
-	"github.com/stellar/go/xdr"
+	"github.com/rover/go/services/orbit/internal/assets"
+	"github.com/rover/go/services/orbit/internal/db2/core"
+	"github.com/rover/go/xdr"
 )
 
 // ErrNotEnough represents an error that occurs when pricing a trade on an

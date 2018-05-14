@@ -11,8 +11,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/stellar/go/support/errors"
-	"github.com/stellar/go/xdr"
+	"github.com/rover/go/support/errors"
+	"github.com/rover/go/xdr"
 )
 
 // HomeDomainForAccount returns the home domain for the provided strkey-encoded

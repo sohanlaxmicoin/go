@@ -4,9 +4,9 @@ import (
 	"time"
 	"context"
 
-	"github.com/stellar/go/services/horizon/internal/db2/history"
-	"github.com/stellar/go/services/horizon/internal/render/hal"
-	"github.com/stellar/go/services/horizon/internal/resource/base"
+	"github.com/rover/go/services/horizon/internal/db2/history"
+	"github.com/rover/go/services/horizon/internal/render/hal"
+	"github.com/rover/go/services/horizon/internal/resource/base"
 )
 
 var TypeNames = map[history.EffectType]string{

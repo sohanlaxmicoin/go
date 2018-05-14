@@ -3,7 +3,7 @@ title: Follow Received Payments
 ---
 
 This tutorial shows how easy it is to use Horizon to watch for incoming payments on an [account](../../reference/resources/account.md)
-using JavaScript and `EventSource`.  We will eschew using [`js-stellar-sdk`](https://github.com/stellar/js-stellar-sdk), the
+using JavaScript and `EventSource`.  We will eschew using [`js-stellar-sdk`](https://github.com/rover/js-stellar-sdk), the
 high-level helper library, to show that it is possible for you to perform this
 task on your own, with whatever programming language you would like to use.
 
@@ -130,7 +130,7 @@ Every time you receive a new payment you will get a new row of data. Payments is
 ## Following payments using `EventStream`
 
 > **Warning!** `EventSource` object does not reconnect for certain error types so it can stop working.
-> If you need a reliable streaming connection please use our [SDK](https://github.com/stellar/js-stellar-sdk).
+> If you need a reliable streaming connection please use our [SDK](https://github.com/rover/js-stellar-sdk).
 
 Another way to follow payments is writing a simple JS script that will stream payments and print them to console. Create `stream_payments.js` file and paste the following code into it:
 

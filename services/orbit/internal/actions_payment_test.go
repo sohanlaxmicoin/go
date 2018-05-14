@@ -4,8 +4,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stellar/go/services/orbit/internal/db2/history"
-	"github.com/stellar/go/services/orbit/internal/resource/operations"
+	"github.com/rover/go/services/orbit/internal/db2/history"
+	"github.com/rover/go/services/orbit/internal/resource/operations"
 )
 
 func TestPaymentActions(t *testing.T) {

@@ -3,7 +3,7 @@ package orbit
 import (
 	"log"
 
-	"github.com/stellar/go/services/orbit/internal/ingest"
+	"github.com/rover/go/services/orbit/internal/ingest"
 )
 
 func initIngester(app *App) {

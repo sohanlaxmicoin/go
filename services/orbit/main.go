@@ -8,8 +8,8 @@ import (
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-	"github.com/stellar/go/services/orbit/internal"
-	hlog "github.com/stellar/go/services/orbit/internal/log"
+	"github.com/rover/go/services/orbit/internal"
+	hlog "github.com/rover/go/services/orbit/internal/log"
 )
 
 var app *orbit.App

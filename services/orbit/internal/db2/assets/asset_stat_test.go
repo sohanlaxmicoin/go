@@ -4,9 +4,9 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/stellar/go/services/orbit/internal/db2"
-	"github.com/stellar/go/services/orbit/internal/db2/history"
-	"github.com/stellar/go/services/orbit/internal/test"
+	"github.com/rover/go/services/orbit/internal/db2"
+	"github.com/rover/go/services/orbit/internal/db2/history"
+	"github.com/rover/go/services/orbit/internal/test"
 )
 
 func TestAssetsStatsQExec(t *testing.T) {

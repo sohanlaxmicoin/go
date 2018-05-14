@@ -7,9 +7,9 @@ import (
 	"time"
 
 	"github.com/guregu/null"
-	"github.com/stellar/go/services/horizon/internal/db2/history"
-	"github.com/stellar/go/services/horizon/internal/httpx"
-	"github.com/stellar/go/services/horizon/internal/render/hal"
+	"github.com/rover/go/services/horizon/internal/db2/history"
+	"github.com/rover/go/services/horizon/internal/httpx"
+	"github.com/rover/go/services/horizon/internal/render/hal"
 )
 
 // Populate fills out the details

@@ -8,8 +8,8 @@ import (
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
-	"github.com/stellar/go/support/errors"
-	"github.com/stellar/go/support/http/httptest"
+	"github.com/rover/go/support/errors"
+	"github.com/rover/go/support/http/httptest"
 )
 
 func ExampleClient_StreamLedgers() {
@@ -58,7 +58,7 @@ func ExampleClient_SubmitTransaction() {
 
 func TestHorizon(t *testing.T) {
 	RegisterFailHandler(Fail)
-	RunSpecs(t, "Package: github.com/stellar/go/horizon")
+	RunSpecs(t, "Package: github.com/rover/go/horizon")
 }
 
 var _ = Describe("Horizon", func() {

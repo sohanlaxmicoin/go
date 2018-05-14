@@ -2,7 +2,7 @@ package orbit
 
 import (
 	"github.com/getsentry/raven-go"
-	"github.com/stellar/go/services/orbit/internal/log"
+	"github.com/rover/go/services/orbit/internal/log"
 )
 
 // initLog initialized the logging subsystem, attaching app.log and

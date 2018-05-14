@@ -8,9 +8,9 @@ import (
 
 	"github.com/bartekn/go-bip39"
 	"github.com/spf13/cobra"
-	"github.com/stellar/go/exp/crypto/derivation"
-	"github.com/stellar/go/keypair"
-	"github.com/stellar/go/support/errors"
+	"github.com/rover/go/exp/crypto/derivation"
+	"github.com/rover/go/keypair"
+	"github.com/rover/go/support/errors"
 )
 
 var wordsRegexp = regexp.MustCompile(`^[a-z]+$`)

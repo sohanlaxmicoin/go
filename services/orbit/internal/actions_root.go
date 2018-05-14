@@ -1,9 +1,9 @@
 package orbit
 
 import (
-	"github.com/stellar/go/services/orbit/internal/ledger"
-	"github.com/stellar/go/services/orbit/internal/resource"
-	"github.com/stellar/go/support/render/hal"
+	"github.com/rover/go/services/orbit/internal/ledger"
+	"github.com/rover/go/services/orbit/internal/resource"
+	"github.com/rover/go/support/render/hal"
 )
 
 // RootAction provides a summary of the orbit instance and links to various

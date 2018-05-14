@@ -1,7 +1,7 @@
 # Stellar Go 
-[![Build Status](https://travis-ci.org/stellar/go.svg?branch=master)](https://travis-ci.org/stellar/go) 
-[![GoDoc](https://godoc.org/github.com/stellar/go?status.svg)](https://godoc.org/github.com/stellar/go)
-[![Go Report Card](https://goreportcard.com/badge/github.com/stellar/go)](https://goreportcard.com/report/github.com/stellar/go)
+[![Build Status](https://travis-ci.org/rover/go.svg?branch=master)](https://travis-ci.org/rover/go) 
+[![GoDoc](https://godoc.org/github.com/rover/go?status.svg)](https://godoc.org/github.com/rover/go)
+[![Go Report Card](https://goreportcard.com/badge/github.com/rover/go)](https://goreportcard.com/report/github.com/rover/go)
 
 This repo is the home for all of the public go code produced by SDF.  In addition to various tools and services, this repository is the SDK from which you may develop your own applications that integrate with the stellar network.
 
@@ -11,7 +11,7 @@ This repo is the home for all of the public go code produced by SDF.  In additio
 
 This repository depends upon a [number of external dependencies](./glide.yaml), and we use [Glide](https://glide.sh/) to manage them.  Glide is used to populate the [vendor directory](http://glide.readthedocs.io/en/latest/vendor/), ensuring that builds are reproducible even as upstream dependencies are changed. Please see the [Glide](http://glide.sh/) website for installation instructions.
 
-You can use Glide yourself in your project and add stellar go as a vendor'd dependency, or you can just drop this repos as `$GOPATH/src/github.com/stellar/go` to import it the canonical way (you still need to run `glide install`).
+You can use Glide yourself in your project and add stellar go as a vendor'd dependency, or you can just drop this repos as `$GOPATH/src/github.com/rover/go` to import it the canonical way (you still need to run `glide install`).
 
 When creating this project, we had to decide whether or not we committed our external dependencies to the repo.  We decided that we would not, by default, do so.  This lets us avoid the diff churn associated with updating dependencies while allowing an acceptable path to get reproducible builds.  To do so, simply install glide and run `glide install` in your checkout of the code.  We realize this is a judgement call; Please feel free to open an issue if you would like to make a case that we change this policy.
 
@@ -32,7 +32,7 @@ Each of these directories have their own README file that explain further the na
 
 ### Other packages
 
-In addition to the packages described above, this repository contains various packages related to working with the Stellar network from a go program.  It's recommended that you use [godoc](https://godoc.org/github.com/stellar/go#pkg-subdirectories) to browse the documentation for each.
+In addition to the packages described above, this repository contains various packages related to working with the Stellar network from a go program.  It's recommended that you use [godoc](https://godoc.org/github.com/rover/go#pkg-subdirectories) to browse the documentation for each.
 
 
 ## Package source layout

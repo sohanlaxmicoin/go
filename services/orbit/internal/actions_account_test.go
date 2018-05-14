@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"testing"
 
-	"github.com/stellar/go/services/orbit/internal/resource"
+	"github.com/rover/go/services/orbit/internal/resource"
 )
 
 func TestAccountActions_Show(t *testing.T) {

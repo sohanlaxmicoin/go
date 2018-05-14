@@ -6,7 +6,7 @@ import (
 
 	"github.com/PuerkitoBio/throttled"
 	. "github.com/smartystreets/goconvey/convey"
-	"github.com/stellar/go/services/orbit/internal/test"
+	"github.com/rover/go/services/orbit/internal/test"
 )
 
 func TestRateLimitMiddleware(t *testing.T) {

@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"testing"
 
-	"github.com/stellar/go/services/orbit/internal/resource"
-	"github.com/stellar/go/services/orbit/internal/test"
+	"github.com/rover/go/services/orbit/internal/resource"
+	"github.com/rover/go/services/orbit/internal/test"
 )
 
 func TestRootAction(t *testing.T) {

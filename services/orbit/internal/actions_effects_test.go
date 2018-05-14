@@ -3,9 +3,9 @@ package orbit
 import (
 	"testing"
 
-	"github.com/stellar/go/services/orbit/internal/db2/history"
-	"github.com/stellar/go/services/orbit/internal/resource/effects"
-	"github.com/stellar/go/services/orbit/internal/test"
+	"github.com/rover/go/services/orbit/internal/db2/history"
+	"github.com/rover/go/services/orbit/internal/resource/effects"
+	"github.com/rover/go/services/orbit/internal/test"
 )
 
 func TestEffectActions_Index(t *testing.T) {
@@ -20,7 +20,7 @@ func TestEffectActions_Index(t *testing.T) {
 			ht.Assert.PageOf(11, w.Body)
 		}
 
-		// test streaming, regression for https://github.com/stellar/go/services/orbit/internal/issues/147
+		// test streaming, regression for https://github.com/rover/go/services/orbit/internal/issues/147
 		w = ht.Get("/effects?limit=2", test.RequestHelperStreaming)
 		ht.Assert.Equal(200, w.Code)
 

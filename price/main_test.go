@@ -3,8 +3,8 @@ package price_test
 import (
 	"testing"
 
-	"github.com/stellar/go/price"
-	"github.com/stellar/go/xdr"
+	"github.com/rover/go/price"
+	"github.com/rover/go/xdr"
 	"github.com/stretchr/testify/assert"
 )
 

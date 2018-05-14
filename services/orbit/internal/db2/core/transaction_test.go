@@ -3,8 +3,8 @@ package core
 import (
 	"testing"
 
-	"github.com/stellar/go/services/orbit/internal/test"
-	"github.com/stellar/go/xdr"
+	"github.com/rover/go/services/orbit/internal/test"
+	"github.com/rover/go/xdr"
 )
 
 func TestTransactionsQueries(t *testing.T) {
@@ -52,7 +52,7 @@ func TestSignatures(t *testing.T) {
 
 	var tx Transaction
 
-	// https://github.com/stellar/rover-core/issues/1225
+	// https://github.com/rover/rover-core/issues/1225
 	xdr.SafeUnmarshalBase64("AAAAAMIK9djC7k75ziKOLJcvMAIBG7tnBuoeI34x+Pi6zqcZAAAAZAAZphYAAAABAAAAAAAAAAAAAAABAAAAAAAAAAEAAAAAynnCTTyw53VVRLOWX6XKTva63IM1LslPNW01YB0hz/8AAAAAAAAAAlQL5AAAAAAAAAAAAh0hz/8AAABA8qkkeKaKfsbgInyIkzXJhqJE5/Ufxri2LdxmyKkgkT6I3sPmvrs5cPWQSzEQyhV750IW2ds97xTHqTpOfuZCAnhSuFUAAAAA", &tx.Envelope)
 
 	signatures := tx.Base64Signatures()

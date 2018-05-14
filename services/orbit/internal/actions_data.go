@@ -1,9 +1,9 @@
 package orbit
 
 import (
-	"github.com/stellar/go/services/orbit/internal/db2/core"
-	"github.com/stellar/go/support/render/hal"
-	"github.com/stellar/go/services/orbit/internal/render/sse"
+	"github.com/rover/go/services/orbit/internal/db2/core"
+	"github.com/rover/go/support/render/hal"
+	"github.com/rover/go/services/orbit/internal/render/sse"
 )
 
 // DataShowAction renders a account summary found by its address.

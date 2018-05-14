@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/stellar/go/services/horizon/internal/db2/history"
-	"github.com/stellar/go/services/horizon/internal/httpx"
-	"github.com/stellar/go/services/horizon/internal/render/hal"
+	"github.com/rover/go/services/horizon/internal/db2/history"
+	"github.com/rover/go/services/horizon/internal/httpx"
+	"github.com/rover/go/services/horizon/internal/render/hal"
 )
 
 // PagingToken implements hal.Pageable

@@ -5,9 +5,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stellar/go/services/orbit/internal/db2/history"
-	"github.com/stellar/go/services/orbit/internal/resource/operations"
-	"github.com/stellar/go/services/orbit/internal/test"
+	"github.com/rover/go/services/orbit/internal/db2/history"
+	"github.com/rover/go/services/orbit/internal/resource/operations"
+	"github.com/rover/go/services/orbit/internal/test"
 )
 
 func TestOperationActions_Index(t *testing.T) {

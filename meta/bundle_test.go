@@ -1,11 +1,11 @@
 package meta_test
 
 import (
-	. "github.com/stellar/go/meta"
+	. "github.com/rover/go/meta"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
-	"github.com/stellar/go/xdr"
+	"github.com/rover/go/xdr"
 )
 
 var _ = Describe("meta.Bundle", func() {

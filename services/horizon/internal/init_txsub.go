@@ -3,11 +3,11 @@ package horizon
 import (
 	"net/http"
 
-	"github.com/stellar/go/services/horizon/internal/db2/core"
-	"github.com/stellar/go/services/horizon/internal/db2/history"
-	"github.com/stellar/go/services/horizon/internal/txsub"
-	results "github.com/stellar/go/services/horizon/internal/txsub/results/db"
-	"github.com/stellar/go/services/horizon/internal/txsub/sequence"
+	"github.com/rover/go/services/horizon/internal/db2/core"
+	"github.com/rover/go/services/horizon/internal/db2/history"
+	"github.com/rover/go/services/horizon/internal/txsub"
+	results "github.com/rover/go/services/horizon/internal/txsub/results/db"
+	"github.com/rover/go/services/horizon/internal/txsub/sequence"
 )
 
 func initSubmissionSystem(app *App) {

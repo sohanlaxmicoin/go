@@ -3,8 +3,8 @@ package resource
 import (
 	"context"
 
-	"github.com/stellar/go/services/horizon/internal/db2/core"
-	"github.com/stellar/go/xdr"
+	"github.com/rover/go/services/horizon/internal/db2/core"
+	"github.com/rover/go/xdr"
 )
 
 func (this *OrderBookSummary) Populate(

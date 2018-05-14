@@ -6,7 +6,7 @@ import (
 	"text/template"
 
 	"github.com/go-errors/errors"
-	"github.com/stellar/go/xdr"
+	"github.com/rover/go/xdr"
 )
 
 type orderbookQueryBuilder struct {
