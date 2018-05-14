@@ -1,5 +1,5 @@
 // Package test contains simple test helpers that should not
-// have any dependencies on horizon's packages.  think constants,
+// have any dependencies on orbit's packages.  think constants,
 // custom matchers, generic helpers etc.
 package test
 
@@ -24,7 +24,7 @@ type StaticMockServer struct {
 	LastRequest *http.Request
 }
 
-// T provides a common set of functionality for each test in horizon
+// T provides a common set of functionality for each test in orbit
 type T struct {
 	T          *testing.T
 	Assert     *assert.Assertions
@@ -44,7 +44,7 @@ func Context() context.Context {
 	return hlog.Set(context.Background(), testLogger)
 }
 
-// Database returns a connection to the horizon test database
+// Database returns a connection to the orbit test database
 //
 // DEPRECATED:  use `Horizon()` from test/db package
 func Database(t *testing.T) *sqlx.DB {
@@ -52,7 +52,7 @@ func Database(t *testing.T) *sqlx.DB {
 }
 
 // DatabaseURL returns the database connection the url any test
-// use when connecting to the history/horizon database
+// use when connecting to the history/orbit database
 //
 // DEPRECATED:  use `HorizonURL()` from test/db package
 func DatabaseURL() string {
@@ -72,7 +72,7 @@ func LoadScenarioWithoutHorizon(scenarioName string) {
 	loadScenario(scenarioName, false)
 }
 
-// OverrideLogger sets the default logger used by horizon to `l`.  This is used
+// OverrideLogger sets the default logger used by orbit to `l`.  This is used
 // by the testing system so that we can collect output from logs during test
 // runs.  Panics if the logger is already overridden.
 func OverrideLogger(l *hlog.Entry) {
@@ -84,7 +84,7 @@ func OverrideLogger(l *hlog.Entry) {
 	hlog.DefaultLogger = l
 }
 
-// RestoreLogger restores the default horizon logger after it is overridden
+// RestoreLogger restores the default orbit logger after it is overridden
 // using a call to `OverrideLogger`.  Panics if the default logger is not
 // presently overridden.
 func RestoreLogger() {

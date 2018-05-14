@@ -1,5 +1,5 @@
 // Package history contains database record definitions useable for
-// reading rows from a the history portion of horizon's database
+// reading rows from a the history portion of orbit's database
 package history
 
 import (
@@ -214,7 +214,7 @@ type OperationsQ struct {
 }
 
 // Q is a helper struct on which to hang common_trades queries against a history
-// portion of the horizon database.
+// portion of the orbit database.
 type Q struct {
 	*db.Session
 }

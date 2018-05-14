@@ -35,7 +35,7 @@ In addition, the following additional data is provided in the `extras` field of 
 ## Example
 ```json
 {
-  "type":     "https://stellar.org/horizon-errors/transaction_failed",
+  "type":     "https://stellar.org/orbit-errors/transaction_failed",
   "title":    "Transaction Failed",
   "status":   400,
   "details":  "...",

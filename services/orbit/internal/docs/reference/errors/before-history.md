@@ -2,7 +2,7 @@
 title: Before History
 ---
 
-A horizon server may be configured to only keep a portion of the stellar network's history stored within its database.  This error will be returned when a client requests a piece of information (such as a page of transactions or a single operation) that the server can positively identify as falling outside the range of recorded history.
+A orbit server may be configured to only keep a portion of the stellar network's history stored within its database.  This error will be returned when a client requests a piece of information (such as a page of transactions or a single operation) that the server can positively identify as falling outside the range of recorded history.
 
 ## Attributes
 
@@ -19,13 +19,13 @@ As with all errors Horizon returns, `before_history` follows the [Problem Detail
 ## Example
 
 ```shell
-$ curl -X GET "https://horizon-testnet.stellar.org/transactions?cursor=1&order=desc"
+$ curl -X GET "https://orbit-testnet.stellar.org/transactions?cursor=1&order=desc"
 {
   "type": "before_history",
   "title": "Data Requested Is Before Recorded History",
   "status": 410,
-  "detail": "This horizon instance is configured to only track a portion of the stellar network's latest history. This request is asking for results prior to the recorded history known to this horizon instance.",
-  "instance": "horizon-testnet-001.prd.stellar001.internal.stellar-ops.com/ngUFNhn76T-078058"
+  "detail": "This orbit instance is configured to only track a portion of the stellar network's latest history. This request is asking for results prior to the recorded history known to this orbit instance.",
+  "instance": "orbit-testnet-001.prd.stellar001.internal.stellar-ops.com/ngUFNhn76T-078058"
 }
 ```
 

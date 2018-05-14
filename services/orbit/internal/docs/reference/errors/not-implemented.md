@@ -22,13 +22,13 @@ As with all errors Horizon returns, `not_implemented` follows the [Problem Detai
 ## Examples
 
 ```shell
-$ curl -X GET "https://horizon-testnet.stellar.org/ledgers/200/effects"
+$ curl -X GET "https://orbit-testnet.stellar.org/ledgers/200/effects"
 {
   "type": "not_implemented",
   "title": "Resource Not Yet Implemented",
   "status": 404,
   "detail": "While the requested URL is expected to eventually point to a valid resource, the work to implement the resource has not yet been completed.",
-  "instance": "horizon-testnet-001.prd.stellar001.internal.stellar-ops.com/hCYL7oezXs-141917"
+  "instance": "orbit-testnet-001.prd.stellar001.internal.stellar-ops.com/hCYL7oezXs-141917"
 }
 ```
 

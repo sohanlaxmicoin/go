@@ -6,10 +6,10 @@ import (
 
 func loadScenario(scenarioName string, includeHorizon bool) {
 	stellarCorePath := scenarioName + "-core.sql"
-	horizonPath := scenarioName + "-horizon.sql"
+	horizonPath := scenarioName + "-orbit.sql"
 
 	if !includeHorizon {
-		horizonPath = "blank-horizon.sql"
+		horizonPath = "blank-orbit.sql"
 	}
 
 	scenarios.Load(StellarCoreDatabaseURL(), stellarCorePath)

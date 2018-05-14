@@ -1,5 +1,5 @@
 // Package sqx contains utilities and extensions for the squirrel package which
-// is used by horizon to generate sql statements.
+// is used by orbit to generate sql statements.
 package sqx
 
 import (

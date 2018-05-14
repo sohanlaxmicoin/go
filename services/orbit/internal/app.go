@@ -1,4 +1,4 @@
-package horizon
+package orbit
 
 import (
 	"context"
@@ -27,7 +27,7 @@ import (
 	graceful "gopkg.in/tylerb/graceful.v1"
 )
 
-// App represents the root of the state of a horizon instance.
+// App represents the root of the state of a orbit instance.
 type App struct {
 	config            Config
 	web               *Web
@@ -67,7 +67,7 @@ func NewApp(config Config) (*App, error) {
 	return result, nil
 }
 
-// Serve starts the horizon web server, binding it to a socket, setting up
+// Serve starts the orbit web server, binding it to a socket, setting up
 // the shutdown signals.
 func (a *App) Serve() {
 
@@ -92,7 +92,7 @@ func (a *App) Serve() {
 
 	http2.ConfigureServer(srv.Server, nil)
 
-	log.Infof("Starting horizon on %s (ingest: %v)", addr, a.config.Ingest)
+	log.Infof("Starting orbit on %s (ingest: %v)", addr, a.config.Ingest)
 
 	go a.run()
 
@@ -120,12 +120,12 @@ func (a *App) Close() {
 }
 
 // HistoryQ returns a helper object for performing sql queries against the
-// history portion of horizon's database.
+// history portion of orbit's database.
 func (a *App) HistoryQ() *history.Q {
 	return a.historyQ
 }
 
-// HorizonSession returns a new session that loads data from the horizon
+// HorizonSession returns a new session that loads data from the orbit
 // database. The returned session is bound to `ctx`.
 func (a *App) HorizonSession(ctx context.Context) *db.Session {
 	return &db.Session{DB: a.historyQ.Session.DB, Ctx: ctx}
@@ -231,7 +231,7 @@ func (a *App) DeleteUnretainedHistory() error {
 	return a.reaper.DeleteUnretainedHistory()
 }
 
-// Tick triggers horizon to update all of it's background processes such as
+// Tick triggers orbit to update all of it's background processes such as
 // transaction submission, metrics, ingestion and reaping.
 func (a *App) Tick() {
 	var wg sync.WaitGroup

@@ -30,7 +30,7 @@ GET /assets{?asset_code,asset_issuer,cursor,limit,order}
 
 ```sh
 # Retrieve the 200 newest assets, ordered chronologically:
-curl "https://horizon-testnet.stellar.org/assets?limit=200&order=desc"
+curl "https://orbit-testnet.stellar.org/assets?limit=200&order=desc"
 ```
 
 ## Response

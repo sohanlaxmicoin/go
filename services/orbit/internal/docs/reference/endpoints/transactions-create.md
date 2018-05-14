@@ -11,15 +11,15 @@ responsibility of your client library.
 Transaction submission and the subsequent validation and inclusion into the
 Stellar Network's ledger is a [complicated and asynchronous
 process](https://www.stellar.org/developers/learn/concepts/transactions.html#life-cycle).
-To reduce the complexity, horizon manages these asynchronous processes for the
+To reduce the complexity, orbit manages these asynchronous processes for the
 client and will wait to hear results from the Stellar Network before returning
 an HTTP response to a client.
 
-Transaction submission to horizon aims to be
+Transaction submission to orbit aims to be
 [idempotent](https://en.wikipedia.org/wiki/Idempotence#Computer_science_meaning):
-a client can submit a given transaction to horizon more than once and horizon
+a client can submit a given transaction to orbit more than once and orbit
 will behave the same each time.  If the transaction has already been
-successfully applied to the ledger, horizon will simply return the saved result
+successfully applied to the ledger, orbit will simply return the saved result
 and not attempt to submit the transaction again. Only in cases where a
 transaction's status is unknown (and thus will have a chance of being included
 into a ledger) will a resubmission to the network occur.
@@ -44,7 +44,7 @@ POST /transactions
 ```sh
 curl -X POST \
      -F "tx=AAAAAOo1QK/3upA74NLkdq4Io3DQAQZPi4TVhuDnvCYQTKIVAAAACgAAH8AAAAABAAAAAAAAAAAAAAABAAAAAQAAAADqNUCv97qQO+DS5HauCKNw0AEGT4uE1Ybg57wmEEyiFQAAAAEAAAAAZc2EuuEa2W1PAKmaqVquHuzUMHaEiRs//+ODOfgWiz8AAAAAAAAAAAAAA+gAAAAAAAAAARBMohUAAABAPnnZL8uPlS+c/AM02r4EbxnZuXmP6pQHvSGmxdOb0SzyfDB2jUKjDtL+NC7zcMIyw4NjTa9Ebp4lvONEf4yDBA==" \
-  "https://horizon-testnet.stellar.org/transactions"
+  "https://orbit-testnet.stellar.org/transactions"
 ```
 
 ## Response

@@ -24,12 +24,12 @@ As with all errors Horizon returns, `not_acceptable` follows the [Problem Detail
 ## Example
 
 ```bash
-$ curl -X GET -H "Accept: application/xml" "https://horizon-testnet.stellar.org/accounts/GALWEV6GY73RJ255JC7XUOZ2L7WZ5JJDTKATB2MUK7F3S67DVT2A6R5G"
+$ curl -X GET -H "Accept: application/xml" "https://orbit-testnet.stellar.org/accounts/GALWEV6GY73RJ255JC7XUOZ2L7WZ5JJDTKATB2MUK7F3S67DVT2A6R5G"
 {
   "type": "not_acceptable",
   "title": "An acceptable response content-type could not be provided for this request",
   "status": 406,
-  "instance": "horizon-testnet-001.prd.stellar001.internal.stellar-ops.com/hCYL7oezXs-062662"
+  "instance": "orbit-testnet-001.prd.stellar001.internal.stellar-ops.com/hCYL7oezXs-062662"
 }
 ```
 

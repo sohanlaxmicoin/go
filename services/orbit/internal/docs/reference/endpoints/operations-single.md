@@ -21,14 +21,14 @@ GET /operations/{id}
 ### curl Example Request
 
 ```sh
-curl https://horizon-testnet.stellar.org/operations/77309415424
+curl https://orbit-testnet.stellar.org/operations/77309415424
 ```
 
 ### JavaScript Example Request
 
 ```js
 var StellarSdk = require('stellar-sdk');
-var server = new StellarSdk.Server('https://horizon-testnet.stellar.org');
+var server = new StellarSdk.Server('https://orbit-testnet.stellar.org');
 
 server.operations()
   .operation('77309415424')

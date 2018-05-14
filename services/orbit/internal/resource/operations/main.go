@@ -11,7 +11,7 @@ import (
 )
 
 // TypeNames maps from operation type to the string used to represent that type
-// in horizon's JSON responses
+// in orbit's JSON responses
 var TypeNames = map[xdr.OperationType]string{
 	xdr.OperationTypeCreateAccount:      "create_account",
 	xdr.OperationTypePayment:            "payment",
@@ -141,7 +141,7 @@ type PathPayment struct {
 }
 
 // ManageData represents a ManageData operation as it is serialized into json
-// for the horizon API.
+// for the orbit API.
 type ManageData struct {
 	Base
 	Name  string `json:"name"`

@@ -16,7 +16,7 @@ func Test_ingestSignerEffects(t *testing.T) {
 
 	q := &history.Q{Session: tt.HorizonSession()}
 
-	// Regression: https://github.com/stellar/horizon/issues/390 doesn't produce a signer effect when
+	// Regression: https://github.com/stellar/orbit/issues/390 doesn't produce a signer effect when
 	// inflation has changed
 	var effects []history.Effect
 	err := q.Effects().ForLedger(3).Select(&effects)

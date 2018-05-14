@@ -21,13 +21,13 @@ As with all errors Horizon returns, `not_found` follows the [Problem Details for
 ## Example
 
 ```shell
-$ curl -X GET "https://horizon-testnet.stellar.org/accounts/accountthatdoesntexist"
+$ curl -X GET "https://orbit-testnet.stellar.org/accounts/accountthatdoesntexist"
 {
   "type": "not_found",
   "title": "Resource Missing",
   "status": 404,
   "detail": "The resource at the url requested was not found.  This is usually occurs for one of two reasons:  The url requested is not valid, or no data in our database could be found with the parameters provided.",
-  "instance": "horizon-testnet-001.prd.stellar001.internal.stellar-ops.com/ngUFNhn76T-078058"
+  "instance": "orbit-testnet-001.prd.stellar001.internal.stellar-ops.com/ngUFNhn76T-078058"
 }
 ```
 

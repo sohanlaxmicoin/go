@@ -1,4 +1,4 @@
-package horizon
+package orbit
 
 import (
 	"github.com/stellar/go/services/orbit/internal/db2/core"
@@ -32,6 +32,6 @@ func initCoreDb(app *App) {
 }
 
 func init() {
-	appInit.Add("horizon-db", initHorizonDb, "app-context", "log")
+	appInit.Add("orbit-db", initHorizonDb, "app-context", "log")
 	appInit.Add("core-db", initCoreDb, "app-context", "log")
 }

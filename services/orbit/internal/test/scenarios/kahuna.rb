@@ -2,7 +2,7 @@
 # stellar's features, exercising each feature and option at least once.
 #
 # As new features are added to stellar, this scenario will get updated to
-# exercise those new features.  This scenario is used during the horizon
+# exercise those new features.  This scenario is used during the orbit
 # ingestion tests.
 #
 use_manual_close

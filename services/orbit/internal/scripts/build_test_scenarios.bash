@@ -20,21 +20,21 @@ export SKIP_CURSOR_UPDATE="true"
 # run all scenarios
 for i in $PACKAGES; do
   CORE_SQL="${i%.rb}-core.sql"
-  HORIZON_SQL="${i%.rb}-horizon.sql"
+  HORIZON_SQL="${i%.rb}-orbit.sql"
   bundle exec scc -r $i --dump-root-db > $CORE_SQL
 
   # load the core scenario
   psql $STELLAR_CORE_DATABASE_URL < $CORE_SQL
 
-  # recreate horizon dbs
+  # recreate orbit dbs
   dropdb horizon_scenarios --if-exists
   createdb horizon_scenarios
 
-  # import the core data into horizon
-  $GOTOP/bin/horizon db init
-  $GOTOP/bin/horizon db rebase
+  # import the core data into orbit
+  $GOTOP/bin/orbit db init
+  $GOTOP/bin/orbit db rebase
 
-  # write horizon data to sql file
+  # write orbit data to sql file
   pg_dump $DATABASE_URL \
     --clean --if-exists --no-owner --no-acl --inserts \
     | sed '/SET idle_in_transaction_session_timeout/d' \

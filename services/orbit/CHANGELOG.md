@@ -40,33 +40,33 @@ This release is a bug fix release for v0.12.0.  *Please see the upgrade notes be
 ### Bug fixes
 
 - Fixed an issue caused by un-migrated trade rows. (https://github.com/stellar/go/issues/357)
-- Command line flags are now useable for subcommands of horizon.
+- Command line flags are now useable for subcommands of orbit.
 
 
 ## v0.12.0 - 2017-03-08
 
-Big release this time for horizon:  We've made a number of breaking changes since v0.11.0 and have revised both our database schema as well as our data ingestion system.  We recommend that you take a backup of your horizon database prior to upgrading, just in case.  
+Big release this time for orbit:  We've made a number of breaking changes since v0.11.0 and have revised both our database schema as well as our data ingestion system.  We recommend that you take a backup of your orbit database prior to upgrading, just in case.  
 
 ### Upgrade Notes
 
 Since this release changes both the schema and the data ingestion system, we recommend the following upgrade path to minimize downtime:
 
-1. Upgrade horizon binaries, but do not restart the service
-2. Run `horizon db migrate up` to migrate the db schema
-3. Run `horizon db reingest` in a background session to begin the data reingestion process
-4. Restart horizon
+1. Upgrade orbit binaries, but do not restart the service
+2. Run `orbit db migrate up` to migrate the db schema
+3. Run `orbit db reingest` in a background session to begin the data reingestion process
+4. Restart orbit
 
 ### Added
 
 - Operation and payment resources were changed to add `transaction_hash` and `created_at` properties.
-- The ledger resource was changed to add a `header_xdr` property.  Existing horizon installations should re-ingest all ledgers to populate the history database tables with the data.  In future versions of horizon we will disallow null values in this column.  Going forward, this change reduces the coupling of horizon to stellar-core, ensuring that horizon can re-import history even when the data is no longer stored within stellar-core's database.
+- The ledger resource was changed to add a `header_xdr` property.  Existing orbit installations should re-ingest all ledgers to populate the history database tables with the data.  In future versions of orbit we will disallow null values in this column.  Going forward, this change reduces the coupling of orbit to stellar-core, ensuring that orbit can re-import history even when the data is no longer stored within stellar-core's database.
 - All Assets endpoint (`/assets`) that returns a list of all the assets in the system along with some stats per asset. The filters allow you to narrow down to any specific asset of interest.
 - Trade Aggregations endpoint (`/trade_aggregations`) allow for efficient gathering of historical trade data. This is done by dividing a given time range into segments and aggregate statistics, for a given asset pair (`base`, `counter`) over each of these segments.
 
 ### Bug fixes
 
 - Ingestion performance and stability has been improved. 
-- Changes to an account's inflation destination no longer produce erroneous "signer_updated" effects. (https://github.com/stellar/horizon/issues/390)
+- Changes to an account's inflation destination no longer produce erroneous "signer_updated" effects. (https://github.com/stellar/orbit/issues/390)
 
 
 ### Changed
@@ -75,7 +75,7 @@ Since this release changes both the schema and the data ingestion system, we rec
 - BREAKING CHANGE: The `base_reserve` property of the ledger resource has been renamed to `base_reserve_in_stroops` and is now expressed in stroops (rather than lumens) and as a JSON number. 
 - BREAKING CHANGE: The "Orderbook Trades" (`/orderbook/trades`) endpoint has been removed and replaced by the "All Trades" (`/trades`) endpoint.
 - BREAKING CHANGE: The Trade resource has been modified to generalize assets as (`base`, `counter`) pairs, rather than the previous (`sold`,`bought`) pairs.  
-- Full reingestion (i.e. running `horizon db reingest`) now runs in reverse chronological order.  
+- Full reingestion (i.e. running `orbit db reingest`) now runs in reverse chronological order.  
 
 ### Removed
 
@@ -109,7 +109,7 @@ This is a fix release for v0.9.0 and v0.9.1
 
 
 ### Added
-- Added `horizon db clear` helper command to clear previously ingested history.
+- Added `orbit db clear` helper command to clear previously ingested history.
 
 ### Fixed
 
@@ -131,7 +131,7 @@ This release was retracted due to a bug discovered after release.
 
 ### Fixed
 
-- BREAKING CHANGE: The reingestion process has been updated.  Prior versions of horizon would enter a failed state when a gap between the imported history and the stellar-core database formed or when a previously imported ledger was no longer found in the stellar-core database.  This usually occurs when running stellar-core with the `CATCHUP_RECENT` config option.  With these changed, horizon will automatically trim "abandonded" ledgers: ledgers that are older than the core elder ledger.
+- BREAKING CHANGE: The reingestion process has been updated.  Prior versions of orbit would enter a failed state when a gap between the imported history and the stellar-core database formed or when a previously imported ledger was no longer found in the stellar-core database.  This usually occurs when running stellar-core with the `CATCHUP_RECENT` config option.  With these changed, orbit will automatically trim "abandonded" ledgers: ledgers that are older than the core elder ledger.
 
 
 ## [v0.8.0] - 2017-02-07
@@ -183,7 +183,7 @@ This release was retracted due to a bug discovered after release.
 
 ## [v0.6.0] - 2016-07-20
 
-This release contains the initial implementation of the "Abridged History System".  It allows a horizon system to be operated without complete knowledge of the ledger's history.  With this release, horizon will start ingesting data from the earliest point known to the connected stellar-core instance, rather than ledger 1 as it behaved previously.  See the admin guide section titled "Ingesting stellar-core data" for more details.
+This release contains the initial implementation of the "Abridged History System".  It allows a orbit system to be operated without complete knowledge of the ledger's history.  With this release, orbit will start ingesting data from the earliest point known to the connected stellar-core instance, rather than ledger 1 as it behaved previously.  See the admin guide section titled "Ingesting stellar-core data" for more details.
 
 ### Added
 
@@ -191,7 +191,7 @@ This release contains the initial implementation of the "Abridged History System
 - Added the `history-retention-count` command line flag, used to specify the amount of historical data to keep in the history db.  This is expressed as a number of ledgers, for example a value of `362880` would retain roughly 6 weeks of data given an average of 10 seconds per ledger.
 - Added the `history-stale-threshold` command line flag to enable stale history protection.  See the admin guide for more info.
 - Horizon now reports the last ledger ingested to stellar-core using the `setcursor` command.
-- Requests for data that precede the recorded window of history stored by horizon will receive a `410 Gone` http response to allow software to differentiate from other "not found" situations.
+- Requests for data that precede the recorded window of history stored by orbit will receive a `410 Gone` http response to allow software to differentiate from other "not found" situations.
 - The new `db reap` command will manually trigger the deletion of unretained historical data
 - A background process on the server now deletes unretained historical once per hour.
 
@@ -204,7 +204,7 @@ This release contains the initial implementation of the "Abridged History System
 
 ### Removed
 
-- The `/accounts` endpoint, which lets a consumer page through the entire set of accounts in the ledger, has been removed.  The change from complete to an abridged history in horizon makes the endpoint mostly useless, and after consulting with the community we have decided to remove the endpoint.
+- The `/accounts` endpoint, which lets a consumer page through the entire set of accounts in the ledger, has been removed.  The change from complete to an abridged history in orbit makes the endpoint mostly useless, and after consulting with the community we have decided to remove the endpoint.
 
 ## [v0.5.1] - 2016-04-28
 
@@ -220,9 +220,9 @@ This release contains the initial implementation of the "Abridged History System
 
 ### Added
 
-- BREAKING: Horizon can now import data from stellar-core without the aid of the horizon-importer project.  This process is now known as "ingestion", and is enabled by either setting the `INGEST` environment variable to "true" or specifying "--ingest" on the launch arguments for the horizon process.  Only one process should be running in this mode for any given horizon database.
-- Add `horizon db init`, used to install the latest bundled schema for the horizon database.
-- Add `horizon db reingest` command, used to update outdated or corrupt horizon database information.  Admins may now use `horizon db reingest outdated` to migrate any old data when updated horizon.
+- BREAKING: Horizon can now import data from stellar-core without the aid of the orbit-importer project.  This process is now known as "ingestion", and is enabled by either setting the `INGEST` environment variable to "true" or specifying "--ingest" on the launch arguments for the orbit process.  Only one process should be running in this mode for any given orbit database.
+- Add `orbit db init`, used to install the latest bundled schema for the orbit database.
+- Add `orbit db reingest` command, used to update outdated or corrupt orbit database information.  Admins may now use `orbit db reingest outdated` to migrate any old data when updated orbit.
 - Added `network_passphrase` field to root resource.
 - Added `fee_meta_xdr` field to transaction resource.
 
@@ -233,7 +233,7 @@ This release contains the initial implementation of the "Abridged History System
 
 ### Added
 
-- Add `horizon db migrate [up|down|redo]` commands, used for installing schema migrations.  This work is in service of porting the horizon-importer project directly to horizon.
+- Add `orbit db migrate [up|down|redo]` commands, used for installing schema migrations.  This work is in service of porting the orbit-importer project directly to orbit.
 - Add support for TLS: specify `--tls-cert` and `--tls-key` to enable.
 - Add support for HTTP/2.  To enable, use TLS.
 
@@ -260,20 +260,20 @@ This release contains the initial implementation of the "Abridged History System
 ### Added
 - Github releases are created from tagged travis builds automatically
 
-[v0.11.0]: https://github.com/stellar/horizon/compare/v0.10.1...v0.11.0
-[v0.10.1]: https://github.com/stellar/horizon/compare/v0.10.0...v0.10.1
-[v0.10.0]: https://github.com/stellar/horizon/compare/v0.9.1...v0.10.0
-[v0.9.1]: https://github.com/stellar/horizon/compare/v0.9.0...v0.9.1
-[v0.9.0]: https://github.com/stellar/horizon/compare/v0.8.0...v0.9.0
-[v0.8.0]: https://github.com/stellar/horizon/compare/v0.7.1...v0.8.0
-[v0.7.1]: https://github.com/stellar/horizon/compare/v0.7.0...v0.7.1
-[v0.7.0]: https://github.com/stellar/horizon/compare/v0.6.2...v0.7.0
-[v0.6.2]: https://github.com/stellar/horizon/compare/v0.6.1...v0.6.2
-[v0.6.1]: https://github.com/stellar/horizon/compare/v0.6.0...v0.6.1
-[v0.6.0]: https://github.com/stellar/horizon/compare/v0.5.1...v0.6.0
-[v0.5.1]: https://github.com/stellar/horizon/compare/v0.5.0...v0.5.1
-[v0.5.0]: https://github.com/stellar/horizon/compare/v0.4.0...v0.5.0
-[v0.4.0]: https://github.com/stellar/horizon/compare/v0.3.0...v0.4.0
-[v0.3.0]: https://github.com/stellar/horizon/compare/v0.2.0...v0.3.0
-[v0.2.0]: https://github.com/stellar/horizon/compare/v0.1.1...v0.2.0
-[v0.1.1]: https://github.com/stellar/horizon/compare/v0.1.0...v0.1.1
+[v0.11.0]: https://github.com/stellar/orbit/compare/v0.10.1...v0.11.0
+[v0.10.1]: https://github.com/stellar/orbit/compare/v0.10.0...v0.10.1
+[v0.10.0]: https://github.com/stellar/orbit/compare/v0.9.1...v0.10.0
+[v0.9.1]: https://github.com/stellar/orbit/compare/v0.9.0...v0.9.1
+[v0.9.0]: https://github.com/stellar/orbit/compare/v0.8.0...v0.9.0
+[v0.8.0]: https://github.com/stellar/orbit/compare/v0.7.1...v0.8.0
+[v0.7.1]: https://github.com/stellar/orbit/compare/v0.7.0...v0.7.1
+[v0.7.0]: https://github.com/stellar/orbit/compare/v0.6.2...v0.7.0
+[v0.6.2]: https://github.com/stellar/orbit/compare/v0.6.1...v0.6.2
+[v0.6.1]: https://github.com/stellar/orbit/compare/v0.6.0...v0.6.1
+[v0.6.0]: https://github.com/stellar/orbit/compare/v0.5.1...v0.6.0
+[v0.5.1]: https://github.com/stellar/orbit/compare/v0.5.0...v0.5.1
+[v0.5.0]: https://github.com/stellar/orbit/compare/v0.4.0...v0.5.0
+[v0.4.0]: https://github.com/stellar/orbit/compare/v0.3.0...v0.4.0
+[v0.3.0]: https://github.com/stellar/orbit/compare/v0.2.0...v0.3.0
+[v0.2.0]: https://github.com/stellar/orbit/compare/v0.1.1...v0.2.0
+[v0.1.1]: https://github.com/stellar/orbit/compare/v0.1.0...v0.1.1

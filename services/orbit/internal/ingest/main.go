@@ -1,6 +1,6 @@
-// Package ingest contains the ingestion system for horizon.  This system takes
+// Package ingest contains the ingestion system for orbit.  This system takes
 // data produced by the connected stellar-core database, transforms it and
-// inserts it into the horizon database.
+// inserts it into the orbit database.
 package ingest
 
 import (
@@ -15,7 +15,7 @@ import (
 
 const (
 	// CurrentVersion reflects the latest version of the ingestion
-	// algorithm. As rows are ingested into the horizon database, this version is
+	// algorithm. As rows are ingested into the orbit database, this version is
 	// used to tag them.  In the future, any breaking changes introduced by a
 	// developer should be accompanied by an increase in this value.
 	//
@@ -86,9 +86,9 @@ type LedgerBundle struct {
 	Transactions    []core.Transaction
 }
 
-// System represents the data ingestion subsystem of horizon.
+// System represents the data ingestion subsystem of orbit.
 type System struct {
-	// HorizonDB is the connection to the horizon database that ingested data will
+	// HorizonDB is the connection to the orbit database that ingested data will
 	// be written to.
 	HorizonDB *db.Session
 
@@ -141,7 +141,7 @@ type AssetsModified map[string]xdr.Asset
 
 // Ingestion receives write requests from a Session
 type Ingestion struct {
-	// DB is the sql connection to be used for writing any rows into the horizon
+	// DB is the sql connection to be used for writing any rows into the orbit
 	// database.
 	DB       *db.Session
 	builders map[TableName]*BatchInsertBuilder
@@ -159,7 +159,7 @@ type Session struct {
 	// ingested from.
 	StellarCoreURL string
 
-	// ClearExisting causes the session to clear existing data from the horizon db
+	// ClearExisting causes the session to clear existing data from the orbit db
 	// when the session is run.
 	ClearExisting bool
 
@@ -184,12 +184,12 @@ type Session struct {
 }
 
 // New initializes the ingester, causing it to begin polling the stellar-core
-// database for now ledgers and ingesting data into the horizon database.
-func New(network string, coreURL string, core, horizon *db.Session) *System {
+// database for now ledgers and ingesting data into the orbit database.
+func New(network string, coreURL string, core, orbit *db.Session) *System {
 	i := &System{
 		Network:        network,
 		StellarCoreURL: coreURL,
-		HorizonDB:      horizon,
+		HorizonDB:      orbit,
 		CoreDB:         core,
 	}
 

@@ -27,7 +27,7 @@ As with all errors Horizon returns, `server_error` follows the [Problem Details 
 ## Examples
 ```json
 {
-  "type":     "https://www.stellar.org/docs/horizon/problems/server_error",
+  "type":     "https://www.stellar.org/docs/orbit/problems/server_error",
   "title":    "Internal Server Error",
   "status":   500,
   "details":  "...",

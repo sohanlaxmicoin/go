@@ -2,12 +2,12 @@
 title: Errors
 ---
 
-In the event that an error occurs while processing a request to horizon, an
+In the event that an error occurs while processing a request to orbit, an
 **error** response will be returned to the client.  This error response will
 contain information detailing why the request couldn't complete successfully.
 
-Like HAL for successful responses, horizon uses a standard to specify how we
-communicate errors to the client.  Specifically, horizon uses the [Problem
+Like HAL for successful responses, orbit uses a standard to specify how we
+communicate errors to the client.  Specifically, orbit uses the [Problem
 Details for HTTP APIs](https://tools.ietf.org/html/draft-ietf-appsawg-http-problem-00) draft specification.  The specification is short, so we recommend
 you read it.  In summary, when an error occurs on the server we respond with a
 json document with the following attributes:
@@ -23,7 +23,7 @@ json document with the following attributes:
 
 ## Standard Errors
 
-There are a set of errors that can occur in any request to horizon which we
+There are a set of errors that can occur in any request to orbit which we
 call **standard errors**.  These errors are:
 
 - [Server Error](../reference/errors/server-error.md)

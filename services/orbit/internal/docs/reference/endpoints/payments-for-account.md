@@ -28,14 +28,14 @@ GET /accounts/{id}/payments{?cursor,limit,order}
 
 ```bash
 # Retrieve the 25 latest payments for a specific account.
-curl "https://horizon-testnet.stellar.org/account/GCEZWKCA5VLDNRLN3RPRJMRZOX3Z6G5CHCGSNFHEYVXM3XOJMDS674JZ/payments?limit=25&order=desc"
+curl "https://orbit-testnet.stellar.org/account/GCEZWKCA5VLDNRLN3RPRJMRZOX3Z6G5CHCGSNFHEYVXM3XOJMDS674JZ/payments?limit=25&order=desc"
 ```
 
 ### JavaScript Example Request
 
 ```js
 var StellarSdk = require('stellar-sdk');
-var server = new StellarSdk.Server('https://horizon-testnet.stellar.org');
+var server = new StellarSdk.Server('https://orbit-testnet.stellar.org');
 
 server.payments()
   .forAccount("GCEZWKCA5VLDNRLN3RPRJMRZOX3Z6G5CHCGSNFHEYVXM3XOJMDS674JZ")

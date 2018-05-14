@@ -1,4 +1,4 @@
-package horizon
+package orbit
 
 import (
 	"github.com/getsentry/raven-go"

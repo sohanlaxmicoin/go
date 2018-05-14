@@ -17,7 +17,7 @@ import (
 )
 
 // KeyTypeNames maps from strkey version bytes into json string values to use in
-// horizon responses.
+// orbit responses.
 var KeyTypeNames = map[strkey.VersionByte]string{
 	strkey.VersionByteAccountID: "ed25519_public_key",
 	strkey.VersionByteSeed:      "ed25519_secret_seed",
@@ -200,7 +200,7 @@ type Signer struct {
 	Type      string `json:"type"`
 }
 
-// Trade represents a horizon digested trade
+// Trade represents a orbit digested trade
 type Trade struct {
 	Links struct {
 		Self      hal.Link `json:"self"`
@@ -345,7 +345,7 @@ func NewOperation(
 
 // KeyTypeFromAddress converts the version byte of the provided strkey encoded
 // value (for example an account id or a signer key) and returns the appropriate
-// horizon-specific type name.
+// orbit-specific type name.
 func KeyTypeFromAddress(address string) (string, error) {
 	vb, err := strkey.Version(address)
 	if err != nil {

@@ -1,4 +1,4 @@
-package horizon
+package orbit
 
 import (
 	"net/http"
@@ -16,7 +16,7 @@ import (
 	"github.com/zenazn/goji/web"
 )
 
-// Action is the "base type" for all actions in horizon.  It provides
+// Action is the "base type" for all actions in orbit.  It provides
 // structs that embed it with access to the App struct.
 //
 // Additionally, this type is a trigger for go-codegen and causes
@@ -41,7 +41,7 @@ func (action *Action) CoreQ() *core.Q {
 }
 
 // HistoryQ provides access to queries that access the history portion of
-// horizon's database.
+// orbit's database.
 func (action *Action) HistoryQ() *history.Q {
 	if action.hq == nil {
 		action.hq = &history.Q{Session: action.App.HorizonSession(action.Ctx)}

@@ -26,7 +26,7 @@ func init() {
 	DefaultLogger, DefaultMetrics = New()
 }
 
-// New creates a new logger according to horizon specifications.
+// New creates a new logger according to orbit specifications.
 func New() (result *Entry, m *Metrics) {
 	m = NewMetrics()
 	l := logrus.New()

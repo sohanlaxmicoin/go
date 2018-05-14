@@ -1,4 +1,4 @@
-// Package log provides the logging facilities used for horizon.
+// Package log provides the logging facilities used for orbit.
 //
 // You may notice that this package does not expose the "Fatal" family of
 // logging functions:  this is intentional.  This package is specifically geared

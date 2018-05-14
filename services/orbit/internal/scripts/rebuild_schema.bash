@@ -8,11 +8,11 @@ go generate github.com/stellar/go/services/orbit/internal/db2/schema
 go install github.com/stellar/go/services/orbit
 dropdb horizon_schema --if-exists
 createdb horizon_schema
-DATABASE_URL=postgres://localhost/horizon_schema?sslmode=disable $GOTOP/bin/horizon db migrate up
+DATABASE_URL=postgres://localhost/horizon_schema?sslmode=disable $GOTOP/bin/orbit db migrate up
 
 DUMP_OPTS="--schema=public --no-owner --no-acl --inserts"
 LATEST_PATH="$DIR/../db2/schema/latest.sql"
-BLANK_PATH="$DIR/../test/scenarios/blank-horizon.sql"
+BLANK_PATH="$DIR/../test/scenarios/blank-orbit.sql"
 
 pg_dump postgres://localhost/horizon_schema?sslmode=disable $DUMP_OPTS \
   | sed '/SET idle_in_transaction_session_timeout/d'  \

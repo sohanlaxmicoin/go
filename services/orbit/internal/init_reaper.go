@@ -1,4 +1,4 @@
-package horizon
+package orbit
 
 import (
 	"github.com/stellar/go/services/orbit/internal/reap"
@@ -9,5 +9,5 @@ func initReaper(app *App) {
 }
 
 func init() {
-	appInit.Add("reaper", initReaper, "app-context", "log", "horizon-db")
+	appInit.Add("reaper", initReaper, "app-context", "log", "orbit-db")
 }

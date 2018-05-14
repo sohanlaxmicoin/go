@@ -1,4 +1,4 @@
-package horizon
+package orbit
 
 import (
 	"github.com/stellar/go/services/orbit/internal/ledger"
@@ -6,7 +6,7 @@ import (
 	"github.com/stellar/go/support/render/hal"
 )
 
-// RootAction provides a summary of the horizon instance and links to various
+// RootAction provides a summary of the orbit instance and links to various
 // useful endpoints
 type RootAction struct {
 	Action

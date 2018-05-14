@@ -1,4 +1,4 @@
-package horizon
+package orbit
 
 import (
 	"log"
@@ -27,5 +27,5 @@ func initIngester(app *App) {
 }
 
 func init() {
-	appInit.Add("ingester", initIngester, "app-context", "log", "horizon-db", "core-db", "stellarCoreInfo")
+	appInit.Add("ingester", initIngester, "app-context", "log", "orbit-db", "core-db", "stellarCoreInfo")
 }

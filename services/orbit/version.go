@@ -9,7 +9,7 @@ import (
 
 var versionCmd = &cobra.Command{
 	Use:   "version",
-	Short: "print horizon version",
+	Short: "print orbit version",
 	Long:  "",
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println(apkg.Version())

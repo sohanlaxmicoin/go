@@ -25,14 +25,14 @@ GET /operations{?cursor,limit,order}
 ### curl Example Request
 
 ```sh
-curl "https://horizon-testnet.stellar.org/operations?limit=200&order=desc"
+curl "https://orbit-testnet.stellar.org/operations?limit=200&order=desc"
 ```
 
 ### JavaScript Example Request
 
 ```js
 var StellarSdk = require('stellar-sdk');
-var server = new StellarSdk.Server('https://horizon-testnet.stellar.org');
+var server = new StellarSdk.Server('https://orbit-testnet.stellar.org');
 
 server.operations()
   .call()

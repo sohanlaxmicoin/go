@@ -22,7 +22,7 @@ const (
 	MigrateRedo MigrateDir = "redo"
 )
 
-// Migrations represents all of the schema migration for horizon
+// Migrations represents all of the schema migration for orbit
 var Migrations migrate.MigrationSource = &migrate.AssetMigrationSource{
 	Asset:    Asset,
 	AssetDir: AssetDir,

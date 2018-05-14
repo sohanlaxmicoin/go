@@ -1,4 +1,4 @@
-package horizon
+package orbit
 
 import (
 	"net/http"
@@ -27,5 +27,5 @@ func initSubmissionSystem(app *App) {
 }
 
 func init() {
-	appInit.Add("txsub", initSubmissionSystem, "app-context", "log", "horizon-db", "core-db")
+	appInit.Add("txsub", initSubmissionSystem, "app-context", "log", "orbit-db", "core-db")
 }

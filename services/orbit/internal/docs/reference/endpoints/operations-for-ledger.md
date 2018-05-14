@@ -24,14 +24,14 @@ GET /ledgers/{id}/operations{?cursor,limit,order}
 ### curl Example Request
 
 ```sh
-curl "https://horizon-testnet.stellar.org/ledgers/69859/operations"
+curl "https://orbit-testnet.stellar.org/ledgers/69859/operations"
 ```
 
 ### JavaScript Example Request
 
 ```js
 var StellarSdk = require('stellar-sdk');
-var server = new StellarSdk.Server('https://horizon-testnet.stellar.org');
+var server = new StellarSdk.Server('https://orbit-testnet.stellar.org');
 
 server.operations()
   .forLedger("10866")

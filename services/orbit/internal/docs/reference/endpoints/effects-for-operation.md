@@ -24,14 +24,14 @@ GET /operations/{id}/effects{?cursor,limit,order}
 ### curl Example Request
 
 ```sh
-curl "https://horizon-testnet.stellar.org/operations/77309415424/effects"
+curl "https://orbit-testnet.stellar.org/operations/77309415424/effects"
 ```
 
 ### JavaScript Example Request
 
 ```javascript
 var StellarSdk = require('stellar-sdk');
-var server = new StellarSdk.Server('https://horizon-testnet.stellar.org');
+var server = new StellarSdk.Server('https://orbit-testnet.stellar.org');
 
 server.effects()
   .forOperation("141733924865")

@@ -18,7 +18,7 @@ func (t *T) CoreSession() *db.Session {
 	}
 }
 
-// Finish finishes the test, logging any accumulated horizon logs to the logs
+// Finish finishes the test, logging any accumulated orbit logs to the logs
 // output
 func (t *T) Finish() {
 	RestoreLogger()
@@ -30,7 +30,7 @@ func (t *T) Finish() {
 	}
 }
 
-// HorizonSession returns a db.Session instance pointing at the horizon test
+// HorizonSession returns a db.Session instance pointing at the orbit test
 // database
 func (t *T) HorizonSession() *db.Session {
 	return &db.Session{

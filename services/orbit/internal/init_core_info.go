@@ -1,4 +1,4 @@
-package horizon
+package orbit
 
 func initStellarCoreInfo(app *App) {
 	app.UpdateStellarCoreInfo()

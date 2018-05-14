@@ -1,4 +1,4 @@
-package horizon
+package orbit
 
 import (
 	hProblem "github.com/stellar/go/services/orbit/internal/render/problem"

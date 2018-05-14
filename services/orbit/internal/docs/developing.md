@@ -2,7 +2,7 @@
 title: Horizon Development Guide
 ---
 
-This document contains topics related to the development of horizon.
+This document contains topics related to the development of orbit.
 
 - [Regenerating generated code](#regen)
 - [Running tests](#tests)
@@ -32,7 +32,7 @@ then, run the all the go tests like so (assuming you are at stellar/go):
 bash ./support/scripts/run_tests
 ```
 
-or just run horizon tests like so:
+or just run orbit tests like so:
 
 ```bash
 go test github.com/stellar/go/services/orbit/...
@@ -40,7 +40,7 @@ go test github.com/stellar/go/services/orbit/...
 
 ## <a name="logging"></a> Logging
 
-All logging infrastructure is in the `github.com/stellar/go/tree/master/services/orbit/internal/log` package.  This package provides "level-based" logging:  Each logging statement has a severity, one of "Debug", "Info", "Warn", "Error" or "Panic".  The horizon server has a configured level "filter", specified either using the `--log-level` command line flag or the `LOG_LEVEL` environment variable.  When a logging statement is executed, the statements declared severity is checked against the filter and will only be emitted if the severity of the statement is equal or higher severity than the filter.
+All logging infrastructure is in the `github.com/stellar/go/tree/master/services/orbit/internal/log` package.  This package provides "level-based" logging:  Each logging statement has a severity, one of "Debug", "Info", "Warn", "Error" or "Panic".  The orbit server has a configured level "filter", specified either using the `--log-level` command line flag or the `LOG_LEVEL` environment variable.  When a logging statement is executed, the statements declared severity is checked against the filter and will only be emitted if the severity of the statement is equal or higher severity than the filter.
 
 In addition, the logging subsystem has support for fields: Arbitrary key-value pairs that will be associated with an entry to allow for filtering and additional contextual information.
 
@@ -67,7 +67,7 @@ log.WithFields(log.F{
 ```
 
 The return value from `WithField` or `WithFields` is a `*log.Entry`, which you can save to emit multiple logging
-statements that all share the same field.  For example, the action system for horizon attaches a log entry to `action.Log` on every request that can be used to emit log entries that have the request's id attached as a field.
+statements that all share the same field.  For example, the action system for orbit attaches a log entry to `action.Log` on every request that can be used to emit log entries that have the request's id attached as a field.
 
 ### Logging and Context
 
@@ -92,7 +92,7 @@ log.Ctx(ctx).Info("This statement will use the sub logger")
 
 ### Logging Best Practices
 
-It's recommended that you try to avoid contextual information in your logging messages.  Instead, use fields to establish context and use a static string for your message.  This practice allows horizon operators to more easily filter log lines to provide better insight into the health of the server.  Lets take an example:
+It's recommended that you try to avoid contextual information in your logging messages.  Instead, use fields to establish context and use a static string for your message.  This practice allows orbit operators to more easily filter log lines to provide better insight into the health of the server.  Lets take an example:
 
 ```go
 // BAD
@@ -107,6 +107,6 @@ With the "bad" form of the logging example above, an operator can filter on both
 
 ## <a name="TLS"></a> Enabling TLS on your local workstation
 
-Horizon support HTTP/2 when served using TLS.  To enable TLS on your local workstation, you must generate a certificate and configure horizon to use it.  We've written a helper script at `tls/regen.sh` to make this simple.  Run the script from your terminal, and simply choose all the default options.  This will create two files: `tls/server.crt` and `tls/server.key`.  
+Horizon support HTTP/2 when served using TLS.  To enable TLS on your local workstation, you must generate a certificate and configure orbit to use it.  We've written a helper script at `tls/regen.sh` to make this simple.  Run the script from your terminal, and simply choose all the default options.  This will create two files: `tls/server.crt` and `tls/server.key`.  
 
-Now you must configure horizon to use them: You can simply add `--tls-cert tls/server.crt --tls-key tls/server.key` to your command line invocations of horizon, or you may specify `TLS_CERT` and `TLS_KEY` environment variables.
+Now you must configure orbit to use them: You can simply add `--tls-cert tls/server.crt --tls-key tls/server.key` to your command line invocations of orbit, or you may specify `TLS_CERT` and `TLS_KEY` environment variables.

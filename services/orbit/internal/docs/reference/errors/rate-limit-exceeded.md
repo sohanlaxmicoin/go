@@ -26,7 +26,7 @@ As with all errors Horizon returns, `rate_limit_exceeded` follows the [Problem D
 Examples
 ```json
 {
-  "type":     "https://stellar.org/developers/horizon/reference/errors/rate-limit-exceeded",
+  "type":     "https://stellar.org/developers/orbit/reference/errors/rate-limit-exceeded",
   "title":    "Rate Limit Exceeded",
   "status":   429,
   "details":  "...",

@@ -1,4 +1,4 @@
-package horizon
+package orbit
 
 import (
 	"github.com/rcrowley/go-metrics"

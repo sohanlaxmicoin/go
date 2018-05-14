@@ -1,4 +1,4 @@
-package horizon
+package orbit
 
 import (
 	"compress/flate"
@@ -20,7 +20,7 @@ import (
 	"github.com/zenazn/goji/web/middleware"
 )
 
-// Web contains the http server related fields for horizon: the router,
+// Web contains the http server related fields for orbit: the router,
 // rate limiter, etc.
 type Web struct {
 	router      *web.Mux
@@ -48,7 +48,7 @@ func initWeb(app *App) {
 	problem.RegisterError(db2.ErrInvalidOrder, problem.BadRequest)
 }
 
-// initWebMiddleware installs the middleware stack used for horizon onto the
+// initWebMiddleware installs the middleware stack used for orbit onto the
 // provided app.
 func initWebMiddleware(app *App) {
 
@@ -74,7 +74,7 @@ func initWebMiddleware(app *App) {
 	r.Use(app.web.RateLimitMiddleware)
 }
 
-// initWebActions installs the routing configuration of horizon onto the
+// initWebActions installs the routing configuration of orbit onto the
 // provided app.  All route registration should be implemented here.
 func initWebActions(app *App) {
 	r := app.web.router

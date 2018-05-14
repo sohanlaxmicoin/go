@@ -1,4 +1,4 @@
-package horizon
+package orbit
 
 import (
 	"fmt"
@@ -64,7 +64,7 @@ func initWebMetrics(app *App) {
 func init() {
 	appInit.Add("metrics", initMetrics)
 	appInit.Add("log.metrics", initLogMetrics, "metrics")
-	appInit.Add("db-metrics", initDbMetrics, "metrics", "horizon-db", "core-db")
+	appInit.Add("db-metrics", initDbMetrics, "metrics", "orbit-db", "core-db")
 	appInit.Add("web.metrics", initWebMetrics, "web.init", "metrics")
 	appInit.Add("txsub.metrics", initTxSubMetrics, "txsub", "metrics")
 	appInit.Add("ingester.metrics", initIngesterMetrics, "ingester", "metrics")

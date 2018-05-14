@@ -1,6 +1,6 @@
 // Package db provides helpers to connect to test databases.  It has no
-// internal dependencies on horizon and so should be able to be imported by
-// any horizon package.
+// internal dependencies on orbit and so should be able to be imported by
+// any orbit package.
 package db
 
 import (
@@ -21,7 +21,7 @@ var (
 	horizonUrl *string
 )
 
-// Horizon returns a connection to the horizon test database
+// Horizon returns a connection to the orbit test database
 func Horizon(t *testing.T) *sqlx.DB {
 	if horizonDB != nil {
 		return horizonDB
@@ -33,7 +33,7 @@ func Horizon(t *testing.T) *sqlx.DB {
 }
 
 // HorizonURL returns the database connection the url any test
-// use when connecting to the history/horizon database
+// use when connecting to the history/orbit database
 func HorizonURL() string {
 	if horizonUrl == nil {
 		log.Panic(fmt.Errorf("Horizon not initialized"))

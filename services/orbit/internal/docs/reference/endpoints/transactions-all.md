@@ -26,14 +26,14 @@ GET /transactions{?cursor,limit,order}
 
 ```sh
 # Retrieve the 200 latest transactions, ordered chronologically:
-curl "https://horizon-testnet.stellar.org/transactions?limit=200&order=desc"
+curl "https://orbit-testnet.stellar.org/transactions?limit=200&order=desc"
 ```
 
 ### JavaScript Example Request
 
 ```js
 var StellarSdk = require('stellar-sdk');
-var server = new StellarSdk.Server('https://horizon-testnet.stellar.org');
+var server = new StellarSdk.Server('https://orbit-testnet.stellar.org');
 
 server.transactions()
   .call()

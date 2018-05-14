@@ -92,7 +92,7 @@ func TestValidation(t *testing.T) {
 		tt.Assert.Contains(err.Error(), "cur and prev ledger hashes don't match")
 	}
 
-	// mismatched header in horizon
+	// mismatched header in orbit
 	_, err = tt.HorizonSession().ExecRaw(`
 		UPDATE history_ledgers
 		SET ledger_hash = ?

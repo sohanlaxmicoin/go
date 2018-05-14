@@ -1,4 +1,4 @@
-package horizon
+package orbit
 
 import (
 	"github.com/stellar/go/services/orbit/internal/paths"

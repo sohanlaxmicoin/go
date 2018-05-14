@@ -1,4 +1,4 @@
-package horizon
+package orbit
 
 import (
 	"context"
@@ -15,7 +15,7 @@ import (
 )
 
 // LoggerMiddleware is the middleware that logs http requests and resposnes
-// to the logging subsytem of horizon.
+// to the logging subsytem of orbit.
 func LoggerMiddleware(c *web.C, h http.Handler) http.Handler {
 	fn := func(w http.ResponseWriter, r *http.Request) {
 		ctx := gctx.FromC(*c)

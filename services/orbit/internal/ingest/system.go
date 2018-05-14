@@ -11,7 +11,7 @@ import (
 )
 
 // Backfill ingests history in reverse chronological order, from the current
-// horizon elder query for `n` ledgers
+// orbit elder query for `n` ledgers
 func (i *System) Backfill(n uint) error {
 	start := ledger.CurrentState().HistoryElder
 	end := start - int32(n)
@@ -29,7 +29,7 @@ func (i *System) Backfill(n uint) error {
 	return is.Err
 }
 
-// ClearAll removes all previously ingested historical data from the horizon
+// ClearAll removes all previously ingested historical data from the orbit
 // database.
 func (i *System) ClearAll() error {
 
@@ -56,7 +56,7 @@ func (i *System) ClearAll() error {
 	return nil
 }
 
-// RebaseHistory re-establishes horizon's history database by clearing it, ingesting the latest ledger in stellar-core then backfilling as many ledgers as possible
+// RebaseHistory re-establishes orbit's history database by clearing it, ingesting the latest ledger in stellar-core then backfilling as many ledgers as possible
 func (i *System) RebaseHistory() error {
 	var latest int32
 	var elder int32
@@ -281,7 +281,7 @@ func (i *System) runOnce() {
 
 // trimAbandondedLedgers deletes all "abandonded" ledgers from the history
 // database. An abandonded ledger, in this context, means a ledger known to
-// horizon but is no longer present in the stellar-core database source.  The
+// orbit but is no longer present in the stellar-core database source.  The
 // usual cause for this situation is a stellar-core that uses the CATCHUP_RECENT
 // mode.
 func (i *System) trimAbandondedLedgers() error {
@@ -321,7 +321,7 @@ func (i *System) trimAbandondedLedgers() error {
 }
 
 // validateLedgerChain helps to ensure the chain of ledger entries is contiguous
-// within horizon.  It ensures the ledger at `seq` is a child of `seq - 1`.
+// within orbit.  It ensures the ledger at `seq` is a child of `seq - 1`.
 func (i *System) validateLedgerChain(seq int32) error {
 	var (
 		cur  core.LedgerHeader

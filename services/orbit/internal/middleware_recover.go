@@ -1,4 +1,4 @@
-package horizon
+package orbit
 
 import (
 	"net/http"
@@ -10,7 +10,7 @@ import (
 )
 
 // RecoverMiddleware helps the server recover from panics.  It ensures that
-// no request can fully bring down the horizon server, and it also logs the
+// no request can fully bring down the orbit server, and it also logs the
 // panics to the logging subsystem.
 func RecoverMiddleware(c *web.C, h http.Handler) http.Handler {
 	fn := func(w http.ResponseWriter, r *http.Request) {

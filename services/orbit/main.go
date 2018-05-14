@@ -12,8 +12,8 @@ import (
 	hlog "github.com/stellar/go/services/orbit/internal/log"
 )
 
-var app *horizon.App
-var config horizon.Config
+var app *orbit.App
+var config orbit.Config
 
 var rootCmd *cobra.Command
 
@@ -32,7 +32,7 @@ func init() {
 	viper.BindEnv("stellar-core-url", "STELLAR_CORE_URL")
 	viper.BindEnv("per-hour-rate-limit", "PER_HOUR_RATE_LIMIT")
 	viper.BindEnv("redis-url", "REDIS_URL")
-	viper.BindEnv("ruby-horizon-url", "RUBY_HORIZON_URL")
+	viper.BindEnv("ruby-orbit-url", "RUBY_HORIZON_URL")
 	viper.BindEnv("friendbot-url", "FRIENDBOT_URL")
 	viper.BindEnv("log-level", "LOG_LEVEL")
 	viper.BindEnv("sentry-dsn", "SENTRY_DSN")
@@ -47,7 +47,7 @@ func init() {
 	viper.BindEnv("skip-cursor-update", "SKIP_CURSOR_UPDATE")
 
 	rootCmd = &cobra.Command{
-		Use:   "horizon",
+		Use:   "orbit",
 		Short: "client-facing api server for the stellar network",
 		Long:  "client-facing api server for the stellar network",
 		Run: func(cmd *cobra.Command, args []string) {
@@ -59,7 +59,7 @@ func init() {
 	rootCmd.PersistentFlags().String(
 		"db-url",
 		"",
-		"horizon postgres database to connect with",
+		"orbit postgres database to connect with",
 	)
 
 	rootCmd.PersistentFlags().String(
@@ -125,19 +125,19 @@ func init() {
 	rootCmd.PersistentFlags().String(
 		"tls-cert",
 		"",
-		"The TLS certificate file to use for securing connections to horizon",
+		"The TLS certificate file to use for securing connections to orbit",
 	)
 
 	rootCmd.PersistentFlags().String(
 		"tls-key",
 		"",
-		"The TLS private key file to use for securing connections to horizon",
+		"The TLS private key file to use for securing connections to orbit",
 	)
 
 	rootCmd.PersistentFlags().Bool(
 		"ingest",
 		false,
-		"causes this horizon process to ingest data from stellar-core into horizon's db",
+		"causes this orbit process to ingest data from stellar-core into orbit's db",
 	)
 
 	rootCmd.PersistentFlags().String(
@@ -149,13 +149,13 @@ func init() {
 	rootCmd.PersistentFlags().Uint(
 		"history-retention-count",
 		0,
-		"the minimum number of ledgers to maintain within horizon's history tables.  0 signifies an unlimited number of ledgers will be retained",
+		"the minimum number of ledgers to maintain within orbit's history tables.  0 signifies an unlimited number of ledgers will be retained",
 	)
 
 	rootCmd.PersistentFlags().Uint(
 		"history-stale-threshold",
 		0,
-		"the maximum number of ledgers the history db is allowed to be out of date from the connected stellar-core db before horizon considers history stale",
+		"the maximum number of ledgers the history db is allowed to be out of date from the connected stellar-core db before orbit considers history stale",
 	)
 
 	rootCmd.AddCommand(dbCmd)
@@ -167,7 +167,7 @@ func initApp(cmd *cobra.Command, args []string) {
 	initConfig()
 
 	var err error
-	app, err = horizon.NewApp(config)
+	app, err = orbit.NewApp(config)
 
 	if err != nil {
 		log.Fatal(err.Error())
@@ -204,7 +204,7 @@ func initConfig() {
 		log.Fatal("Invalid TLS config: cert not configured")
 	}
 
-	config = horizon.Config{
+	config = orbit.Config{
 		DatabaseURL:            viper.GetString("db-url"),
 		StellarCoreDatabaseURL: viper.GetString("stellar-core-db-url"),
 		StellarCoreURL:         viper.GetString("stellar-core-url"),

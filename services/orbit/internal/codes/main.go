@@ -1,5 +1,5 @@
 //Package codes is a helper package to help convert to transaction and operation result codes
-//to strings used in horizon.
+//to strings used in orbit.
 package codes
 
 import (
@@ -241,7 +241,7 @@ func String(code interface{}) (string, error) {
 	return "", errors.New(ErrUnknownCode)
 }
 
-// ForOperationResult returns the strong represtation used by horizon for the
+// ForOperationResult returns the strong represtation used by orbit for the
 // error code `opr`
 func ForOperationResult(opr xdr.OperationResult) (string, error) {
 	if opr.Code != xdr.OperationResultCodeOpInner {
