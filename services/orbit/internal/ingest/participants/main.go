@@ -1,5 +1,5 @@
 // Package participants contains functions to derive a set of "participant"
-// addresses for various data structures in the Stellar network's ledger.
+// addresses for various data structures in the Rover network's ledger.
 package participants
 
 import (

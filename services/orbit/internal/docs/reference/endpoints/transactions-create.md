@@ -4,15 +4,15 @@ clientData:
   laboratoryUrl: https://www.rover.network/laboratory/#explorer?resource=transactions&endpoint=create
 ---
 
-Posts a new [transaction](../resources/transaction.md) to the Stellar Network.
+Posts a new [transaction](../resources/transaction.md) to the Rover Network.
 Note that creating a valid transaction and signing it properly is the
 responsibility of your client library.
 
 Transaction submission and the subsequent validation and inclusion into the
-Stellar Network's ledger is a [complicated and asynchronous
+Rover Network's ledger is a [complicated and asynchronous
 process](https://www.rover.network/developers/learn/concepts/transactions.html#life-cycle).
 To reduce the complexity, orbit manages these asynchronous processes for the
-client and will wait to hear results from the Stellar Network before returning
+client and will wait to hear results from the Rover Network before returning
 an HTTP response to a client.
 
 Transaction submission to orbit aims to be

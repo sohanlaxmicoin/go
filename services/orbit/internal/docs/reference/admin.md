@@ -2,7 +2,7 @@
 title: Administration
 ---
 
-Orbit is responsible for providing an HTTP API to data in the Stellar network. It ingests and re-serves the data produced by the rover network in a form that is easier to consume than the performance-oriented data representations used by rover-core.
+Orbit is responsible for providing an HTTP API to data in the Rover network. It ingests and re-serves the data produced by the rover network in a form that is easier to consume than the performance-oriented data representations used by rover-core.
 
 ## Why run orbit?
 
@@ -10,7 +10,7 @@ The rover development foundation runs two orbit servers, one for the public netw
 
   - Multiple instances can be run for redundancy and scalability.
   - Request rate limiting can be disabled.
-  - Full operational control without dependency on the Stellar Development Foundations operations.
+  - Full operational control without dependency on the Rover Development Foundations operations.
 
 ## Prerequisites
 

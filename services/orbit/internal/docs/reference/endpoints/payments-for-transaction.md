@@ -30,7 +30,7 @@ curl "https://orbit-testnet.rover.network/transactions/3c8ef808df9d5d240ba0d4956
 ### JavaScript Example Request
 
 ```js
-var StellarSdk = require('rover-sdk');
+var StellarSdk = require('rover-network-sdk');
 var server = new StellarSdk.Server('https://orbit-testnet.rover.network');
 
 server.payments()

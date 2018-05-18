@@ -56,7 +56,7 @@ func StellarCore(t *testing.T) *sqlx.DB {
 // use when connecting to the rover-core database
 func StellarCoreURL() string {
 	if coreUrl == nil {
-		log.Panic(fmt.Errorf("StellarCore not initialized"))
+		log.Panic(fmt.Errorf("RoverCore not initialized"))
 	}
 	return *coreUrl
 }

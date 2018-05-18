@@ -4,18 +4,18 @@ title: Operation
 
 [Operations](https://www.rover.network/developers/learn/concepts/operations.html) are objects that represent a desired change to the ledger: payments,
 offers to exchange currency, changes made to account options, etc.  Operations
-are submitted to the Stellar network grouped in a [Transaction](./transaction.md).
+are submitted to the Rover network grouped in a [Transaction](./transaction.md).
 
-To learn more about the concept of operations in the Stellar network, take a look at the [Stellar operations concept guide](https://www.rover.network/developers/learn/concepts/operations.html).
+To learn more about the concept of operations in the Rover network, take a look at the [Rover operations concept guide](https://www.rover.network/developers/learn/concepts/operations.html).
 
 ## Operation Types
 
 | type                                          | type_i | description                                                                                                |
 |-----------------------------------------------|--------|------------------------------------------------------------------------------------------------------------|
-| [CREATE_ACCOUNT](#create-account)             | 0      | Creates a new account in Stellar network.
-| [PAYMENT](#payment)                           | 1      | Sends a simple payment between two accounts in Stellar network.
-| [PATH_PAYMENT](#path-payment)                 | 2      | Sends a path payment between two accounts in the Stellar network.
-| [MANAGE_OFFER](#manage-offer)                 | 3      | Creates, updates or deletes an offer in the Stellar network.
+| [CREATE_ACCOUNT](#create-account)             | 0      | Creates a new account in Rover network.
+| [PAYMENT](#payment)                           | 1      | Sends a simple payment between two accounts in Rover network.
+| [PATH_PAYMENT](#path-payment)                 | 2      | Sends a path payment between two accounts in the Rover network.
+| [MANAGE_OFFER](#manage-offer)                 | 3      | Creates, updates or deletes an offer in the Rover network.
 | [CREATE_PASSIVE_OFFER](#create-passive-offer) | 4      | Creates an offer that won't consume a counter offer that exactly matches this offer.
 | [SET_OPTIONS](#set-options)                   | 5      | Sets account options (inflation destination, adding signers, etc.)
 | [CHANGE_TRUST](#change-trust)                 | 6      | Creates, updates or deletes a trust line.
@@ -221,7 +221,7 @@ A path payment operation represents a payment from one account to another throug
 ### Manage Offer
 
 A "Manage Offer" operation can create, update or delete an
-offer to trade assets in the Stellar network.
+offer to trade assets in the Rover network.
 It specifies an issuer, a price and amount of a given asset to
 buy or sell.
 

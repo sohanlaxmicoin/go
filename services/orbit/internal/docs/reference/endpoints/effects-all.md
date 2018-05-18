@@ -6,7 +6,7 @@ clientData:
 
 This endpoint represents all [effects](../resources/effect.md).
 
-This endpoint can also be used in [streaming](../responses.md#streaming) mode so it is possible to use it to listen for new effects as transactions happen in the Stellar network.
+This endpoint can also be used in [streaming](../responses.md#streaming) mode so it is possible to use it to listen for new effects as transactions happen in the Rover network.
 If called in streaming mode Orbit will start at the earliest known effect unless a `cursor` is set. In that case it will start from the `cursor`. You can also set `cursor` value to `now` to only stream effects created since your request time.
 
 ## Request
@@ -32,7 +32,7 @@ curl "https://orbit-testnet.rover.network/effects"
 ### JavaScript Example Request
 
 ```javascript
-var StellarSdk = require('rover-sdk');
+var StellarSdk = require('rover-network-sdk');
 var server = new StellarSdk.Server('https://orbit-testnet.rover.network');
 
 server.effects()

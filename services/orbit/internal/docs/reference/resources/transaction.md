@@ -2,11 +2,11 @@
 title: Transaction
 ---
 
-**Transactions** are the basic unit of change in the Stellar Network.
+**Transactions** are the basic unit of change in the Rover Network.
 
 A transaction is a grouping of [operations](./operation.md).
 
-To learn more about the concept of transactions in the Stellar network, take a look at the [Stellar transactions concept guide](https://www.rover.network/developers/learn/concepts/transactions.html).
+To learn more about the concept of transactions in the Rover network, take a look at the [Rover transactions concept guide](https://www.rover.network/developers/learn/concepts/transactions.html).
 
 ## Attributes
 
@@ -97,4 +97,4 @@ To learn more about the concept of transactions in the Stellar network, take a l
 
 
 ## Submitting transactions
-To submit a new transaction to Stellar network, it must first be built and signed locally. Then you can submit a hex representation of your transaction’s [XDR](../../learn/xdr.md) to the `/transactions` endpoint. Read more about submitting transactions in [Post Transaction](../transactions-create.md) doc.
+To submit a new transaction to Rover network, it must first be built and signed locally. Then you can submit a hex representation of your transaction’s [XDR](../../learn/xdr.md) to the `/transactions` endpoint. Read more about submitting transactions in [Post Transaction](../transactions-create.md) doc.

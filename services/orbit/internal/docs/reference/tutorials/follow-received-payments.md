@@ -71,7 +71,7 @@ is funded it does not truly exist!
 
 ## Funding your account
 
-The Stellar test network provides the Dakibot, a tool that developers
+The Rover test network provides the Dakibot, a tool that developers
 can use to get testnet laxmicoins for testing purposes. To fund your account, simply
 execute the following curl command:
 
@@ -90,7 +90,7 @@ succeeds, you should see a response like:
 }
 ```
 
-After a few seconds, the Stellar network will perform consensus, close the
+After a few seconds, the Rover network will perform consensus, close the
 ledger, and your account will have been created.  Next up we will write a command
 that watches for new payments to your account and outputs a message to the
 terminal.

@@ -5,7 +5,7 @@ clientData:
 ---
 
 This endpoint represents all [transactions](../resources/transaction.md) that affected a given [account](../resources/account.md).
-This endpoint can also be used in [streaming](../responses.md#streaming) mode so it is possible to use it to listen for new transactions as that affect a given account as they get made in the Stellar network.
+This endpoint can also be used in [streaming](../responses.md#streaming) mode so it is possible to use it to listen for new transactions as that affect a given account as they get made in the Rover network.
 If called in streaming mode Orbit will start at the earliest known transaction unless a `cursor` is set. In that case it will start from the `cursor`. You can also set `cursor` value to `now` to only stream transaction created since your request time.
 
 ## Request
@@ -32,7 +32,7 @@ curl "https://orbit-testnet.rover.network/accounts/GCEZWKCA5VLDNRLN3RPRJMRZOX3Z6
 ### JavaScript Example Request
 
 ```js
-var StellarSdk = require('rover-sdk');
+var StellarSdk = require('rover-network-sdk');
 var server = new StellarSdk.Server('https://orbit-testnet.rover.network');
 
 server.transactions()
@@ -49,7 +49,7 @@ server.transactions()
 ### JavaScript Example Request
 
 ```js
-var StellarSdk = require('rover-sdk');
+var StellarSdk = require('rover-network-sdk');
 var server = new StellarSdk.Server('https://orbit-testnet.rover.network');
 
 server.transactions()

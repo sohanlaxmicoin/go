@@ -31,7 +31,7 @@ curl "https://orbit-testnet.rover.network/operations?limit=200&order=desc"
 ### JavaScript Example Request
 
 ```js
-var StellarSdk = require('rover-sdk');
+var StellarSdk = require('rover-network-sdk');
 var server = new StellarSdk.Server('https://orbit-testnet.rover.network');
 
 server.operations()

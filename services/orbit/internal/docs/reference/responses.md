@@ -47,7 +47,7 @@ links between documents.  Let's look at a simple example:
 }
 ```
 
-The above response is for the genesis ledger of the Stellar test network, and
+The above response is for the genesis ledger of the Rover test network, and
 the links in the `_links` attribute provide links to other relavant resources in
 Orbit.  Notice the object beneath the `transactions` key.  The key of each
 link specifies that links relation to the current resource, and in this case
@@ -66,7 +66,7 @@ valid URI before navigating to it.
 Pages represent a subset of a larger collection of objects.
 As an example, it would be unfeasible to provide the
 [All Transactions](../reference/transactions-all.md) endpoint without paging.  Over time there
-will be millions of transactions in the Stellar network's ledger and returning
+will be millions of transactions in the Rover network's ledger and returning
 them all over a single request would be unfeasible.
 
 Read more about paging in following docs:

@@ -2,11 +2,11 @@
 title: Asset
 ---
 
-**Assets** are the units that are traded on the Stellar Network.
+**Assets** are the units that are traded on the Rover Network.
 
 An asset consists of an type, code, and issuer.
 
-To learn more about the concept of assets in the Stellar network, take a look at the [Stellar assets concept guide](https://www.rover.network/developers/guides/concepts/assets.html).
+To learn more about the concept of assets in the Rover network, take a look at the [Rover assets concept guide](https://www.rover.network/developers/guides/concepts/assets.html).
 
 ## Attributes
 

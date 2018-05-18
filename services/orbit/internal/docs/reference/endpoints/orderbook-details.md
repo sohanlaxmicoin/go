@@ -4,7 +4,7 @@ clientData:
   laboratoryUrl: https://www.rover.network/laboratory/#explorer?resource=order_book&endpoint=details
 ---
 
-People on the Stellar network can make [offers](../resources/offer.md) to buy or sell assets.  These offers are summarized by the assets being bought and sold in [orderbooks](../resources/orderbook.md).
+People on the Rover network can make [offers](../resources/offer.md) to buy or sell assets.  These offers are summarized by the assets being bought and sold in [orderbooks](../resources/orderbook.md).
 
 Orbit will return, for each orderbook, a summary of the orderbook and the bids and asks associated with that orderbook.
 
@@ -35,7 +35,7 @@ curl "https://orbit-testnet.rover.network/order_book?selling_asset_type=native&b
 ### JavaScript Example Request
 
 ```js
-var StellarSdk = require('rover-sdk');
+var StellarSdk = require('rover-network-sdk');
 var server = new StellarSdk.Server('https://orbit-testnet.rover.network');
 
 server.orderbook(new StellarSdk.Asset.native(), new StellarSdk.Asset('FOO', 'GBAUUA74H4XOQYRSOW2RZUA4QL5PB37U3JS5NE3RTB2ELJVMIF5RLMAG'))

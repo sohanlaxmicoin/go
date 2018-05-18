@@ -2,7 +2,7 @@
 title: Trades
 ---
 
-People on the Stellar network can make [offers](../resources/offer.md) to buy or sell assets. When an offer is fully or partially fulfilled, a [trade](../resources/trade.md) happens.
+People on the Rover network can make [offers](../resources/offer.md) to buy or sell assets. When an offer is fully or partially fulfilled, a [trade](../resources/trade.md) happens.
 
 Trades can be filtered for specific orderbook, defined by an asset pair: `base` and `counter`. 
 

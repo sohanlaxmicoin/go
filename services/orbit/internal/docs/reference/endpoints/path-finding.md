@@ -4,7 +4,7 @@ clientData:
   laboratoryUrl: https://www.rover.network/laboratory/#explorer?resource=paths&endpoint=all
 ---
 
-The Stellar Network allows payments to be made across assets through _path payments_.  A path payment specifies a series of assets to route a payment through, from source asset (the asset debited from the payer) to destination asset (the asset credited to the payee).
+The Rover Network allows payments to be made across assets through _path payments_.  A path payment specifies a series of assets to route a payment through, from source asset (the asset debited from the payer) to destination asset (the asset credited to the payee).
 
 A path search is specified using:
 
