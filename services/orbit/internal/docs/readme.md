@@ -2,7 +2,7 @@
 title: Orbit
 ---
 
-Orbit is the server for the client facing API for the Stellar ecosystem.  It acts as the interface between [rover-core](https://www.rover.network/developers/learn/rover-core) and applications that want to access the Stellar network. It allows you to submit transactions to the network, check the status of accounts, subscribe to event streams, etc. See [an overview of the Stellar ecosystem](https://www.rover.network/developers/guides/) for more details.
+Orbit is the server for the client facing API for the Rover ecosystem.  It acts as the interface between [rover-core](https://www.rover.network/developers/learn/rover-core) and applications that want to access the Rover network. It allows you to submit transactions to the network, check the status of accounts, subscribe to event streams, etc. See [an overview of the Rover ecosystem](https://www.rover.network/developers/guides/) for more details.
 
 You can interact directly with orbit via curl or a web browser but SDF provides a [JavaScript SDK](https://www.rover.network/developers/js-rover-sdk/learn/) for clients to use to interact with Orbit.
 

@@ -13,7 +13,7 @@ import (
 
 func (ac *AccountConfigurator) Start() error {
 	ac.log = common.CreateLogger("StellarAccountConfigurator")
-	ac.log.Info("StellarAccountConfigurator starting")
+	ac.log.Info("RoverAccountConfigurator starting")
 
 	kp, err := keypair.Parse(ac.IssuerPublicKey)
 	if err != nil || (err == nil && ac.IssuerPublicKey[0] != 'G') {
@@ -69,7 +69,7 @@ func (ac *AccountConfigurator) ConfigureAccount(destination, assetCode, amount s
 		"assetCode":   assetCode,
 		"amount":      amount,
 	})
-	localLog.Info("Configuring Stellar account")
+	localLog.Info("Configuring Rover account")
 
 	ac.processingCountMutex.Lock()
 	ac.processingCount++
@@ -94,10 +94,10 @@ func (ac *AccountConfigurator) ConfigureAccount(destination, assetCode, amount s
 			break
 		}
 
-		localLog.WithField("destination", destination).Info("Creating Stellar account")
+		localLog.WithField("destination", destination).Info("Creating Rover account")
 		err = ac.createAccount(destination)
 		if err != nil {
-			localLog.WithField("err", err).Error("Error creating Stellar account")
+			localLog.WithField("err", err).Error("Error creating Rover account")
 			time.Sleep(2 * time.Second)
 			continue
 		}

@@ -40,7 +40,7 @@ type AuthResponse struct {
 	InfoStatus AuthStatus `json:"info_status"`
 	// If this FI is willing to accept this transaction. {ok, denied, pending, error}
 	TxStatus AuthStatus `json:"tx_status"`
-	// (only present if info_status is ok) JSON of the recipient's AML information. in the Stellar attachment convention
+	// (only present if info_status is ok) JSON of the recipient's AML information. in the Rover attachment convention
 	DestInfo string `json:"dest_info,omitempty"`
 	// (only present if info_status or tx_status is pending) Estimated number of seconds till the sender can check back for a change in status. The sender should just resubmit this request after the given number of seconds.
 	Pending int `json:"pending,omitempty"`
@@ -49,14 +49,14 @@ type AuthResponse struct {
 }
 
 // Attachment represents preimage object of compliance protocol in
-// Stellar attachment convention
+// Rover attachment convention
 type Attachment struct {
 	Nonce       string `json:"nonce"`
 	Transaction `json:"transaction"`
 	Operations  []Operation `json:"operations"`
 }
 
-// Transaction represents transaction field in Stellar attachment
+// Transaction represents transaction field in Rover attachment
 type Transaction struct {
 	SenderInfo map[string]string `json:"sender_info"`
 	Route      Route             `json:"route"`
@@ -64,7 +64,7 @@ type Transaction struct {
 	Extra      string            `json:"extra"`
 }
 
-// Operation represents a single operation object in Stellar attachment
+// Operation represents a single operation object in Rover attachment
 type Operation struct {
 	// Overriddes Transaction field for this operation
 	SenderInfo map[string]string `json:"sender_info"`
@@ -106,13 +106,13 @@ const (
 
 	// TransactionStatusApproved is a value of `status` field for the
 	// tx_status endpoint response. It represents that the
-	// payment was approved by the receiving FI but the Stellar
+	// payment was approved by the receiving FI but the Rover
 	// transaction hasn't been received yet
 	TransactionStatusApproved TransactionStatus = "approved"
 
 	// TransactionStatusNotApproved is a value of `status` field for the
 	// tx_status endpoint response. It represents that the
-	// Stellar transaction was found but it was never approved
+	// Rover transaction was found but it was never approved
 	// by the receiving FI.
 	TransactionStatusNotApproved TransactionStatus = "not_approved"
 

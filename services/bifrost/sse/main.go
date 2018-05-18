@@ -41,7 +41,7 @@ type Event struct {
 }
 
 // Storage contains history of sent events. Because each transaction and
-// Stellar account is always processed by a single Bifrost server, we need
+// Rover account is always processed by a single Bifrost server, we need
 // to broadcast events in case client streams events from the other Bifrost
 // server.
 //

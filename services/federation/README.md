@@ -21,7 +21,7 @@ By default this server uses a config file named `federation.cfg` in the current 
   * `federation` - Implementation dependent query to fetch federation results, should return either 1 or 3 columns. These columns should be labeled `id`,`memo`,`memo_type`. Memo and memo_type are optional - see [Federation](https://www.rover.network/developers/learn/concepts/federation.html) docs for more detail).  When executed, this query will be provided with two input parameters, the first will be the name portion of a rover address and the second will be the domain portion of a rover address.  For example, a request for `scott*rover.network` would trigger a query with two input parameters, `scott` and `rover.network` respectively. 
   * `reverse-federation` - A SQL query to fetch reverse federation results that should return two columns, labeled `name` and `domain`.   When executed, this query will be provided with one input parameter, a [stellar account ID](https://www.rover.network/developers/guides/concepts/accounts.html#account-id) used to lookup the name and domain mapping.
 
-    If reverse-lookup isn't supported (e.g. you have a single Stellar account for all users), leave this entry out.
+    If reverse-lookup isn't supported (e.g. you have a single Rover account for all users), leave this entry out.
 
 * `tls` (only when running HTTPS server)
   * `certificate-file` - a file containing a certificate
@@ -35,9 +35,9 @@ By default this server uses a config file named `federation.cfg` in the current 
 ## Example `federation.cfg`
 In this section you can find config examples for the two main ways of setting up a federation server.
 
-### #1: Every user has their own Stellar account
+### #1: Every user has their own Rover account
 
-In the case that every user owns a Stellar account, you don't need `memo`. You can simply return `id` based on the username. Your `queries` section could look like this:
+In the case that every user owns a Rover account, you don't need `memo`. You can simply return `id` based on the username. Your `queries` section could look like this:
 
 ```toml
 port = 8000
@@ -52,11 +52,11 @@ reverse-federation = "SELECT username as name, domain FROM Users WHERE account_i
 ```
 
 
-### #2: Single Stellar account for all incoming transactions
+### #2: Single Rover account for all incoming transactions
 
-If you have a single Stellar account for all incoming transactions you need to use `memo` to check which internal account should receive the payment.
+If you have a single Rover account for all incoming transactions you need to use `memo` to check which internal account should receive the payment.
 
-Let's say that your Stellar account ID is: `GD6WU64OEP5C4LRBH6NK3MHYIA2ADN6K6II6EXPNVUR3ERBXT4AN4ACD` and every user has an `id` and `username` in your database. Then your `queries` section could look like this:
+Let's say that your Rover account ID is: `GD6WU64OEP5C4LRBH6NK3MHYIA2ADN6K6II6EXPNVUR3ERBXT4AN4ACD` and every user has an `id` and `username` in your database. Then your `queries` section could look like this:
 
 ```toml
 port = 8000

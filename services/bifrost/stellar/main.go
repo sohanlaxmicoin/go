@@ -7,7 +7,7 @@ import (
 	"github.com/rover/go/support/log"
 )
 
-// AccountConfigurator is responsible for configuring new Stellar accounts that
+// AccountConfigurator is responsible for configuring new Rover accounts that
 // participate in ICO.
 type AccountConfigurator struct {
 	Orbit           orbit.ClientInterface `inject:""`

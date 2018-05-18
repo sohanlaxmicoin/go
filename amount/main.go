@@ -17,7 +17,7 @@ import (
 	"github.com/rover/go/xdr"
 )
 
-// One is the value of one whole unit of currency. Stellar uses 7 fixed digits
+// One is the value of one whole unit of currency. Rover uses 7 fixed digits
 // for fractional values, thus One is 10 million (10^7).
 const (
 	One = 10000000

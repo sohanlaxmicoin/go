@@ -42,8 +42,8 @@ CREATE TABLE transactions_queue (
   transaction_id varchar(66) NOT NULL,
   asset_code varchar(3) NOT NULL,
   /* Amount in the base unit of currency (BTC or ETH). */
-  /* ethereum: 100000000 in year 2128 + 7 decimal precision in Stellar + dot */
-  /* bitcoin:   21000000              + 7 decimal precision in Stellar + dot */
+  /* ethereum: 100000000 in year 2128 + 7 decimal precision in Rover + dot */
+  /* bitcoin:   21000000              + 7 decimal precision in Rover + dot */
   amount varchar(20) NOT NULL,
   rover_public_key varchar(56) NOT NULL,
   pooled boolean NOT NULL DEFAULT false,

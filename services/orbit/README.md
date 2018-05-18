@@ -1,7 +1,7 @@
 # Orbit
 [![Build Status](https://travis-ci.org/rover/orbit.svg?branch=master)](https://travis-ci.org/rover/orbit)
 
-Orbit is the [client facing API](/docs) server for the Stellar ecosystem.  It acts as the interface between rover-core and applications that want to access the Stellar network. It allows you to submit transactions to the network, check the status of accounts, subscribe to event streams, etc. See [an overview of the Stellar ecosystem](https://www.rover.network/developers/guides/get-started/) for more details.
+Orbit is the [client facing API](/docs) server for the Rover ecosystem.  It acts as the interface between rover-core and applications that want to access the Rover network. It allows you to submit transactions to the network, check the status of accounts, subscribe to event streams, etc. See [an overview of the Rover ecosystem](https://www.rover.network/developers/guides/get-started/) for more details.
 
 ## Downloading the server
 [Prebuilt binaries](https://github.com/laxmicoinofficial/go/releases) of orbit are available on the 

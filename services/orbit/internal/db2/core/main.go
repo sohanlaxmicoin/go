@@ -1,5 +1,5 @@
 // Package core contains database record definitions useable for
-// reading rows from a Stellar Core db
+// reading rows from a Rover Core db
 package core
 
 import (

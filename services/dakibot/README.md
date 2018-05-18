@@ -1,4 +1,4 @@
-# Dakibot Service for the Stellar Test Network
+# Dakibot Service for the Rover Test Network
 
 This calls out to orbit to submit the transaction
 

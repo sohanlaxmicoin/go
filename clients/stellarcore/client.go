@@ -21,7 +21,7 @@ type Client struct {
 	// http.DefaultClient will be used.
 	HTTP HTTP
 
-	// URL of Stellar Core server to connect.
+	// URL of Rover Core server to connect.
 	URL string
 }
 
