@@ -56,8 +56,8 @@ func decode(content string, dest interface{}) error {
 
 func init() {
 	govalidator.SetFieldsRequiredByDefault(true)
-	govalidator.CustomTypeTagMap.Set("stellar_accountid", govalidator.CustomTypeValidator(isStellarAccountID))
-	govalidator.CustomTypeTagMap.Set("stellar_seed", govalidator.CustomTypeValidator(isStellarSeed))
+	govalidator.CustomTypeTagMap.Set("rover_accountid", govalidator.CustomTypeValidator(isStellarAccountID))
+	govalidator.CustomTypeTagMap.Set("rover_seed", govalidator.CustomTypeValidator(isStellarSeed))
 
 }
 

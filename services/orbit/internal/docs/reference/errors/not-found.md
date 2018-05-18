@@ -21,7 +21,7 @@ As with all errors Orbit returns, `not_found` follows the [Problem Details for H
 ## Example
 
 ```shell
-$ curl -X GET "https://orbit-testnet.stellar.org/accounts/accountthatdoesntexist"
+$ curl -X GET "https://orbit-testnet.rover.network/accounts/accountthatdoesntexist"
 {
   "type": "not_found",
   "title": "Resource Missing",

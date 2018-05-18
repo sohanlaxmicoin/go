@@ -1,12 +1,12 @@
 ---
 title: Account Details
 clientData:
-  laboratoryUrl: https://www.stellar.org/laboratory/#explorer?resource=accounts&endpoint=single
+  laboratoryUrl: https://www.rover.network/laboratory/#explorer?resource=accounts&endpoint=single
 ---
 
 Returns information and links relating to a single [account](../resources/account.md).
 
-The balances section in the returned JSON will also list all the [trust lines](https://www.stellar.org/developers/learn/concepts/assets.html) this account has set up. Note this will only return trustlines that have the necessary authorization to work. Meaning if an accountA trusts another accountB that has the [authorization required](https://www.stellar.org/developers/guides/concepts/accounts.html#flags) flag set the trustline wont show up until accountB [allows](https://www.stellar.org/developers/guides/concepts/list-of-operations.html#allow-trust) accountA to hold its assets.
+The balances section in the returned JSON will also list all the [trust lines](https://www.rover.network/developers/learn/concepts/assets.html) this account has set up. Note this will only return trustlines that have the necessary authorization to work. Meaning if an accountA trusts another accountB that has the [authorization required](https://www.rover.network/developers/guides/concepts/accounts.html#flags) flag set the trustline wont show up until accountB [allows](https://www.rover.network/developers/guides/concepts/list-of-operations.html#allow-trust) accountA to hold its assets.
 
 ## Request
 
@@ -23,14 +23,14 @@ GET /accounts/{account}
 ### curl Example Request
 
 ```sh
-curl "https://orbit-testnet.stellar.org/accounts/GCEZWKCA5VLDNRLN3RPRJMRZOX3Z6G5CHCGSNFHEYVXM3XOJMDS674JZ"
+curl "https://orbit-testnet.rover.network/accounts/GCEZWKCA5VLDNRLN3RPRJMRZOX3Z6G5CHCGSNFHEYVXM3XOJMDS674JZ"
 ```
 
 ### JavaScript Example Request
 
 ```js
 var StellarSdk = require('rover-sdk');
-var server = new StellarSdk.Server('https://orbit-testnet.stellar.org');
+var server = new StellarSdk.Server('https://orbit-testnet.rover.network');
 
 server.accounts()
   .accountId("GCEZWKCA5VLDNRLN3RPRJMRZOX3Z6G5CHCGSNFHEYVXM3XOJMDS674JZ")
@@ -52,26 +52,26 @@ This endpoint responds with the details of a single account for a given ID. See 
 {
   "_links": {
     "self": {
-      "href": "https://orbit-testnet.stellar.org/accounts/GD42RQNXTRIW6YR3E2HXV5T2AI27LBRHOERV2JIYNFMXOBA234SWLQQB"
+      "href": "https://orbit-testnet.rover.network/accounts/GD42RQNXTRIW6YR3E2HXV5T2AI27LBRHOERV2JIYNFMXOBA234SWLQQB"
     },
     "transactions": {
-      "href": "https://orbit-testnet.stellar.org/accounts/GD42RQNXTRIW6YR3E2HXV5T2AI27LBRHOERV2JIYNFMXOBA234SWLQQB/transactions{?cursor,limit,order}",
+      "href": "https://orbit-testnet.rover.network/accounts/GD42RQNXTRIW6YR3E2HXV5T2AI27LBRHOERV2JIYNFMXOBA234SWLQQB/transactions{?cursor,limit,order}",
       "templated": true
     },
     "operations": {
-      "href": "https://orbit-testnet.stellar.org/accounts/GD42RQNXTRIW6YR3E2HXV5T2AI27LBRHOERV2JIYNFMXOBA234SWLQQB/operations{?cursor,limit,order}",
+      "href": "https://orbit-testnet.rover.network/accounts/GD42RQNXTRIW6YR3E2HXV5T2AI27LBRHOERV2JIYNFMXOBA234SWLQQB/operations{?cursor,limit,order}",
       "templated": true
     },
     "payments": {
-      "href": "https://orbit-testnet.stellar.org/accounts/GD42RQNXTRIW6YR3E2HXV5T2AI27LBRHOERV2JIYNFMXOBA234SWLQQB/payments{?cursor,limit,order}",
+      "href": "https://orbit-testnet.rover.network/accounts/GD42RQNXTRIW6YR3E2HXV5T2AI27LBRHOERV2JIYNFMXOBA234SWLQQB/payments{?cursor,limit,order}",
       "templated": true
     },
     "effects": {
-      "href": "https://orbit-testnet.stellar.org/accounts/GD42RQNXTRIW6YR3E2HXV5T2AI27LBRHOERV2JIYNFMXOBA234SWLQQB/effects{?cursor,limit,order}",
+      "href": "https://orbit-testnet.rover.network/accounts/GD42RQNXTRIW6YR3E2HXV5T2AI27LBRHOERV2JIYNFMXOBA234SWLQQB/effects{?cursor,limit,order}",
       "templated": true
     },
     "offers": {
-      "href": "https://orbit-testnet.stellar.org/accounts/GD42RQNXTRIW6YR3E2HXV5T2AI27LBRHOERV2JIYNFMXOBA234SWLQQB/offers{?cursor,limit,order}",
+      "href": "https://orbit-testnet.rover.network/accounts/GD42RQNXTRIW6YR3E2HXV5T2AI27LBRHOERV2JIYNFMXOBA234SWLQQB/offers{?cursor,limit,order}",
       "templated": true
     }
   },

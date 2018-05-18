@@ -6,7 +6,7 @@ import (
 	"github.com/lib/pq"
 )
 
-// This file contains implementations of the sql.Scanner interface for stellar xdr types
+// This file contains implementations of the sql.Scanner interface for rover xdr types
 
 // Scan reads from src into an AccountFlags
 func (t *AccountFlags) Scan(src interface{}) error {

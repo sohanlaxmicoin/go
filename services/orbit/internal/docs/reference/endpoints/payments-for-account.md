@@ -1,7 +1,7 @@
 ---
 title: Payments for Account
 clientData:
-  laboratoryUrl: https://www.stellar.org/laboratory/#explorer?resource=payments&endpoint=for_account
+  laboratoryUrl: https://www.rover.network/laboratory/#explorer?resource=payments&endpoint=for_account
 ---
 
 This endpoint responds with a collection of [Payment operations](../resources/operation.md) where the given [account](../resources/account.md) was either the sender or receiver.
@@ -28,14 +28,14 @@ GET /accounts/{id}/payments{?cursor,limit,order}
 
 ```bash
 # Retrieve the 25 latest payments for a specific account.
-curl "https://orbit-testnet.stellar.org/account/GCEZWKCA5VLDNRLN3RPRJMRZOX3Z6G5CHCGSNFHEYVXM3XOJMDS674JZ/payments?limit=25&order=desc"
+curl "https://orbit-testnet.rover.network/account/GCEZWKCA5VLDNRLN3RPRJMRZOX3Z6G5CHCGSNFHEYVXM3XOJMDS674JZ/payments?limit=25&order=desc"
 ```
 
 ### JavaScript Example Request
 
 ```js
 var StellarSdk = require('rover-sdk');
-var server = new StellarSdk.Server('https://orbit-testnet.stellar.org');
+var server = new StellarSdk.Server('https://orbit-testnet.rover.network');
 
 server.payments()
   .forAccount("GCEZWKCA5VLDNRLN3RPRJMRZOX3Z6G5CHCGSNFHEYVXM3XOJMDS674JZ")

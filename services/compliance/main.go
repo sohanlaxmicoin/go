@@ -25,7 +25,7 @@ type Config struct {
 	NeedsAuth         bool   `valid:"required" toml:"needs_auth"`
 	NetworkPassphrase string `valid:"required" toml:"network_passphrase"`
 	Keys              struct {
-		SigningSeed string `valid:"stellar_seed,required" toml:"signing_seed"`
+		SigningSeed string `valid:"rover_seed,required" toml:"signing_seed"`
 	} `valid:"required"`
 	Callbacks struct {
 		Sanctions   string `valid:"url,optional" toml:"sanctions"`

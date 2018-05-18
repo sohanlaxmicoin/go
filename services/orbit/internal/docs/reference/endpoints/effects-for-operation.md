@@ -1,7 +1,7 @@
 ---
 title: Effects for Operation
 clientData:
-  laboratoryUrl: https://www.stellar.org/laboratory/#explorer?resource=effects&endpoint=for_operation
+  laboratoryUrl: https://www.rover.network/laboratory/#explorer?resource=effects&endpoint=for_operation
 ---
 
 This endpoint represents all [effects](../resources/effect.md) that occurred as a result of a given [operation](../resources/operation.md).
@@ -24,14 +24,14 @@ GET /operations/{id}/effects{?cursor,limit,order}
 ### curl Example Request
 
 ```sh
-curl "https://orbit-testnet.stellar.org/operations/77309415424/effects"
+curl "https://orbit-testnet.rover.network/operations/77309415424/effects"
 ```
 
 ### JavaScript Example Request
 
 ```javascript
 var StellarSdk = require('rover-sdk');
-var server = new StellarSdk.Server('https://orbit-testnet.stellar.org');
+var server = new StellarSdk.Server('https://orbit-testnet.rover.network');
 
 server.effects()
   .forOperation("141733924865")

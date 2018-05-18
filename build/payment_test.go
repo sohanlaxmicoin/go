@@ -103,7 +103,7 @@ var _ = Describe("Payment Mutators", func() {
 		})
 
 		Describe("Destination", func() {
-			Context("using a valid stellar address", func() {
+			Context("using a valid rover address", func() {
 				BeforeEach(func() { mut = Destination{address} })
 
 				It("succeeds", func() {
@@ -124,7 +124,7 @@ var _ = Describe("Payment Mutators", func() {
 		})
 
 		Describe("SourceAccount", func() {
-			Context("using a valid stellar address", func() {
+			Context("using a valid rover address", func() {
 				BeforeEach(func() { mut = SourceAccount{address} })
 
 				It("succeeds", func() {
@@ -166,7 +166,7 @@ var _ = Describe("Payment Mutators", func() {
 		})
 
 		Describe("Destination", func() {
-			Context("using a valid stellar address", func() {
+			Context("using a valid rover address", func() {
 				BeforeEach(func() { mut = Destination{address} })
 
 				It("succeeds", func() {

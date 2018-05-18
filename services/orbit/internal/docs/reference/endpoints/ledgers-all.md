@@ -1,7 +1,7 @@
 ---
 title: All Ledgers
 clientData:
-  laboratoryUrl: https://www.stellar.org/laboratory/#explorer?resource=ledgers&endpoint=all
+  laboratoryUrl: https://www.rover.network/laboratory/#explorer?resource=ledgers&endpoint=all
 ---
 
 This endpoint represents all [ledgers](../resources/ledger.md).
@@ -26,7 +26,7 @@ GET /ledgers{?cursor,limit,order}
 
 ```sh
 # Retrieve the 200 latest ledgers, ordered chronologically
-curl "https://orbit-testnet.stellar.org/ledgers?limit=200&order=desc"
+curl "https://orbit-testnet.rover.network/ledgers?limit=200&order=desc"
 ```
 
 ### JavaScript Example Request

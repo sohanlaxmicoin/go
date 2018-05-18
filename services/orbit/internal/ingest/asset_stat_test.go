@@ -141,11 +141,11 @@ func TestStatAccountInfo(t *testing.T) {
 		{
 			"GCXKG6RN4ONIEPCMNFB732A436Z5PNDSRLGWK7GBLCMQLIFO4S7EYWVU",
 			0,
-			"https://example.com/.well-known/stellar.toml",
+			"https://example.com/.well-known/rover.toml",
 		}, {
 			"GA5WBPYA5Y4WAEHXWR2UKO2UO4BUGHUQ74EUPKON2QHV4WRHOIRNKKH2",
 			1,
-			"https://abc.com/.well-known/stellar.toml",
+			"https://abc.com/.well-known/rover.toml",
 		}, {
 			"GBXGQJWVLWOYHFLVTKWV5FGHA3LNYY2JQKM7OAJAUEQFU6LPCSEFVXON",
 			2,

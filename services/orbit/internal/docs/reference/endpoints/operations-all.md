@@ -1,7 +1,7 @@
 ---
 title: All Operations
 clientData:
-  laboratoryUrl: https://www.stellar.org/laboratory/#explorer?resource=operations&endpoint=all
+  laboratoryUrl: https://www.rover.network/laboratory/#explorer?resource=operations&endpoint=all
 ---
 
 This endpoint represents all [operations](../resources/operation.md) that are part of validated [transactions](../resources/transaction.md).
@@ -25,14 +25,14 @@ GET /operations{?cursor,limit,order}
 ### curl Example Request
 
 ```sh
-curl "https://orbit-testnet.stellar.org/operations?limit=200&order=desc"
+curl "https://orbit-testnet.rover.network/operations?limit=200&order=desc"
 ```
 
 ### JavaScript Example Request
 
 ```js
 var StellarSdk = require('rover-sdk');
-var server = new StellarSdk.Server('https://orbit-testnet.stellar.org');
+var server = new StellarSdk.Server('https://orbit-testnet.rover.network');
 
 server.operations()
   .call()

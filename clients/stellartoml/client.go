@@ -10,7 +10,7 @@ import (
 	"github.com/rover/go/support/errors"
 )
 
-// GetStellarToml returns stellar.toml file for a given domain
+// GetStellarToml returns rover.toml file for a given domain
 func (c *Client) GetStellarToml(domain string) (resp *Response, err error) {
 	var hresp *http.Response
 	hresp, err = c.HTTP.Get(c.url(domain))
@@ -30,9 +30,9 @@ func (c *Client) GetStellarToml(domain string) (resp *Response, err error) {
 
 	// There is one corner case not handled here: response is exactly
 	// StellarTomlMaxSize long and is incorrect toml. Check discussion:
-	// https://github.com/rover/go/pull/24#discussion_r89909696
+	// https://github.com/laxmicoinofficial/go/pull/24#discussion_r89909696
 	if err != nil && limitReader.(*io.LimitedReader).N == 0 {
-		err = errors.Errorf("stellar.toml response exceeds %d bytes limit", StellarTomlMaxSize)
+		err = errors.Errorf("rover.toml response exceeds %d bytes limit", StellarTomlMaxSize)
 		return
 	}
 
@@ -44,7 +44,7 @@ func (c *Client) GetStellarToml(domain string) (resp *Response, err error) {
 	return
 }
 
-// GetStellarTomlByAddress returns stellar.toml file of a domain fetched from a
+// GetStellarTomlByAddress returns rover.toml file of a domain fetched from a
 // given address
 func (c *Client) GetStellarTomlByAddress(addy string) (*Response, error) {
 	_, domain, err := address.Split(addy)
@@ -55,7 +55,7 @@ func (c *Client) GetStellarTomlByAddress(addy string) (*Response, error) {
 	return c.GetStellarToml(domain)
 }
 
-// url returns the appropriate url to load for resolving domain's stellar.toml
+// url returns the appropriate url to load for resolving domain's rover.toml
 // file
 func (c *Client) url(domain string) string {
 	var scheme string

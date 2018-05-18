@@ -7,7 +7,7 @@ import (
 
 func init() {
 	govalidator.SetFieldsRequiredByDefault(true)
-	govalidator.CustomTypeTagMap.Set("stellar_address", govalidator.CustomTypeValidator(isStellarAddress))
+	govalidator.CustomTypeTagMap.Set("rover_address", govalidator.CustomTypeValidator(isStellarAddress))
 }
 
 func isStellarAddress(i interface{}, context interface{}) bool {

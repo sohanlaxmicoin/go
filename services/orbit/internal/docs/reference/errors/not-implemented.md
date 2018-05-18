@@ -22,7 +22,7 @@ As with all errors Orbit returns, `not_implemented` follows the [Problem Details
 ## Examples
 
 ```shell
-$ curl -X GET "https://orbit-testnet.stellar.org/ledgers/200/effects"
+$ curl -X GET "https://orbit-testnet.rover.network/ledgers/200/effects"
 {
   "type": "not_implemented",
   "title": "Resource Not Yet Implemented",

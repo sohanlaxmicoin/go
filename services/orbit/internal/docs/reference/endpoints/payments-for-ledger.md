@@ -1,7 +1,7 @@
 ---
 title: Payments for Ledger
 clientData:
-  laboratoryUrl: https://www.stellar.org/laboratory/#explorer?resource=payments&endpoint=for_ledger
+  laboratoryUrl: https://www.rover.network/laboratory/#explorer?resource=payments&endpoint=for_ledger
 ---
 
 This endpoint represents all payment [operations](../resources/operation.md) that are part of a valid [transactions](../resources/transaction.md) in a given [ledger](../resources/ledger.md).
@@ -24,14 +24,14 @@ GET /ledgers/{id}/payments{?cursor,limit,order}
 ### curl Example Request
 
 ```sh
-curl "https://orbit-testnet.stellar.org/ledgers/69859/payments"
+curl "https://orbit-testnet.rover.network/ledgers/69859/payments"
 ```
 
 ### JavaScript Example Request
 
 ```js
 var StellarSdk = require('rover-sdk')
-var server = new StellarSdk.Server('https://orbit-testnet.stellar.org');
+var server = new StellarSdk.Server('https://orbit-testnet.rover.network');
 
 server.payments()
   .forLedger("10866")

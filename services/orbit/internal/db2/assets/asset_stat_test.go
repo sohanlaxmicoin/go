@@ -18,7 +18,7 @@ func TestAssetsStatsQExec(t *testing.T) {
 		Amount:      1009876000,
 		NumAccounts: 1,
 		Flags:       1,
-		Toml:        "https://test.com/.well-known/stellar.toml",
+		Toml:        "https://test.com/.well-known/rover.toml",
 	}
 
 	item1 := AssetStatsR{
@@ -40,7 +40,7 @@ func TestAssetsStatsQExec(t *testing.T) {
 		Amount:      3000010434000,
 		NumAccounts: 2,
 		Flags:       1,
-		Toml:        "https://test.com/.well-known/stellar.toml",
+		Toml:        "https://test.com/.well-known/rover.toml",
 	}
 
 	testCases := []struct {

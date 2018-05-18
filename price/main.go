@@ -1,4 +1,4 @@
-// Package price implements functions to ease working with stellar price values.
+// Package price implements functions to ease working with rover price values.
 // At present, prices are only used within the offer system, and are represented
 // by a fraction whose numberator and denominator are both 32-bit signed
 // integers.

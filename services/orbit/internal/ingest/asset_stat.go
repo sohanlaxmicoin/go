@@ -221,7 +221,7 @@ func statAccountInfo(coreQ *core.Q, accountID string) (int8, string, error) {
 	} else {
 		trimmed := strings.TrimSpace(account.HomeDomain.String)
 		if trimmed != "" {
-			toml = "https://" + account.HomeDomain.String + "/.well-known/stellar.toml"
+			toml = "https://" + account.HomeDomain.String + "/.well-known/rover.toml"
 		} else {
 			toml = ""
 		}

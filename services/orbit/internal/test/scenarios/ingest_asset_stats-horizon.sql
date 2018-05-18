@@ -460,9 +460,9 @@ ALTER TABLE ONLY history_transaction_participants ALTER COLUMN id SET DEFAULT ne
 -- Data for Name: asset_stats; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO asset_stats VALUES (1, 3000010434000, 2, 1, 'https://test.com/.well-known/stellar.toml');
+INSERT INTO asset_stats VALUES (1, 3000010434000, 2, 1, 'https://test.com/.well-known/rover.toml');
 INSERT INTO asset_stats VALUES (2, 10000000000, 1, 2, '');
-INSERT INTO asset_stats VALUES (3, 1009876000, 1, 1, 'https://test.com/.well-known/stellar.toml');
+INSERT INTO asset_stats VALUES (3, 1009876000, 1, 1, 'https://test.com/.well-known/rover.toml');
 
 
 --

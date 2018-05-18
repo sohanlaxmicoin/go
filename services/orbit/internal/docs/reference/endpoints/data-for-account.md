@@ -1,7 +1,7 @@
 ---
 title: Data for Account
 clientData:
-  laboratoryUrl: https://www.stellar.org/laboratory/#explorer?resource=data&endpoint=for_account
+  laboratoryUrl: https://www.rover.network/laboratory/#explorer?resource=data&endpoint=for_account
 ---
 
 This endpoint represents a single [data](../resources/data.md) associated with a given [account](../resources/account.md).
@@ -21,14 +21,14 @@ GET /accounts/{account}/data/{key}
 ### curl Example Request
 
 ```sh
-curl "https://orbit-testnet.stellar.org/accounts/GA2HGBJIJKI6O4XEM7CZWY5PS6GKSXL6D34ERAJYQSPYA6X6AI7HYW36/data/user-id"
+curl "https://orbit-testnet.rover.network/accounts/GA2HGBJIJKI6O4XEM7CZWY5PS6GKSXL6D34ERAJYQSPYA6X6AI7HYW36/data/user-id"
 ```
 
 ### JavaScript Example Request
 
 ```js
 var StellarSdk = require('rover-sdk');
-var server = new StellarSdk.Server('https://orbit-testnet.stellar.org');
+var server = new StellarSdk.Server('https://orbit-testnet.rover.network');
 
 server.accounts()
   .accountId("GAKLBGHNHFQ3BMUYG5KU4BEWO6EYQHZHAXEWC33W34PH2RBHZDSQBD75")

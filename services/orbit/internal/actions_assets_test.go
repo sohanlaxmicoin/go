@@ -12,7 +12,7 @@ func TestAssetsActions(t *testing.T) {
 	testDomain := struct {
 		Toml hal.Link `json:"toml"`
 	}{
-		Toml: hal.NewLink("https://test.com/.well-known/stellar.toml"),
+		Toml: hal.NewLink("https://test.com/.well-known/rover.toml"),
 	}
 	empty := struct {
 		Toml hal.Link `json:"toml"`

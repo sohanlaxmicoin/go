@@ -1,7 +1,7 @@
 ---
 title: Operations for Account
 clientData:
-  laboratoryUrl: https://www.stellar.org/laboratory/#explorer?resource=operations&endpoint=for_account
+  laboratoryUrl: https://www.rover.network/laboratory/#explorer?resource=operations&endpoint=for_account
 ---
 
 This endpoint represents all [operations](../resources/operation.md) that were included in valid [transactions](../resources/transaction.md) that affected a particular [account](../resources/account.md).
@@ -27,14 +27,14 @@ GET /accounts/{account}/operations{?cursor,limit,order}
 ### curl Example Request
 
 ```sh
-curl "https://orbit-testnet.stellar.org/accounts/GA2HGBJIJKI6O4XEM7CZWY5PS6GKSXL6D34ERAJYQSPYA6X6AI7HYW36/operations"
+curl "https://orbit-testnet.rover.network/accounts/GA2HGBJIJKI6O4XEM7CZWY5PS6GKSXL6D34ERAJYQSPYA6X6AI7HYW36/operations"
 ```
 
 ### JavaScript Example Request
 
 ```js
 var StellarSdk = require('rover-sdk');
-var server = new StellarSdk.Server('https://orbit-testnet.stellar.org');
+var server = new StellarSdk.Server('https://orbit-testnet.rover.network');
 
 server.operations()
   .forAccount("GAKLBGHNHFQ3BMUYG5KU4BEWO6EYQHZHAXEWC33W34PH2RBHZDSQBD75")

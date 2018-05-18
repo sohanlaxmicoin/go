@@ -51,7 +51,7 @@ type transactionsQueueRow struct {
 	TransactionID    string          `db:"transaction_id"`
 	AssetCode        queue.AssetCode `db:"asset_code"`
 	Amount           string          `db:"amount"`
-	StellarPublicKey string          `db:"stellar_public_key"`
+	StellarPublicKey string          `db:"rover_public_key"`
 }
 
 type processedTransactionRow struct {
@@ -144,7 +144,7 @@ func (d *PostgresDatabase) GetAssociationByChainAddress(chain Chain, address str
 func (d *PostgresDatabase) GetAssociationByStellarPublicKey(stellarPublicKey string) (*AddressAssociation, error) {
 	addressAssociationTable := d.getTable(addressAssociationTableName, nil)
 	row := &AddressAssociation{}
-	where := map[string]interface{}{"stellar_public_key": stellarPublicKey}
+	where := map[string]interface{}{"rover_public_key": stellarPublicKey}
 	err := addressAssociationTable.Get(row, where).Exec()
 	if err != nil {
 		switch errors.Cause(err) {

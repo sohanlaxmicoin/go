@@ -9,7 +9,7 @@ import (
 // FromAddress represents a keypair to which only the address is know.  This KP
 // can verify signatures, but cannot sign them.
 //
-// NOTE: ensure the address provided is a valid strkey encoded stellar address.
+// NOTE: ensure the address provided is a valid strkey encoded rover address.
 // Some operations will panic otherwise. It's recommended that you create these
 // structs through the Parse() method.
 type FromAddress struct {

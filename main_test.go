@@ -66,7 +66,7 @@ func ExampleBuildTransaction() {
 }
 
 // ExampleLowLevelTransaction creates and signs a simple transaction, and then
-// encodes it into a hex string capable of being submitted to stellar-core.
+// encodes it into a hex string capable of being submitted to rover-core.
 //
 // It uses the low-level xdr facilities to create the transaction.
 func ExampleLowLevelTransaction() {

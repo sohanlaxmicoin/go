@@ -6,7 +6,7 @@ title: Transaction
 
 A transaction is a grouping of [operations](./operation.md).
 
-To learn more about the concept of transactions in the Stellar network, take a look at the [Stellar transactions concept guide](https://www.stellar.org/developers/learn/concepts/transactions.html).
+To learn more about the concept of transactions in the Stellar network, take a look at the [Stellar transactions concept guide](https://www.rover.network/developers/learn/concepts/transactions.html).
 
 ## Attributes
 

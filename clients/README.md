@@ -1,6 +1,6 @@
 # Clients package
 
-Packages contained by this package provide client libraries for accessing the ecosystem of stellar services.  At present, it only contains a simple orbit client library, but in the future it will contain clients to interact with stellar-core, federation, the bridge server and more.
+Packages contained by this package provide client libraries for accessing the ecosystem of rover services.  At present, it only contains a simple orbit client library, but in the future it will contain clients to interact with rover-core, federation, the bridge server and more.
 
 See [godoc](https://godoc.org/github.com/rover/go/clients) for details about each package.
 

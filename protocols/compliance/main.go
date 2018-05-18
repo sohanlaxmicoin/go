@@ -24,8 +24,8 @@ type AuthRequest struct {
 
 // AuthData represents how AuthRequest.Data field looks like.
 type AuthData struct {
-	// The stellar address of the customer that is initiating the send.
-	Sender string `json:"sender" valid:"required,stellar_address"`
+	// The rover address of the customer that is initiating the send.
+	Sender string `json:"sender" valid:"required,rover_address"`
 	// If the caller needs the recipient's AML info in order to send the payment.
 	NeedInfo bool `json:"need_info" valid:"-"`
 	// The transaction that the sender would like to send in XDR format. This transaction is unsigned.

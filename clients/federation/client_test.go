@@ -19,17 +19,17 @@ func TestLookupByAddress(t *testing.T) {
 	c := &Client{StellarTOML: tomlmock, HTTP: hmock}
 
 	// happy path - string integer
-	tomlmock.On("GetStellarToml", "stellar.org").Return(&stellartoml.Response{
-		FederationServer: "https://stellar.org/federation",
+	tomlmock.On("GetStellarToml", "rover.network").Return(&stellartoml.Response{
+		FederationServer: "https://rover.network/federation",
 	}, nil)
-	hmock.On("GET", "https://stellar.org/federation").
+	hmock.On("GET", "https://rover.network/federation").
 		ReturnJSON(http.StatusOK, map[string]string{
-			"stellar_address": "scott*stellar.org",
+			"rover_address": "scott*rover.network",
 			"account_id":      "GASTNVNLHVR3NFO3QACMHCJT3JUSIV4NBXDHDO4VTPDTNN65W3B2766C",
 			"memo_type":       "id",
 			"memo":            "123",
 		})
-	resp, err := c.LookupByAddress("scott*stellar.org")
+	resp, err := c.LookupByAddress("scott*rover.network")
 
 	if assert.NoError(t, err) {
 		assert.Equal(t, "GASTNVNLHVR3NFO3QACMHCJT3JUSIV4NBXDHDO4VTPDTNN65W3B2766C", resp.AccountID)
@@ -38,17 +38,17 @@ func TestLookupByAddress(t *testing.T) {
 	}
 
 	// happy path - integer
-	tomlmock.On("GetStellarToml", "stellar.org").Return(&stellartoml.Response{
-		FederationServer: "https://stellar.org/federation",
+	tomlmock.On("GetStellarToml", "rover.network").Return(&stellartoml.Response{
+		FederationServer: "https://rover.network/federation",
 	}, nil)
-	hmock.On("GET", "https://stellar.org/federation").
+	hmock.On("GET", "https://rover.network/federation").
 		ReturnJSON(http.StatusOK, map[string]interface{}{
-			"stellar_address": "scott*stellar.org",
+			"rover_address": "scott*rover.network",
 			"account_id":      "GASTNVNLHVR3NFO3QACMHCJT3JUSIV4NBXDHDO4VTPDTNN65W3B2766C",
 			"memo_type":       "id",
 			"memo":            123,
 		})
-	resp, err = c.LookupByAddress("scott*stellar.org")
+	resp, err = c.LookupByAddress("scott*rover.network")
 
 	if assert.NoError(t, err) {
 		assert.Equal(t, "GASTNVNLHVR3NFO3QACMHCJT3JUSIV4NBXDHDO4VTPDTNN65W3B2766C", resp.AccountID)
@@ -57,17 +57,17 @@ func TestLookupByAddress(t *testing.T) {
 	}
 
 	// happy path - string
-	tomlmock.On("GetStellarToml", "stellar.org").Return(&stellartoml.Response{
-		FederationServer: "https://stellar.org/federation",
+	tomlmock.On("GetStellarToml", "rover.network").Return(&stellartoml.Response{
+		FederationServer: "https://rover.network/federation",
 	}, nil)
-	hmock.On("GET", "https://stellar.org/federation").
+	hmock.On("GET", "https://rover.network/federation").
 		ReturnJSON(http.StatusOK, map[string]interface{}{
-			"stellar_address": "scott*stellar.org",
+			"rover_address": "scott*rover.network",
 			"account_id":      "GASTNVNLHVR3NFO3QACMHCJT3JUSIV4NBXDHDO4VTPDTNN65W3B2766C",
 			"memo_type":       "text",
 			"memo":            "testing",
 		})
-	resp, err = c.LookupByAddress("scott*stellar.org")
+	resp, err = c.LookupByAddress("scott*rover.network")
 
 	if assert.NoError(t, err) {
 		assert.Equal(t, "GASTNVNLHVR3NFO3QACMHCJT3JUSIV4NBXDHDO4VTPDTNN65W3B2766C", resp.AccountID)
@@ -81,7 +81,7 @@ func TestLookupByAddress(t *testing.T) {
 	}, nil)
 	hmock.On("GET", "https://toobig.org/federation").
 		ReturnJSON(http.StatusOK, map[string]string{
-			"stellar_address": strings.Repeat("0", FederationResponseMaxSize) + "*stellar.org",
+			"rover_address": strings.Repeat("0", FederationResponseMaxSize) + "*rover.network",
 			"account_id":      "GASTNVNLHVR3NFO3QACMHCJT3JUSIV4NBXDHDO4VTPDTNN65W3B2766C",
 			"memo_type":       "id",
 			"memo":            "123",
@@ -141,10 +141,10 @@ func TestForwardRequest(t *testing.T) {
 	c := &Client{StellarTOML: tomlmock, HTTP: hmock}
 
 	// happy path - string integer
-	tomlmock.On("GetStellarToml", "stellar.org").Return(&stellartoml.Response{
-		FederationServer: "https://stellar.org/federation",
+	tomlmock.On("GetStellarToml", "rover.network").Return(&stellartoml.Response{
+		FederationServer: "https://rover.network/federation",
 	}, nil)
-	hmock.On("GET", "https://stellar.org/federation").
+	hmock.On("GET", "https://rover.network/federation").
 		ReturnJSON(http.StatusOK, map[string]string{
 			"account_id": "GASTNVNLHVR3NFO3QACMHCJT3JUSIV4NBXDHDO4VTPDTNN65W3B2766C",
 			"memo_type":  "id",
@@ -154,7 +154,7 @@ func TestForwardRequest(t *testing.T) {
 	fields.Add("federation_type", "bank_account")
 	fields.Add("swift", "BOPBPHMM")
 	fields.Add("acct", "2382376")
-	resp, err := c.ForwardRequest("stellar.org", fields)
+	resp, err := c.ForwardRequest("rover.network", fields)
 
 	if assert.NoError(t, err) {
 		assert.Equal(t, "GASTNVNLHVR3NFO3QACMHCJT3JUSIV4NBXDHDO4VTPDTNN65W3B2766C", resp.AccountID)
@@ -172,13 +172,13 @@ func Test_url(t *testing.T) {
 	qstr.Add("federation_type", "bank_account")
 	qstr.Add("swift", "BOPBPHMM")
 	qstr.Add("acct", "2382376")
-	furl := c.url("https://stellar.org/federation", qstr)
-	assert.Equal(t, "https://stellar.org/federation?acct=2382376&federation_type=bank_account&swift=BOPBPHMM&type=forward", furl)
+	furl := c.url("https://rover.network/federation", qstr)
+	assert.Equal(t, "https://rover.network/federation?acct=2382376&federation_type=bank_account&swift=BOPBPHMM&type=forward", furl)
 
 	// regression: ensure that query is properly URI encoded
 	qstr = url.Values{}
 	qstr.Add("type", "q")
-	qstr.Add("q", "scott+receiver1@stellar.org*stellar.org")
+	qstr.Add("q", "scott+receiver1@rover.network*rover.network")
 	furl = c.url("", qstr)
-	assert.Equal(t, "?q=scott%2Breceiver1%40stellar.org%2Astellar.org&type=q", furl)
+	assert.Equal(t, "?q=scott%2Breceiver1%40rover.network%2Arover.network&type=q", furl)
 }

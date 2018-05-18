@@ -54,7 +54,7 @@ type HTTP interface {
 }
 
 // StellarTOML represents a client that can resolve a given domain name to
-// stellar.toml file.  The response is used to find the federation server that a
+// rover.toml file.  The response is used to find the federation server that a
 // query should be made against.
 type StellarTOML interface {
 	GetStellarToml(domain string) (*stellartoml.Response, error)

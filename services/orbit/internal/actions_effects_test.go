@@ -20,7 +20,7 @@ func TestEffectActions_Index(t *testing.T) {
 			ht.Assert.PageOf(11, w.Body)
 		}
 
-		// test streaming, regression for https://github.com/rover/go/services/orbit/internal/issues/147
+		// test streaming, regression for https://github.com/laxmicoinofficial/go/services/orbit/internal/issues/147
 		w = ht.Get("/effects?limit=2", test.RequestHelperStreaming)
 		ht.Assert.Equal(200, w.Code)
 

@@ -10,11 +10,11 @@ import (
 
 func TestAccountIDValidator(t *testing.T) {
 	var val struct {
-		Empty        string `valid:"stellar_accountid"`
-		NotSTRKey    string `valid:"stellar_accountid"`
-		NotAccountID string `valid:"stellar_accountid"`
-		Valid        string `valid:"stellar_accountid"`
-		WrongType    int    `valid:"stellar_accountid"`
+		Empty        string `valid:"rover_accountid"`
+		NotSTRKey    string `valid:"rover_accountid"`
+		NotAccountID string `valid:"rover_accountid"`
+		Valid        string `valid:"rover_accountid"`
+		WrongType    int    `valid:"rover_accountid"`
 	}
 
 	val.NotSTRKey = "hello"
@@ -48,11 +48,11 @@ func TestAccountIDValidator(t *testing.T) {
 
 func TestSeedValidator(t *testing.T) {
 	var val struct {
-		Empty     string `valid:"stellar_seed"`
-		NotSTRKey string `valid:"stellar_seed"`
-		NotSeed   string `valid:"stellar_seed"`
-		Valid     string `valid:"stellar_seed"`
-		WrongType int    `valid:"stellar_seed"`
+		Empty     string `valid:"rover_seed"`
+		NotSTRKey string `valid:"rover_seed"`
+		NotSeed   string `valid:"rover_seed"`
+		Valid     string `valid:"rover_seed"`
+		WrongType int    `valid:"rover_seed"`
 	}
 
 	val.NotSTRKey = "hello"

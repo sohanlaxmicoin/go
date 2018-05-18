@@ -2,12 +2,12 @@ package stellartoml
 
 import "net/http"
 
-// StellarTomlMaxSize is the maximum size of stellar.toml file
+// StellarTomlMaxSize is the maximum size of rover.toml file
 const StellarTomlMaxSize = 5 * 1024
 
-// WellKnownPath represents the url path at which the stellar.toml file should
+// WellKnownPath represents the url path at which the rover.toml file should
 // exist to conform to the federation protocol.
-const WellKnownPath = "/.well-known/stellar.toml"
+const WellKnownPath = "/.well-known/rover.toml"
 
 // DefaultClient is a default client using the default parameters
 var DefaultClient = &Client{HTTP: http.DefaultClient}
@@ -29,7 +29,7 @@ type HTTP interface {
 	Get(url string) (*http.Response, error)
 }
 
-// Response represents the results of successfully resolving a stellar.toml file
+// Response represents the results of successfully resolving a rover.toml file
 type Response struct {
 	AuthServer       string `toml:"AUTH_SERVER"`
 	FederationServer string `toml:"FEDERATION_SERVER"`
@@ -37,12 +37,12 @@ type Response struct {
 	SigningKey       string `toml:"SIGNING_KEY"`
 }
 
-// GetStellarToml returns stellar.toml file for a given domain
+// GetStellarToml returns rover.toml file for a given domain
 func GetStellarToml(domain string) (*Response, error) {
 	return DefaultClient.GetStellarToml(domain)
 }
 
-// GetStellarTomlByAddress returns stellar.toml file of a domain fetched from a
+// GetStellarTomlByAddress returns rover.toml file of a domain fetched from a
 // given address
 func GetStellarTomlByAddress(addy string) (*Response, error) {
 	return DefaultClient.GetStellarTomlByAddress(addy)

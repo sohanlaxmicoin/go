@@ -41,7 +41,7 @@ func main() {
 		Use:   "federation",
 		Short: "stellar federation server",
 		Long: `
-The stellar federation server let's you easily integrate the stellar federation 
+The rover federation server let's you easily integrate the rover federation 
 protocol with your organization.  This is achieved by connecting the 
 application to your customer database and providing the appropriate queries in 
 the config file.

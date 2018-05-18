@@ -4,7 +4,7 @@ title: Account
 
 In the Stellar network, users interact using **accounts** which can be controlled by a corresponding keypair that can authorize transactions. One can create a new account with the [Create Account](./operation.md#create-account) operation.
 
-To learn more about the concept of accounts in the Stellar network, take a look at the [Stellar account concept guide](https://www.stellar.org/developers/learn/concepts/accounts.html).
+To learn more about the concept of accounts in the Stellar network, take a look at the [Stellar account concept guide](https://www.rover.network/developers/learn/concepts/accounts.html).
 
 When orbit returns information about an account it uses the following format:
 
@@ -14,7 +14,7 @@ When orbit returns information about an account it uses the following format:
 | id           | string           | The canonical id of this account, suitable for use as the :id parameter for url templates that require an account's ID. |
 | account_id      | string           | The account's public key encoded into a base32 string representation.                                                    |
 | sequence     | number           | The current sequence number that can be used when submitting a transaction from this account.                           |
-| subentry_count     | number           | The number of [account subentries](https://www.stellar.org/developers/guides/concepts/ledger.html#ledger-entries). |
+| subentry_count     | number           | The number of [account subentries](https://www.rover.network/developers/guides/concepts/ledger.html#ledger-entries). |
 | balances     | array of objects | An array of the native asset or credits this account holds.                                                          |
 | thresholds     | object | An object of account flags. |
 | signers     | array of objects | An array of account signers with their weights. |
@@ -38,34 +38,34 @@ When orbit returns information about an account it uses the following format:
 {
   "_links": {
     "self": {
-      "href": "https://orbit-testnet.stellar.org/accounts/GBRTWTVW65NO4AER7W6G5CTVWGZCLQJIKJTAX523Q5GPU6TNJONXOR23"
+      "href": "https://orbit-testnet.rover.network/accounts/GBRTWTVW65NO4AER7W6G5CTVWGZCLQJIKJTAX523Q5GPU6TNJONXOR23"
     },
     "transactions": {
-      "href": "https://orbit-testnet.stellar.org/accounts/GBRTWTVW65NO4AER7W6G5CTVWGZCLQJIKJTAX523Q5GPU6TNJONXOR23/transactions{?cursor,limit,order}",
+      "href": "https://orbit-testnet.rover.network/accounts/GBRTWTVW65NO4AER7W6G5CTVWGZCLQJIKJTAX523Q5GPU6TNJONXOR23/transactions{?cursor,limit,order}",
       "templated": true
     },
     "operations": {
-      "href": "https://orbit-testnet.stellar.org/accounts/GBRTWTVW65NO4AER7W6G5CTVWGZCLQJIKJTAX523Q5GPU6TNJONXOR23/operations{?cursor,limit,order}",
+      "href": "https://orbit-testnet.rover.network/accounts/GBRTWTVW65NO4AER7W6G5CTVWGZCLQJIKJTAX523Q5GPU6TNJONXOR23/operations{?cursor,limit,order}",
       "templated": true
     },
     "payments": {
-      "href": "https://orbit-testnet.stellar.org/accounts/GBRTWTVW65NO4AER7W6G5CTVWGZCLQJIKJTAX523Q5GPU6TNJONXOR23/payments{?cursor,limit,order}",
+      "href": "https://orbit-testnet.rover.network/accounts/GBRTWTVW65NO4AER7W6G5CTVWGZCLQJIKJTAX523Q5GPU6TNJONXOR23/payments{?cursor,limit,order}",
       "templated": true
     },
     "effects": {
-      "href": "https://orbit-testnet.stellar.org/accounts/GBRTWTVW65NO4AER7W6G5CTVWGZCLQJIKJTAX523Q5GPU6TNJONXOR23/effects{?cursor,limit,order}",
+      "href": "https://orbit-testnet.rover.network/accounts/GBRTWTVW65NO4AER7W6G5CTVWGZCLQJIKJTAX523Q5GPU6TNJONXOR23/effects{?cursor,limit,order}",
       "templated": true
     },
     "offers": {
-      "href": "https://orbit-testnet.stellar.org/accounts/GBRTWTVW65NO4AER7W6G5CTVWGZCLQJIKJTAX523Q5GPU6TNJONXOR23/offers{?cursor,limit,order}",
+      "href": "https://orbit-testnet.rover.network/accounts/GBRTWTVW65NO4AER7W6G5CTVWGZCLQJIKJTAX523Q5GPU6TNJONXOR23/offers{?cursor,limit,order}",
       "templated": true
     },
     "trades": {
-      "href": "https://orbit-testnet.stellar.org/accounts/GBRTWTVW65NO4AER7W6G5CTVWGZCLQJIKJTAX523Q5GPU6TNJONXOR23/trades{?cursor,limit,order}",
+      "href": "https://orbit-testnet.rover.network/accounts/GBRTWTVW65NO4AER7W6G5CTVWGZCLQJIKJTAX523Q5GPU6TNJONXOR23/trades{?cursor,limit,order}",
       "templated": true
     },
     "data": {
-      "href": "https://orbit-testnet.stellar.org/accounts/GBRTWTVW65NO4AER7W6G5CTVWGZCLQJIKJTAX523Q5GPU6TNJONXOR23/data/{key}",
+      "href": "https://orbit-testnet.rover.network/accounts/GBRTWTVW65NO4AER7W6G5CTVWGZCLQJIKJTAX523Q5GPU6TNJONXOR23/data/{key}",
       "templated": true
     }
   },

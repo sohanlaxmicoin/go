@@ -18,13 +18,13 @@ import (
 
 // DefaultTestNetClient is a default client to connect to test network
 var DefaultTestNetClient = &Client{
-	URL:  "https://orbit-testnet.stellar.org",
+	URL:  "https://orbit-testnet.rover.network",
 	HTTP: http.DefaultClient,
 }
 
 // DefaultPublicNetClient is a default client to connect to public network
 var DefaultPublicNetClient = &Client{
-	URL:  "https://orbit.stellar.org",
+	URL:  "https://orbit.rover.network",
 	HTTP: http.DefaultClient,
 }
 

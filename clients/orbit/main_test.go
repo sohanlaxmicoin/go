@@ -58,7 +58,7 @@ func ExampleClient_SubmitTransaction() {
 
 func TestHorizon(t *testing.T) {
 	RegisterFailHandler(Fail)
-	RunSpecs(t, "Package: github.com/rover/go/orbit")
+	RunSpecs(t, "Package: github.com/laxmicoinofficial/go/services/orbit")
 }
 
 var _ = Describe("Orbit", func() {
@@ -309,26 +309,26 @@ var _ = Describe("Orbit", func() {
 var accountResponse = `{
   "_links": {
     "self": {
-      "href": "https://orbit-testnet.stellar.org/accounts/GBRPYHIL2CI3FNQ4BXLFMNDLFJUNPU2HY3ZMFSHONUCEOASW7QC7OX2H"
+      "href": "https://orbit-testnet.rover.network/accounts/GBRPYHIL2CI3FNQ4BXLFMNDLFJUNPU2HY3ZMFSHONUCEOASW7QC7OX2H"
     },
     "transactions": {
-      "href": "https://orbit-testnet.stellar.org/accounts/GBRPYHIL2CI3FNQ4BXLFMNDLFJUNPU2HY3ZMFSHONUCEOASW7QC7OX2H/transactions{?cursor,limit,order}",
+      "href": "https://orbit-testnet.rover.network/accounts/GBRPYHIL2CI3FNQ4BXLFMNDLFJUNPU2HY3ZMFSHONUCEOASW7QC7OX2H/transactions{?cursor,limit,order}",
       "templated": true
     },
     "operations": {
-      "href": "https://orbit-testnet.stellar.org/accounts/GBRPYHIL2CI3FNQ4BXLFMNDLFJUNPU2HY3ZMFSHONUCEOASW7QC7OX2H/operations{?cursor,limit,order}",
+      "href": "https://orbit-testnet.rover.network/accounts/GBRPYHIL2CI3FNQ4BXLFMNDLFJUNPU2HY3ZMFSHONUCEOASW7QC7OX2H/operations{?cursor,limit,order}",
       "templated": true
     },
     "payments": {
-      "href": "https://orbit-testnet.stellar.org/accounts/GBRPYHIL2CI3FNQ4BXLFMNDLFJUNPU2HY3ZMFSHONUCEOASW7QC7OX2H/payments{?cursor,limit,order}",
+      "href": "https://orbit-testnet.rover.network/accounts/GBRPYHIL2CI3FNQ4BXLFMNDLFJUNPU2HY3ZMFSHONUCEOASW7QC7OX2H/payments{?cursor,limit,order}",
       "templated": true
     },
     "effects": {
-      "href": "https://orbit-testnet.stellar.org/accounts/GBRPYHIL2CI3FNQ4BXLFMNDLFJUNPU2HY3ZMFSHONUCEOASW7QC7OX2H/effects{?cursor,limit,order}",
+      "href": "https://orbit-testnet.rover.network/accounts/GBRPYHIL2CI3FNQ4BXLFMNDLFJUNPU2HY3ZMFSHONUCEOASW7QC7OX2H/effects{?cursor,limit,order}",
       "templated": true
     },
     "offers": {
-      "href": "https://orbit-testnet.stellar.org/accounts/GBRPYHIL2CI3FNQ4BXLFMNDLFJUNPU2HY3ZMFSHONUCEOASW7QC7OX2H/Offers{?cursor,limit,order}",
+      "href": "https://orbit-testnet.rover.network/accounts/GBRPYHIL2CI3FNQ4BXLFMNDLFJUNPU2HY3ZMFSHONUCEOASW7QC7OX2H/Offers{?cursor,limit,order}",
       "templated": true
     }
   },
@@ -374,13 +374,13 @@ var accountResponse = `{
 var accountOffersResponse = `{
   "_links": {
     "self": {
-      "href": "https://orbit.stellar.org/accounts/GC2BQYBXFOVPRDH35D5HT2AFVCDGXJM5YVTAF5THFSAISYOWAJQKRESK/offers?order=asc\u0026limit=10\u0026cursor="
+      "href": "https://orbit.rover.network/accounts/GC2BQYBXFOVPRDH35D5HT2AFVCDGXJM5YVTAF5THFSAISYOWAJQKRESK/offers?order=asc\u0026limit=10\u0026cursor="
     },
     "next": {
-      "href": "https://orbit.stellar.org/accounts/GC2BQYBXFOVPRDH35D5HT2AFVCDGXJM5YVTAF5THFSAISYOWAJQKRESK/offers?order=asc\u0026limit=10\u0026cursor=2539"
+      "href": "https://orbit.rover.network/accounts/GC2BQYBXFOVPRDH35D5HT2AFVCDGXJM5YVTAF5THFSAISYOWAJQKRESK/offers?order=asc\u0026limit=10\u0026cursor=2539"
     },
     "prev": {
-      "href": "https://orbit.stellar.org/accounts/GC2BQYBXFOVPRDH35D5HT2AFVCDGXJM5YVTAF5THFSAISYOWAJQKRESK/offers?order=desc\u0026limit=10\u0026cursor=161"
+      "href": "https://orbit.rover.network/accounts/GC2BQYBXFOVPRDH35D5HT2AFVCDGXJM5YVTAF5THFSAISYOWAJQKRESK/offers?order=desc\u0026limit=10\u0026cursor=161"
     }
   },
   "_embedded": {
@@ -388,10 +388,10 @@ var accountOffersResponse = `{
       {
         "_links": {
           "self": {
-            "href": "https://orbit.stellar.org/offers/161"
+            "href": "https://orbit.rover.network/offers/161"
           },
           "offer_maker": {
-            "href": "https://orbit.stellar.org/accounts/GC2BQYBXFOVPRDH35D5HT2AFVCDGXJM5YVTAF5THFSAISYOWAJQKRESK"
+            "href": "https://orbit.rover.network/accounts/GC2BQYBXFOVPRDH35D5HT2AFVCDGXJM5YVTAF5THFSAISYOWAJQKRESK"
           }
         },
         "id": 161,
@@ -415,10 +415,10 @@ var accountOffersResponse = `{
       {
         "_links": {
           "self": {
-            "href": "https://orbit.stellar.org/offers/2539"
+            "href": "https://orbit.rover.network/offers/2539"
           },
           "offer_maker": {
-            "href": "https://orbit.stellar.org/accounts/GC2BQYBXFOVPRDH35D5HT2AFVCDGXJM5YVTAF5THFSAISYOWAJQKRESK"
+            "href": "https://orbit.rover.network/accounts/GC2BQYBXFOVPRDH35D5HT2AFVCDGXJM5YVTAF5THFSAISYOWAJQKRESK"
           }
         },
         "id": 2539,
@@ -779,7 +779,7 @@ var orderBookResponse = `{
 }`
 
 var notFoundResponse = `{
-  "type": "https://stellar.org/orbit-errors/not_found",
+  "type": "https://rover.network/orbit-errors/not_found",
   "title": "Resource Missing",
   "status": 404,
   "detail": "The resource at the url requested was not found.  This is usually occurs for one of two reasons:  The url requested is not valid, or no data in our database could be found with the parameters provided.",
@@ -789,7 +789,7 @@ var notFoundResponse = `{
 var submitResponse = `{
   "_links": {
     "transaction": {
-      "href": "https://orbit-testnet.stellar.org/transactions/ee14b93fcd31d4cfe835b941a0a8744e23a6677097db1fafe0552d8657bed940"
+      "href": "https://orbit-testnet.rover.network/transactions/ee14b93fcd31d4cfe835b941a0a8744e23a6677097db1fafe0552d8657bed940"
     }
   },
   "hash": "ee14b93fcd31d4cfe835b941a0a8744e23a6677097db1fafe0552d8657bed940",
@@ -800,10 +800,10 @@ var submitResponse = `{
 }`
 
 var transactionFailure = `{
-  "type": "https://stellar.org/orbit-errors/transaction_failed",
+  "type": "https://rover.network/orbit-errors/transaction_failed",
   "title": "Transaction Failed",
   "status": 400,
-  "detail": "The transaction failed when submitted to the stellar network. The extras.result_codes field on this response contains further details.  Descriptions of each code can be found at: https://www.stellar.org/developers/learn/concepts/list-of-operations.html",
+  "detail": "The transaction failed when submitted to the rover network. The extras.result_codes field on this response contains further details.  Descriptions of each code can be found at: https://www.rover.network/developers/learn/concepts/list-of-operations.html",
   "instance": "orbit-testnet-001.prd.stellar001.internal.stellar-ops.com/4elYz2fHhC-528285",
   "extras": {
     "envelope_xdr": "AAAAAKpmDL6Z4hvZmkTBkYpHftan4ogzTaO4XTB7joLgQnYYAAAAZAAAAAAABeoyAAAAAAAAAAEAAAAAAAAAAQAAAAAAAAABAAAAAD3sEVVGZGi/NoC3ta/8f/YZKMzyi9ZJpOi0H47x7IqYAAAAAAAAAAAF9eEAAAAAAAAAAAA=",

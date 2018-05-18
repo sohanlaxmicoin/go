@@ -241,7 +241,7 @@ func TestGetPageQuery(t *testing.T) {
 	_ = action.GetPageQuery()
 	tt.Assert.Error(action.Err)
 
-	// regression: https://github.com/rover/go/services/orbit/internal/issues/372
+	// regression: https://github.com/laxmicoinofficial/go/services/orbit/internal/issues/372
 	// (limit of 0 turns into 10)
 	makeAction("/?limit=0", nil)
 	_ = action.GetPageQuery()

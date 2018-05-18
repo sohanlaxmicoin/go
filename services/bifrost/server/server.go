@@ -174,7 +174,7 @@ func (s *Server) HandlerGenerateEthereumAddress(w http.ResponseWriter, r *http.R
 func (s *Server) handlerGenerateAddress(w http.ResponseWriter, r *http.Request, chain database.Chain) {
 	w.Header().Set("Access-Control-Allow-Origin", s.Config.AccessControlAllowOriginHeader)
 
-	stellarPublicKey := r.PostFormValue("stellar_public_key")
+	stellarPublicKey := r.PostFormValue("rover_public_key")
 	_, err := keypair.Parse(stellarPublicKey)
 	if err != nil || (err == nil && stellarPublicKey[0] != 'G') {
 		log.WithField("stellarPublicKey", stellarPublicKey).Warn("Invalid stellarPublicKey")

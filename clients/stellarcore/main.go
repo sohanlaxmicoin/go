@@ -1,10 +1,10 @@
 // Package stellarcore is a client library for communicating with an
-// instance of stellar-core using through the server's HTTP port.
+// instance of rover-core using through the server's HTTP port.
 package stellarcore
 
 import "net/http"
 
-// SetCursorDone is the success message returned by stellar-core when a cursor
+// SetCursorDone is the success message returned by rover-core when a cursor
 // update succeeds.
 const SetCursorDone = "Done"
 

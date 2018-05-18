@@ -1,9 +1,9 @@
 # stellar-archivist
 
-This is a small tool, written in Go, for working with `stellar-core` history archives directly.
-It is a standalone tool that does not require `stellar-core`, or any other programs.
+This is a small tool, written in Go, for working with `rover-core` history archives directly.
+It is a standalone tool that does not require `rover-core`, or any other programs.
 
-It is much smaller and simpler than `stellar-core`, and is intended only for archive-maintenance tasks.
+It is much smaller and simpler than `rover-core`, and is intended only for archive-maintenance tasks.
 
   - reporting the current state of an archive
   - mirroring archives, or portions of archives
@@ -20,7 +20,7 @@ $ go install github.com/rover/go/tools/stellar-archivist
 ## Usage
 
 ```
-inspect stellar history archive
+inspect rover history archive
 
 Usage:
   stellar-archivist [flags]
@@ -52,7 +52,7 @@ Use "stellar-archivist [command] --help" for more information about a command.
 
 ## Specifying history archives
 
-Unlike `stellar-core`, `stellar-archivist` does not run subprocesses to access history archives;
+Unlike `rover-core`, `stellar-archivist` does not run subprocesses to access history archives;
 instead it operates directly on history archives given by URLs. Currently it understands URLs
 of the following schemes:
 
@@ -88,9 +88,9 @@ $ stellar-archivist status --s3endpoint ams3.digitaloceanspaces.com s3://bucketn
 ### Reporting the current status of an archive:
 
 ```
-$ stellar-archivist status http://s3-eu-west-1.amazonaws.com/history.stellar.org/prd/core-testnet/core_testnet_001
+$ stellar-archivist status http://s3-eu-west-1.amazonaws.com/history.rover.network/prd/core-testnet/core_testnet_001
 
-       Archive: http://s3-eu-west-1.amazonaws.com/history.stellar.org/prd/core-testnet/core_testnet_001
+       Archive: http://s3-eu-west-1.amazonaws.com/history.rover.network/prd/core-testnet/core_testnet_001
         Server: v0.4.0-34-g2f015f6
  CurrentLedger: 2470911 (0x0025b3ff)
 CurrentBuckets: ____####### (7 nonzero levels)
@@ -100,9 +100,9 @@ CurrentBuckets: ____####### (7 nonzero levels)
 
 ### Mirroring an archive
 ```
-$ stellar-archivist mirror http://s3-eu-west-1.amazonaws.com/history.stellar.org/prd/core-testnet/core_testnet_001 file://local-archive
+$ stellar-archivist mirror http://s3-eu-west-1.amazonaws.com/history.rover.network/prd/core-testnet/core_testnet_001 file://local-archive
 
-2016/02/10 18:27:09 mirroring http://s3-eu-west-1.amazonaws.com/history.stellar.org/prd/core-testnet/core_testnet_001 -> file://local-archive
+2016/02/10 18:27:09 mirroring http://s3-eu-west-1.amazonaws.com/history.rover.network/prd/core-testnet/core_testnet_001 -> file://local-archive
 2016/02/10 18:27:10 copying range [0x0000003f, 0x0025b3ff]
 2016/02/10 18:31:20 Copied 4096/38607 checkpoints (10.609475%), 10386 buckets
 2016/02/10 18:33:26 Copied 8192/38607 checkpoints (21.218950%), 11524 buckets
@@ -114,9 +114,9 @@ $ stellar-archivist mirror http://s3-eu-west-1.amazonaws.com/history.stellar.org
 
 ### Incremental update to a mirror
 ```
-$ stellar-archivist --last 1024 mirror http://s3-eu-west-1.amazonaws.com/history.stellar.org/prd/core-testnet/core_testnet_001 file://local-archive
+$ stellar-archivist --last 1024 mirror http://s3-eu-west-1.amazonaws.com/history.rover.network/prd/core-testnet/core_testnet_001 file://local-archive
 
-2016/02/10 19:14:01 mirroring http://s3-eu-west-1.amazonaws.com/history.stellar.org/prd/core-testnet/core_testnet_001 -> file://local-archive
+2016/02/10 19:14:01 mirroring http://s3-eu-west-1.amazonaws.com/history.rover.network/prd/core-testnet/core_testnet_001 -> file://local-archive
 2016/02/10 19:14:02 copying range [0x0025b23f, 0x0025b6bf]
 2016/02/10 19:14:02 skipping existing bucket/b9/d3/45/bucket-b9d345d89ffe039edba65387dbe3770e16e7bd2095159213eb1c2920988e30dd.xdr.gz
 2016/02/10 19:14:02 skipping existing bucket/5c/c7/45/bucket-5cc745c8b08784c031e821f3a34f943f77e82018c9f5ffffa7f8f314170e0139.xdr.gz

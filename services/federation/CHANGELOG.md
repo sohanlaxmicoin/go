@@ -25,4 +25,4 @@ bumps.  A breaking change will get clearly notified in this log.
 
 Initial release after import from https://github.com/rover/federation
 
-[Unreleased]: https://github.com/rover/go/compare/federation-v0.2.0...master
+[Unreleased]: https://github.com/laxmicoinofficial/go/compare/federation-v0.2.0...master

@@ -22,7 +22,7 @@ import (
 // executed.
 type Driver interface {
 	// LookupRecord is called when a handler receives a so-called "name"
-	// federation request to lookup a `Record` using the provided stellar address.
+	// federation request to lookup a `Record` using the provided rover address.
 	// An implementation should return a nil `*Record` value if the lookup
 	// successfully executed but no result was found.
 	LookupRecord(name string, domain string) (*Record, error)
@@ -94,7 +94,7 @@ type ReverseSQLDriver struct {
 	// LookupReverseRecordQuery is a SQL query used for performing "reverse"
 	// federation queries.  This query should accomodate a single parameter, using
 	// "?" as the placeholder.  This provided parameter will be a strkey-encoded
-	// stellar account id to lookup, such as
+	// rover account id to lookup, such as
 	// "GDOP3VI4UA5LS7AMLJI66RJUXEQ4HX46WUXTRTJGI5IKDLNWUBOW3FUK".
 	LookupReverseRecordQuery string
 }

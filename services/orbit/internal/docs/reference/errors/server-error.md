@@ -8,7 +8,7 @@ Orbit does not expose information such as stack traces or raw error messages to 
 
 If you are encountering this error on a server you control, please check the Orbit log files for more details. The logs should contain detailed information to help you discover the root issue.
 
-If you are encountering this error on the public Stellar infrastructure, please report an error on [Orbit's issue tracker](https://github.com/rover/go/issues) and include the instance attribute.
+If you are encountering this error on the public Stellar infrastructure, please report an error on [Orbit's issue tracker](https://github.com/laxmicoinofficial/go/issues) and include the instance attribute.
 Any other information, such as the request that triggered the response, would be most welcome.
 
 ## Attributes
@@ -27,7 +27,7 @@ As with all errors Orbit returns, `server_error` follows the [Problem Details fo
 ## Examples
 ```json
 {
-  "type":     "https://www.stellar.org/docs/orbit/problems/server_error",
+  "type":     "https://www.rover.network/docs/orbit/problems/server_error",
   "title":    "Internal Server Error",
   "status":   500,
   "details":  "...",

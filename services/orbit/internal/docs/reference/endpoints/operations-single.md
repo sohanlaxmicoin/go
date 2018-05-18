@@ -1,7 +1,7 @@
 ---
 title: Operation Details
 clientData:
-  laboratoryUrl: https://www.stellar.org/laboratory/#explorer?resource=operations&endpoint=single
+  laboratoryUrl: https://www.rover.network/laboratory/#explorer?resource=operations&endpoint=single
 ---
 
 The operation details endpoint provides information on a single [operation](../resources/operation.md). The operation ID provided in the `id` argument specifies which operation to load.
@@ -21,14 +21,14 @@ GET /operations/{id}
 ### curl Example Request
 
 ```sh
-curl https://orbit-testnet.stellar.org/operations/77309415424
+curl https://orbit-testnet.rover.network/operations/77309415424
 ```
 
 ### JavaScript Example Request
 
 ```js
 var StellarSdk = require('rover-sdk');
-var server = new StellarSdk.Server('https://orbit-testnet.stellar.org');
+var server = new StellarSdk.Server('https://orbit-testnet.rover.network');
 
 server.operations()
   .operation('77309415424')

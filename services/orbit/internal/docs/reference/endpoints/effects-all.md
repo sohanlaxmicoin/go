@@ -1,7 +1,7 @@
 ---
 title: All Effects
 clientData:
-  laboratoryUrl: https://www.stellar.org/laboratory/#explorer?resource=effects&endpoint=all
+  laboratoryUrl: https://www.rover.network/laboratory/#explorer?resource=effects&endpoint=all
 ---
 
 This endpoint represents all [effects](../resources/effect.md).
@@ -26,14 +26,14 @@ GET /effects{?cursor,limit,order}
 ### curl Example Request
 
 ```sh
-curl "https://orbit-testnet.stellar.org/effects"
+curl "https://orbit-testnet.rover.network/effects"
 ```
 
 ### JavaScript Example Request
 
 ```javascript
 var StellarSdk = require('rover-sdk');
-var server = new StellarSdk.Server('https://orbit-testnet.stellar.org');
+var server = new StellarSdk.Server('https://orbit-testnet.rover.network');
 
 server.effects()
   .call()

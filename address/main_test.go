@@ -13,8 +13,8 @@ func TestNew(t *testing.T) {
 		Domain          string
 		ExpectedAddress string
 	}{
-		{"scott", "stellar.org", "scott*stellar.org"},
-		{"", "stellar.org", "*stellar.org"},
+		{"scott", "rover.network", "scott*rover.network"},
+		{"", "rover.network", "*rover.network"},
 		{"scott", "", "scott*"},
 	}
 
@@ -32,9 +32,9 @@ func TestSplit(t *testing.T) {
 		ExpectedDomain string
 		ExpectedError  error
 	}{
-		{"happy path", "scott*stellar.org", "scott", "stellar.org", nil},
+		{"happy path", "scott*rover.network", "scott", "rover.network", nil},
 		{"blank", "", "", "", ErrInvalidAddress},
-		{"blank name", "*stellar.org", "", "", ErrInvalidName},
+		{"blank name", "*rover.network", "", "", ErrInvalidName},
 		{"blank domain", "scott*", "", "", ErrInvalidDomain},
 		{"invalid domain", "scott*--3.com", "", "", ErrInvalidDomain},
 	}

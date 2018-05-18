@@ -46,7 +46,7 @@ func TestValidateSuccess(t *testing.T) {
 			SenderInfo: map[string]string{
 				"first_name": "Bartek",
 			},
-			Route: "jed*stellar.org",
+			Route: "jed*rover.network",
 		},
 	}
 	attachment.GenerateNonce()
@@ -72,7 +72,7 @@ func TestValidateSuccess(t *testing.T) {
 	require.NoError(t, err)
 
 	authData := &AuthData{
-		Sender:         "bartek*stellar.org",
+		Sender:         "bartek*rover.network",
 		NeedInfo:       false,
 		Tx:             txB64,
 		AttachmentJSON: string(attachMarshalled),
@@ -98,13 +98,13 @@ func TestValidateError(t *testing.T) {
 	assert.EqualError(t, authRequest.Validate(), "DataJSON: non zero value required;")
 
 	authData := &AuthData{
-		Sender:         "bartekstellar.org",
+		Sender:         "bartekrover.network",
 		NeedInfo:       false,
 		Tx:             "&^%",
 		AttachmentJSON: "abc",
 	}
 
-	assert.EqualError(t, authData.Validate(), "Sender: bartekstellar.org does not validate as stellar_address;;Tx: &^% does not validate as base64;AttachmentJSON: abc does not validate as json;")
+	assert.EqualError(t, authData.Validate(), "Sender: bartekrover.network does not validate as rover_address;;Tx: &^% does not validate as base64;AttachmentJSON: abc does not validate as json;")
 }
 
 func TestData(t *testing.T) {

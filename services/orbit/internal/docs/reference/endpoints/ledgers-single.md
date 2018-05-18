@@ -1,7 +1,7 @@
 ---
 title: Ledger Details
 clientData:
-  laboratoryUrl: https://www.stellar.org/laboratory/#explorer?resource=ledgers&endpoint=single
+  laboratoryUrl: https://www.rover.network/laboratory/#explorer?resource=ledgers&endpoint=single
 ---
 
 The ledger details endpoint provides information on a single [ledger](../resources/ledger.md).
@@ -21,14 +21,14 @@ GET /ledgers/{sequence}
 ### curl Example Request
 
 ```sh
-curl "https://orbit-testnet.stellar.org/ledgers/69859"
+curl "https://orbit-testnet.rover.network/ledgers/69859"
 ```
 
 ### JavaScript Example Request
 
 ```js
 var StellarSdk = require('rover-sdk')
-var server = new StellarSdk.Server('https://orbit-testnet.stellar.org');
+var server = new StellarSdk.Server('https://orbit-testnet.rover.network');
 
 server.ledgers()
   .ledger('69858')

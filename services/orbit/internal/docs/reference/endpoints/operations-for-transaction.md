@@ -1,7 +1,7 @@
 ---
 title: Operations for Transaction
 clientData:
-  laboratoryUrl: https://www.stellar.org/laboratory/#explorer?resource=operations&endpoint=for_transaction
+  laboratoryUrl: https://www.rover.network/laboratory/#explorer?resource=operations&endpoint=for_transaction
 ---
 
 This endpoint represents all [operations](../resources/operation.md) that are part of a given [transaction](../resources/transaction.md).
@@ -24,14 +24,14 @@ GET /transactions/{hash}/operations{?cursor,limit,order}
 ### curl Example Request
 
 ```sh
-curl "https://orbit-testnet.stellar.org/transactions/6391dd190f15f7d1665ba53c63842e368f485651a53d8d852ed442a446d1c69a/operations"
+curl "https://orbit-testnet.rover.network/transactions/6391dd190f15f7d1665ba53c63842e368f485651a53d8d852ed442a446d1c69a/operations"
 ```
 
 ### JavaScript Example Request
 
 ```js
 var StellarSdk = require('rover-sdk');
-var server = new StellarSdk.Server('https://orbit-testnet.stellar.org');
+var server = new StellarSdk.Server('https://orbit-testnet.rover.network');
 
 server.operations()
   .forTransaction("3c8ef808df9d5d240ba0d495629df9da5653b1be2daf05d43b49c5bcbfe099bd")

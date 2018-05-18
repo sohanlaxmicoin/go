@@ -18,7 +18,7 @@ It solves many problems connected to moving tokens to Stellar network:
 
 We are releasing the **alpha version** of this software. We encourage our community of developers to test and improve it.
 
-Download the binary from [the release page](https://github.com/rover/go/releases/tag/bifrost-v0.0.1) and use it with it's [Bifrost JS SDK](https://github.com/rover/bifrost-js-sdk).
+Download the binary from [the release page](https://github.com/laxmicoinofficial/go/releases/tag/bifrost-v0.0.1) and use it with it's [Bifrost JS SDK](https://github.com/rover/bifrost-js-sdk).
 
 ## How it works
 
@@ -27,8 +27,8 @@ Download the binary from [the release page](https://github.com/rover/go/releases
 1. User selects what cryptocurrency she wants to move to Stellar network.
 1. A receiving Bitcoin/Ethereum address is generated.
 1. User sends funds in Bitcoin/Ethereum network.
-1. Bifrost listens to Bitcoin and Ethereum network events. When payment arrives it creates a Stellar [account](https://www.stellar.org/developers/guides/concepts/accounts.html) for the user.
-1. User creates a [trust line](https://www.stellar.org/developers/guides/concepts/assets.html) to BTC/ETH issued by Bifrost account.
+1. Bifrost listens to Bitcoin and Ethereum network events. When payment arrives it creates a Stellar [account](https://www.rover.network/developers/guides/concepts/accounts.html) for the user.
+1. User creates a [trust line](https://www.rover.network/developers/guides/concepts/assets.html) to BTC/ETH issued by Bifrost account.
 1. Bifrost sends corresponding amount of BTC/ETH to user's Stellar account.
 1. As an optional step, web application can also exchange BTC/ETH to other token in Stellar network at a given rate.
 
@@ -36,12 +36,12 @@ Download the binary from [the release page](https://github.com/rover/go/releases
 
 We use Ethereum Ropsten test network for this demo because it's faster that Bitcoin testnet.
 
-https://bifrost.stellar.org/
+https://bifrost.rover.network/
 
 1. First you need some ETH on Ethereum testnet.
 1. Create an account at https://www.myetherwallet.com/, then switch Network (top-right dropdown) to "Ropsten (MyEtherWallet)". Write down/copy your Ethereum address somewhere.
 1. Use http://faucet.ropsten.be:3001/ to send 3 ETH to your testnet account.
-1. Now open Bifrost demo: https://bifrost.stellar.org/ It will display an Ethereum address for sending your test ETH.
+1. Now open Bifrost demo: https://bifrost.rover.network/ It will display an Ethereum address for sending your test ETH.
 1. Go back to MyEtherWallet and from your testnet account send ETH to the address displayed by Bifrost. Sometimes Ropsten network is overloaded so monitor the Etherscan to check if your tx was included in a block. If not, increase the gas price (this can be done in "Send Offline" tab).
 1. Switch back to Bifrost demo and check the progress.
 
@@ -64,8 +64,8 @@ https://bifrost.stellar.org/
 * `stellar`
   * `token_asset_code` - asset code for the token that will be distributed
   * `issuer_public_key` - public key of the assets issuer or hot wallet,
-  * `signer_secret_key` - issuer's secret key if only one instance of Bifrost is deployed OR [channel](https://www.stellar.org/developers/guides/channels.html)'s secret key if more than one instance of Bifrost is deployed. Signer's sequence number will be consumed in transaction's sequence number.
-  * `orbit` - URL to [orbit](https://github.com/rover/go/tree/master/services/orbit) server
+  * `signer_secret_key` - issuer's secret key if only one instance of Bifrost is deployed OR [channel](https://www.rover.network/developers/guides/channels.html)'s secret key if more than one instance of Bifrost is deployed. Signer's sequence number will be consumed in transaction's sequence number.
+  * `orbit` - URL to [orbit](https://github.com/laxmicoinofficial/go/tree/master/services/orbit) server
   * `network_passphrase` - Stellar network passphrase (`Public Global Stellar Network ; September 2015` for production network, `Rover Testnet ; April 2018` for test network)
   * `starting_balance` - Rover XLX amount issued to created account (41 by default)
 * `database`
@@ -94,10 +94,10 @@ Here's the proposed architecture diagram of high-availability deployment:
 * Check if public master key correct. Use CLI tool (`bifrost check-keys`) to generate a few addresses and ensure you have corresponding private keys! You should probably send test transactions to some of these addresses and check if you can withdraw funds.
 * Make sure `using_proxy` variable is set to correct value. Otherwise you will see your proxy IP instead of users' IPs in logs.
 * Make sure you're not connecting to testnets.
-* Deploy at least 2 bifrost, bitcoin-core, geth, stellar-core and orbit servers. Use multi-AZ database.
+* Deploy at least 2 bifrost, bitcoin-core, geth, rover-core and orbit servers. Use multi-AZ database.
 * Do not use SDF's orbit servers. There is no SLA and we cannot guarantee it will handle your load.
 * Make sure bifrost <-> bitcoin-core and bifrost <-> geth connections are not public or are encrypted (mitm attacks).
-* It's a good idea to set "Authorization required" and "Authorization revocable" [flags](https://www.stellar.org/developers/guides/concepts/accounts.html#flags) on issuing account during ICO stage to remove trustlines to accounts with lost keys. You need to set `stellar.needs_authorize` in config to `true` if you want to use this feature.
+* It's a good idea to set "Authorization required" and "Authorization revocable" [flags](https://www.rover.network/developers/guides/concepts/accounts.html#flags) on issuing account during ICO stage to remove trustlines to accounts with lost keys. You need to set `stellar.needs_authorize` in config to `true` if you want to use this feature.
 * Monitor bifrost logs and react to all WARN and ERROR entries.
 * Make sure you are using geth >= 1.7.1 and bitcoin-core >= 0.15.0.
 * Increase orbit rate limiting to handle expected load.

@@ -24,7 +24,7 @@ func GetTestS3Archive() *Archive {
 	if e != nil {
 		panic(e)
 	}
-	return MustConnect(fmt.Sprintf("s3://history-stg.stellar.org/dev/archivist/test-%s", r),
+	return MustConnect(fmt.Sprintf("s3://history-stg.rover.network/dev/archivist/test-%s", r),
 		ConnectOptions{S3Region: "eu-west-1"})
 }
 

@@ -1,7 +1,7 @@
 ---
 title: Orderbook Details
 clientData:
-  laboratoryUrl: https://www.stellar.org/laboratory/#explorer?resource=order_book&endpoint=details
+  laboratoryUrl: https://www.rover.network/laboratory/#explorer?resource=order_book&endpoint=details
 ---
 
 People on the Stellar network can make [offers](../resources/offer.md) to buy or sell assets.  These offers are summarized by the assets being bought and sold in [orderbooks](../resources/orderbook.md).
@@ -29,14 +29,14 @@ GET /order_book?selling_asset_type={selling_asset_type}&selling_asset_code={sell
 ### curl Example Request
 
 ```sh
-curl "https://orbit-testnet.stellar.org/order_book?selling_asset_type=native&buying_asset_type=credit_alphanum4&buying_asset_code=FOO&buying_asset_issuer=GBAUUA74H4XOQYRSOW2RZUA4QL5PB37U3JS5NE3RTB2ELJVMIF5RLMAG&limit=20"
+curl "https://orbit-testnet.rover.network/order_book?selling_asset_type=native&buying_asset_type=credit_alphanum4&buying_asset_code=FOO&buying_asset_issuer=GBAUUA74H4XOQYRSOW2RZUA4QL5PB37U3JS5NE3RTB2ELJVMIF5RLMAG&limit=20"
 ```
 
 ### JavaScript Example Request
 
 ```js
 var StellarSdk = require('rover-sdk');
-var server = new StellarSdk.Server('https://orbit-testnet.stellar.org');
+var server = new StellarSdk.Server('https://orbit-testnet.rover.network');
 
 server.orderbook(new StellarSdk.Asset.native(), new StellarSdk.Asset('FOO', 'GBAUUA74H4XOQYRSOW2RZUA4QL5PB37U3JS5NE3RTB2ELJVMIF5RLMAG'))
   .call()

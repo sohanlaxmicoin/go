@@ -2,11 +2,11 @@
 title: Operation
 ---
 
-[Operations](https://www.stellar.org/developers/learn/concepts/operations.html) are objects that represent a desired change to the ledger: payments,
+[Operations](https://www.rover.network/developers/learn/concepts/operations.html) are objects that represent a desired change to the ledger: payments,
 offers to exchange currency, changes made to account options, etc.  Operations
 are submitted to the Stellar network grouped in a [Transaction](./transaction.md).
 
-To learn more about the concept of operations in the Stellar network, take a look at the [Stellar operations concept guide](https://www.stellar.org/developers/learn/concepts/operations.html).
+To learn more about the concept of operations in the Stellar network, take a look at the [Stellar operations concept guide](https://www.rover.network/developers/learn/concepts/operations.html).
 
 ## Operation Types
 
@@ -391,7 +391,7 @@ Use “Set Options” operation to set following options to your account:
     }
   },
   "high_threshold": 3,
-  "home_domain": "stellar.org",
+  "home_domain": "rover.network",
   "id": 696867033714691,
   "low_threshold": 0,
   "med_threshold": 3,

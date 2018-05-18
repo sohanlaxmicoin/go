@@ -144,7 +144,7 @@ var _ = Describe("ManageData Mutators", func() {
 	})
 
 	Describe("SourceAccount", func() {
-		Context("using a valid stellar address", func() {
+		Context("using a valid rover address", func() {
 			BeforeEach(func() { mut = SourceAccount{address} })
 
 			It("succeeds", func() {

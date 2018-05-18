@@ -12,8 +12,8 @@
 // Xor constant to output CRC : 0000
 // Output for "123456789"     : 31C3
 //
-// ported from the c++ code in the stellar-core codebase
-// (https://github.com/rover/stellar-core).  The code is licensed
+// ported from the c++ code in the rover-core codebase
+// (https://github.com/rover/rover-core).  The code is licensed
 // as:
 /*
  * Copyright 2001-2010 Georges Menie (www.menie.org)

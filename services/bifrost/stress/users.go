@@ -93,7 +93,7 @@ func (u *Users) newUser(kp *keypair.Full) server.GenerateAddressResponse {
 	randomCoin := []string{"bitcoin", "ethereum"}[rand.Int()%2]
 
 	params := url.Values{}
-	params.Add("stellar_public_key", kp.Address())
+	params.Add("rover_public_key", kp.Address())
 	req, err := http.PostForm(
 		fmt.Sprintf("http://localhost:%d/generate-%s-address", randomPort, randomCoin),
 		params,

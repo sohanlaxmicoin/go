@@ -1,5 +1,5 @@
 // Package build implements a builder system for constructing various xdr
-// structures used by the stellar network, most importanly transactions.
+// structures used by the rover network, most importanly transactions.
 //
 // At the core of this package is the *Builder and *Mutator types.  A Builder
 // object (ex. PaymentBuilder, TransactionBuilder) contain an underlying xdr
@@ -24,11 +24,11 @@ const (
 
 var (
 	// PublicNetwork is a mutator that configures the transaction for submission
-	// to the main public stellar network.
+	// to the main public rover network.
 	PublicNetwork = Network{network.PublicNetworkPassphrase}
 
 	// TestNetwork is a mutator that configures the transaction for submission
-	// to the test stellar network (often called testnet).
+	// to the test rover network (often called testnet).
 	TestNetwork = Network{network.TestNetworkPassphrase}
 
 	// DefaultNetwork is a mutator that configures the
@@ -228,7 +228,7 @@ type Trustor struct {
 	Address string
 }
 
-// Network establishes the stellar network that a transaction should apply to.
+// Network establishes the rover network that a transaction should apply to.
 // This modifier influences how a transaction is hashed for the purposes of signature generation.
 type Network struct {
 	Passphrase string

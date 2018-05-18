@@ -1,7 +1,7 @@
 ---
 title: Effects for Transaction
 clientData:
-  laboratoryUrl: https://www.stellar.org/laboratory/#explorer?resource=effects&endpoint=for_transaction
+  laboratoryUrl: https://www.rover.network/laboratory/#explorer?resource=effects&endpoint=for_transaction
 ---
 
 This endpoint represents all [effects](../resources/effect.md) that occurred as a result of a given [transaction](../resources/transaction.md).
@@ -24,14 +24,14 @@ GET /transactions/{hash}/effects{?cursor,limit,order}
 ### curl Example Request
 
 ```sh
-curl "https://orbit-testnet.stellar.org/transactions/6391dd190f15f7d1665ba53c63842e368f485651a53d8d852ed442a446d1c69a/effects"
+curl "https://orbit-testnet.rover.network/transactions/6391dd190f15f7d1665ba53c63842e368f485651a53d8d852ed442a446d1c69a/effects"
 ```
 
 ### JavaScript Example Request
 
 ```javascript
 var StellarSdk = require('rover-sdk');
-var server = new StellarSdk.Server('https://orbit-testnet.stellar.org');
+var server = new StellarSdk.Server('https://orbit-testnet.rover.network');
 
 server.effects()
   .forTransaction("2ca4cb42fda85f4f0b4bc0a0dc6517a7f109761d0da784cb7c38fb6ee378b1b5")

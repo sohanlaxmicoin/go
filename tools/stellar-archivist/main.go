@@ -110,7 +110,7 @@ func main() {
 
 	rootCmd := &cobra.Command{
 		Use:   "stellar-archivist",
-		Short: "inspect stellar history archive",
+		Short: "inspect rover history archive",
 		Run: func(cmd *cobra.Command, args []string) {
 			cmd.Help()
 			os.Exit(0)

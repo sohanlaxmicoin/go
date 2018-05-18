@@ -1,7 +1,7 @@
 ---
 title: Transactions for Account
 clientData:
-  laboratoryUrl: https://www.stellar.org/laboratory/#explorer?resource=transactions&endpoint=for_account
+  laboratoryUrl: https://www.rover.network/laboratory/#explorer?resource=transactions&endpoint=for_account
 ---
 
 This endpoint represents all [transactions](../resources/transaction.md) that affected a given [account](../resources/account.md).
@@ -26,14 +26,14 @@ GET /accounts/{account_id}/transactions{?cursor,limit,order}
 ### curl Example Request
 
 ```sh
-curl "https://orbit-testnet.stellar.org/accounts/GCEZWKCA5VLDNRLN3RPRJMRZOX3Z6G5CHCGSNFHEYVXM3XOJMDS674JZ/transactions?limit=1"
+curl "https://orbit-testnet.rover.network/accounts/GCEZWKCA5VLDNRLN3RPRJMRZOX3Z6G5CHCGSNFHEYVXM3XOJMDS674JZ/transactions?limit=1"
 ```
 
 ### JavaScript Example Request
 
 ```js
 var StellarSdk = require('rover-sdk');
-var server = new StellarSdk.Server('https://orbit-testnet.stellar.org');
+var server = new StellarSdk.Server('https://orbit-testnet.rover.network');
 
 server.transactions()
   .forAccount("GCEZWKCA5VLDNRLN3RPRJMRZOX3Z6G5CHCGSNFHEYVXM3XOJMDS674JZ")
@@ -50,7 +50,7 @@ server.transactions()
 
 ```js
 var StellarSdk = require('rover-sdk');
-var server = new StellarSdk.Server('https://orbit-testnet.stellar.org');
+var server = new StellarSdk.Server('https://orbit-testnet.rover.network');
 
 server.transactions()
   .forAccount("GCEZWKCA5VLDNRLN3RPRJMRZOX3Z6G5CHCGSNFHEYVXM3XOJMDS674JZ")

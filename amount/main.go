@@ -1,12 +1,12 @@
 // Package amount provides utilities for converting numbers to/from
-// the format used internally to stellar-core.
+// the format used internally to rover-core.
 //
-// stellar-core represents asset "amounts" as 64-bit integers, but to enable
+// rover-core represents asset "amounts" as 64-bit integers, but to enable
 // fractional units of an asset, orbit, the client-libraries and other built
-// on top of stellar-core use a convention, encoding amounts as a string of
+// on top of rover-core use a convention, encoding amounts as a string of
 // decimal digits with up to seven digits of precision in the fractional
 // portion. For example, an amount shown as "101.001" in orbit would be
-// represented in stellar-core as 1010010000.
+// represented in rover-core as 1010010000.
 package amount
 
 import (
@@ -36,7 +36,7 @@ func MustParse(v string) xdr.Int64 {
 	return ret
 }
 
-// Parse parses the provided as a stellar "amount", i.e. a 64-bit signed integer
+// Parse parses the provided as a rover "amount", i.e. a 64-bit signed integer
 // that represents a decimal number with 7 digits of significance in the
 // fractional portion of the number, and returns a xdr.Int64.
 func Parse(v string) (xdr.Int64, error) {
@@ -47,7 +47,7 @@ func Parse(v string) (xdr.Int64, error) {
 	return xdr.Int64(i), nil
 }
 
-// ParseInt64 parses the provided as a stellar "amount", i.e. a 64-bit signed
+// ParseInt64 parses the provided as a rover "amount", i.e. a 64-bit signed
 // integer that represents a decimal number with 7 digits of significance in
 // the fractional portion of the number.
 func ParseInt64(v string) (int64, error) {

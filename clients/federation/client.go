@@ -15,7 +15,7 @@ import (
 // LookupByAddress performs a federated lookup following to the stellar
 // federation protocol using the "name" type request.  The provided address is
 // used to resolve what server the request should be made against.  NOTE: the
-// "name" type is a legacy holdover from the legacy stellar network's federation
+// "name" type is a legacy holdover from the legacy rover network's federation
 // protocol. It is unfortunate.
 func (c *Client) LookupByAddress(addy string) (*proto.NameResponse, error) {
 	_, domain, err := address.Split(addy)
@@ -106,11 +106,11 @@ func (c *Client) ForwardRequest(domain string, fields url.Values) (*proto.NameRe
 func (c *Client) getFederationServer(domain string) (string, error) {
 	stoml, err := c.StellarTOML.GetStellarToml(domain)
 	if err != nil {
-		return "", errors.Wrap(err, "get stellar.toml failed")
+		return "", errors.Wrap(err, "get rover.toml failed")
 	}
 
 	if stoml.FederationServer == "" {
-		return "", errors.New("stellar.toml is missing federation server info")
+		return "", errors.New("rover.toml is missing federation server info")
 	}
 
 	if !c.AllowHTTP && !strings.HasPrefix(stoml.FederationServer, "https://") {

@@ -1,7 +1,7 @@
 ---
 title: Payments for Transaction
 clientData:
-  laboratoryUrl: https://www.stellar.org/laboratory/#explorer?resource=payments&endpoint=for_transaction
+  laboratoryUrl: https://www.rover.network/laboratory/#explorer?resource=payments&endpoint=for_transaction
 ---
 
 This endpoint represents all payment [operations](../resources/operation.md) that are part of a given [transaction](../resources/transaction.md).
@@ -24,14 +24,14 @@ GET /transactions/{hash}/payments{?cursor,limit,order}
 ### curl Example Request
 
 ```sh
-curl "https://orbit-testnet.stellar.org/transactions/3c8ef808df9d5d240ba0d495629df9da5653b1be2daf05d43b49c5bcbfe099bd/payments"
+curl "https://orbit-testnet.rover.network/transactions/3c8ef808df9d5d240ba0d495629df9da5653b1be2daf05d43b49c5bcbfe099bd/payments"
 ```
 
 ### JavaScript Example Request
 
 ```js
 var StellarSdk = require('rover-sdk');
-var server = new StellarSdk.Server('https://orbit-testnet.stellar.org');
+var server = new StellarSdk.Server('https://orbit-testnet.rover.network');
 
 server.payments()
   .forTransaction("3c8ef808df9d5d240ba0d495629df9da5653b1be2daf05d43b49c5bcbfe099bd")

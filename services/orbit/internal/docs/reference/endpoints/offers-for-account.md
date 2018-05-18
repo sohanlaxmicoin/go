@@ -1,7 +1,7 @@
 ---
 title: Offers for Account
 clientData:
-  laboratoryUrl: https://www.stellar.org/laboratory/#explorer?resource=offers&endpoint=for_account
+  laboratoryUrl: https://www.rover.network/laboratory/#explorer?resource=offers&endpoint=for_account
 ---
 
 People on the Stellar network can make [offers](../resources/offer.md) to buy or sell assets.  This endpoint represents all the offers a particular account makes.
@@ -25,14 +25,14 @@ GET /accounts/{account}/offers{?cursor,limit,order}
 ### curl Example Request
 
 ```sh
-curl "https://orbit-testnet.stellar.org/accounts/GCJ34JYMXNI7N55YREWAACMMZECOMTPIYDTFCQBWPUP7BLJQDDTVGUW4/offers"
+curl "https://orbit-testnet.rover.network/accounts/GCJ34JYMXNI7N55YREWAACMMZECOMTPIYDTFCQBWPUP7BLJQDDTVGUW4/offers"
 ```
 
 ### JavaScript Example Request
 
 ```js
 var StellarSdk = require('rover-sdk');
-var server = new StellarSdk.Server('https://orbit-testnet.stellar.org');
+var server = new StellarSdk.Server('https://orbit-testnet.rover.network');
 
 server.offers('accounts', 'GCJ34JYMXNI7N55YREWAACMMZECOMTPIYDTFCQBWPUP7BLJQDDTVGUW4')
   .call()
@@ -54,13 +54,13 @@ The list of offers.
 {
   "_links": {
     "self": {
-      "href": "https://orbit-testnet.stellar.org/accounts/GCJ34JYMXNI7N55YREWAACMMZECOMTPIYDTFCQBWPUP7BLJQDDTVGUW4/offers?order=asc&limit=10&cursor="
+      "href": "https://orbit-testnet.rover.network/accounts/GCJ34JYMXNI7N55YREWAACMMZECOMTPIYDTFCQBWPUP7BLJQDDTVGUW4/offers?order=asc&limit=10&cursor="
     },
     "next": {
-      "href": "https://orbit-testnet.stellar.org/accounts/GCJ34JYMXNI7N55YREWAACMMZECOMTPIYDTFCQBWPUP7BLJQDDTVGUW4/offers?order=asc&limit=10&cursor=122"
+      "href": "https://orbit-testnet.rover.network/accounts/GCJ34JYMXNI7N55YREWAACMMZECOMTPIYDTFCQBWPUP7BLJQDDTVGUW4/offers?order=asc&limit=10&cursor=122"
     },
     "prev": {
-      "href": "https://orbit-testnet.stellar.org/accounts/GCJ34JYMXNI7N55YREWAACMMZECOMTPIYDTFCQBWPUP7BLJQDDTVGUW4/offers?order=desc&limit=10&cursor=121"
+      "href": "https://orbit-testnet.rover.network/accounts/GCJ34JYMXNI7N55YREWAACMMZECOMTPIYDTFCQBWPUP7BLJQDDTVGUW4/offers?order=desc&limit=10&cursor=121"
     }
   },
   "_embedded": {
@@ -68,10 +68,10 @@ The list of offers.
       {
         "_links": {
           "self": {
-            "href": "https://orbit-testnet.stellar.org/offers/121"
+            "href": "https://orbit-testnet.rover.network/offers/121"
           },
           "offer_maker": {
-            "href": "https://orbit-testnet.stellar.org/accounts/GCJ34JYMXNI7N55YREWAACMMZECOMTPIYDTFCQBWPUP7BLJQDDTVGUW4"
+            "href": "https://orbit-testnet.rover.network/accounts/GCJ34JYMXNI7N55YREWAACMMZECOMTPIYDTFCQBWPUP7BLJQDDTVGUW4"
           }
         },
         "id": 121,
@@ -97,10 +97,10 @@ The list of offers.
       {
         "_links": {
           "self": {
-            "href": "https://orbit-testnet.stellar.org/offers/122"
+            "href": "https://orbit-testnet.rover.network/offers/122"
           },
           "offer_maker": {
-            "href": "https://orbit-testnet.stellar.org/accounts/GCJ34JYMXNI7N55YREWAACMMZECOMTPIYDTFCQBWPUP7BLJQDDTVGUW4"
+            "href": "https://orbit-testnet.rover.network/accounts/GCJ34JYMXNI7N55YREWAACMMZECOMTPIYDTFCQBWPUP7BLJQDDTVGUW4"
           }
         },
         "id": 122,

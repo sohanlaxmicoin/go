@@ -74,7 +74,7 @@ var _ = Describe("SetOptionsBuilder Mutators", func() {
 	})
 
 	Describe("InflationDest", func() {
-		Context("using a valid stellar address", func() {
+		Context("using a valid rover address", func() {
 			BeforeEach(func() { mut = InflationDest(address) })
 
 			It("succeeds", func() {
@@ -96,14 +96,14 @@ var _ = Describe("SetOptionsBuilder Mutators", func() {
 
 	Describe("HomeDomain", func() {
 		Context("using a valid value", func() {
-			BeforeEach(func() { mut = HomeDomain("stellar.org") })
+			BeforeEach(func() { mut = HomeDomain("rover.network") })
 
 			It("succeeds", func() {
 				Expect(subject.Err).NotTo(HaveOccurred())
 			})
 
 			It("sets the HomeDomain to correct value", func() {
-				Expect(*subject.SO.HomeDomain).To(Equal(xdr.String32("stellar.org")))
+				Expect(*subject.SO.HomeDomain).To(Equal(xdr.String32("rover.network")))
 			})
 		})
 
@@ -187,7 +187,7 @@ var _ = Describe("SetOptionsBuilder Mutators", func() {
 	})
 
 	Describe("SourceAccount", func() {
-		Context("using a valid stellar address", func() {
+		Context("using a valid rover address", func() {
 			BeforeEach(func() { mut = SourceAccount{address} })
 
 			It("succeeds", func() {

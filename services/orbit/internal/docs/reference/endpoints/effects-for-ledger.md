@@ -1,7 +1,7 @@
 ---
 title: Effects for Ledger
 clientData:
-  laboratoryUrl: https://www.stellar.org/laboratory/#explorer?resource=effects&endpoint=for_ledger
+  laboratoryUrl: https://www.rover.network/laboratory/#explorer?resource=effects&endpoint=for_ledger
 ---
 
 Effects are the specific ways that the ledger was changed by any operation.
@@ -26,14 +26,14 @@ GET /ledgers/{id}/effects{?cursor,limit,order}
 ### curl Example Request
 
 ```sh
-curl "https://orbit-testnet.stellar.org/ledgers/69859/effects"
+curl "https://orbit-testnet.rover.network/ledgers/69859/effects"
 ```
 
 ### JavaScript Example Request
 
 ```javascript
 var StellarSdk = require('rover-sdk');
-var server = new StellarSdk.Server('https://orbit-testnet.stellar.org');
+var server = new StellarSdk.Server('https://orbit-testnet.rover.network');
 
 server.effects()
   .forLedger("2")

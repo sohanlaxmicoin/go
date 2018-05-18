@@ -19,7 +19,7 @@ type Config struct {
 		// SignerSecretKey is:
 		// * Issuer's secret key if only one instance of Bifrost is deployed.
 		// * Channel's secret key if more than one instance of Bifrost is deployed.
-		// https://www.stellar.org/developers/guides/channels.html
+		// https://www.rover.network/developers/guides/channels.html
 		// Signer's sequence number will be consumed in transaction's sequence number.
 		SignerSecretKey string `valid:"required" toml:"signer_secret_key"`
 		// StartingBalance is the starting amount of XLM for newly created accounts.

@@ -19,7 +19,7 @@ As with all errors Orbit returns, `stale_history` follows the [Problem Details f
 ## Example
 
 ```shell
-$ curl -X GET "https://orbit-testnet.stellar.org/transactions?cursor=1&order=desc"
+$ curl -X GET "https://orbit-testnet.rover.network/transactions?cursor=1&order=desc"
 {
   "type": "stale_history",
   "title": "Historical DB Is Too Stale",

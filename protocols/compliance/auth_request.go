@@ -45,7 +45,7 @@ func (r *AuthRequest) Validate() error {
 }
 
 // VerifySignature verifies if signature is valid. It makes a network connection
-// to sender server in order to obtain stellar.toml file and signing key.
+// to sender server in order to obtain rover.toml file and signing key.
 func (r *AuthRequest) VerifySignature(sender string) error {
 	signatureBytes, err := base64.StdEncoding.DecodeString(r.Signature)
 	if err != nil {
@@ -54,11 +54,11 @@ func (r *AuthRequest) VerifySignature(sender string) error {
 
 	senderStellarToml, err := stellartoml.GetStellarTomlByAddress(sender)
 	if err != nil {
-		return errors.Wrap(err, "Cannot get stellar.toml of sender domain")
+		return errors.Wrap(err, "Cannot get rover.toml of sender domain")
 	}
 
 	if senderStellarToml.SigningKey == "" {
-		return errors.New("No SIGNING_KEY in stellar.toml of sender")
+		return errors.New("No SIGNING_KEY in rover.toml of sender")
 	}
 
 	kp, err := keypair.Parse(senderStellarToml.SigningKey)

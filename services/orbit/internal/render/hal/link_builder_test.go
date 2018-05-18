@@ -18,17 +18,17 @@ func TestLinkBuilder(t *testing.T) {
 		}
 
 		check("/root", "", "/root")
-		check("/root", "//stellar.org", "//stellar.org/root")
-		check("/root", "https://stellar.org", "https://stellar.org/root")
+		check("/root", "//rover.network", "//rover.network/root")
+		check("/root", "https://rover.network", "https://rover.network/root")
 		check("//else.org/root", "", "//else.org/root")
-		check("//else.org/root", "//stellar.org", "//else.org/root")
-		check("//else.org/root", "https://stellar.org", "//else.org/root")
+		check("//else.org/root", "//rover.network", "//else.org/root")
+		check("//else.org/root", "https://rover.network", "//else.org/root")
 		check("https://else.org/root", "", "https://else.org/root")
-		check("https://else.org/root", "//stellar.org", "https://else.org/root")
-		check("https://else.org/root", "https://stellar.org", "https://else.org/root")
+		check("https://else.org/root", "//rover.network", "https://else.org/root")
+		check("https://else.org/root", "https://rover.network", "https://else.org/root")
 
 		// Regression: ensure that parameters are not escaped
-		check("/accounts/{id}", "https://stellar.org", "https://stellar.org/accounts/{id}")
+		check("/accounts/{id}", "https://rover.network", "https://rover.network/accounts/{id}")
 	})
 
 }

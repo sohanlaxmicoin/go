@@ -1,6 +1,6 @@
 package stellarcore
 
-// InfoResponse is the json response returned from stellar-core's /info
+// InfoResponse is the json response returned from rover-core's /info
 // endpoint.
 type InfoResponse struct {
 	Info struct {

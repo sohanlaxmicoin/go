@@ -12,10 +12,10 @@ import (
 // above that disabled it from running during tests when we fix upstream.
 func TestOptionalStellarFields(t *testing.T) {
 	var val struct {
-		F1 string `valid:"stellar_accountid,optional"`
-		F2 string `valid:"optional,stellar_accountid"`
-		F3 string `valid:"stellar_seed,optional"`
-		F4 string `valid:"optional,stellar_accountid"`
+		F1 string `valid:"rover_accountid,optional"`
+		F2 string `valid:"optional,rover_accountid"`
+		F3 string `valid:"rover_seed,optional"`
+		F4 string `valid:"optional,rover_accountid"`
 	}
 
 	// run the validation

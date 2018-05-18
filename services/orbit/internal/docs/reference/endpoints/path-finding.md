@@ -1,7 +1,7 @@
 ---
 title: Find Payment Paths
 clientData:
-  laboratoryUrl: https://www.stellar.org/laboratory/#explorer?resource=paths&endpoint=all
+  laboratoryUrl: https://www.rover.network/laboratory/#explorer?resource=paths&endpoint=all
 ---
 
 The Stellar Network allows payments to be made across assets through _path payments_.  A path payment specifies a series of assets to route a payment through, from source asset (the asset debited from the payer) to destination asset (the asset credited to the payee).
@@ -36,7 +36,7 @@ GET /paths?destination_account={da}&source_account={sa}&destination_asset_type={
 ### curl Example Request
 
 ```sh
-curl "https://orbit-testnet.stellar.org/paths?destination_account=GAEDTJ4PPEFVW5XV2S7LUXBEHNQMX5Q2GM562RJGOQG7GVCE5H3HIB4V&source_account=GARSFJNXJIHO6ULUBK3DBYKVSIZE7SC72S5DYBCHU7DKL22UXKVD7MXP&destination_asset_type=credit_alphanum4&destination_asset_code=EUR&destination_asset_issuer=GDSBCQO34HWPGUGQSP3QBFEXVTSR2PW46UIGTHVWGWJGQKH3AFNHXHXN&destination_amount=20"
+curl "https://orbit-testnet.rover.network/paths?destination_account=GAEDTJ4PPEFVW5XV2S7LUXBEHNQMX5Q2GM562RJGOQG7GVCE5H3HIB4V&source_account=GARSFJNXJIHO6ULUBK3DBYKVSIZE7SC72S5DYBCHU7DKL22UXKVD7MXP&destination_asset_type=credit_alphanum4&destination_asset_code=EUR&destination_asset_issuer=GDSBCQO34HWPGUGQSP3QBFEXVTSR2PW46UIGTHVWGWJGQKH3AFNHXHXN&destination_amount=20"
 ```
 
 ## Response

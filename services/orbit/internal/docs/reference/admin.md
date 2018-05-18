@@ -6,7 +6,7 @@ Orbit is responsible for providing an HTTP API to data in the Stellar network. I
 
 ## Why run orbit?
 
-The rover development foundation runs two orbit servers, one for the public network and one for the test network, free for anyone's use at https://orbit.stellar.org and https://orbit-testnet.stellar.org.  These servers should be fine for development and small scale projects, but is not recommended that you use them for production services that need strong reliability.  By running orbit within your own infrastructure provides a number of benefits:
+The rover development foundation runs two orbit servers, one for the public network and one for the test network, free for anyone's use at https://orbit.rover.network and https://orbit-testnet.rover.network.  These servers should be fine for development and small scale projects, but is not recommended that you use them for production services that need strong reliability.  By running orbit within your own infrastructure provides a number of benefits:
 
   - Multiple instances can be run for redundancy and scalability.
   - Request rate limiting can be disabled.
@@ -14,7 +14,7 @@ The rover development foundation runs two orbit servers, one for the public netw
 
 ## Prerequisites
 
-Orbit is a dependent upon a rover-core server.  Orbit needs access to both the SQL database and the HTTP API that is published by rover-core. See [the administration guide](https://www.stellar.org/developers/rover-core/learn/admin.html
+Orbit is a dependent upon a rover-core server.  Orbit needs access to both the SQL database and the HTTP API that is published by rover-core. See [the administration guide](https://www.rover.network/developers/rover-core/learn/admin.html
 ) to learn how to set up and administer a rover-core server.  Secondly, orbit is dependent upon a postgresql server, which it uses to store processed core data for ease of use. Orbit requires postgres version >= 9.3.
 
 In addition to the two required prerequisites above, you may optionally install a redis server to be used for rate limiting requests.
@@ -22,7 +22,7 @@ In addition to the two required prerequisites above, you may optionally install 
 ## Installing
 ## Installing
 
-To install orbit, you have a choice: either downloading a [prebuilt release for your target architecture](https://github.com/rover/go/releases) and operation system, or [building orbit yourself](#Building).  When either approach is complete, you will find yourself with a directory containing a file named `orbit`.  This file is a native binary.
+To install orbit, you have a choice: either downloading a [prebuilt release for your target architecture](https://github.com/laxmicoinofficial/go/releases) and operation system, or [building orbit yourself](#Building).  When either approach is complete, you will find yourself with a directory containing a file named `orbit`.  This file is a native binary.
 
 After building or unpacking orbit, you simply need to copy the native binary into a directory that is part of your PATH.  Most unix-like systems have `/usr/local/bin` in PATH by default, so unless you have a preference or know better, we recommend you copy the binary there.
 
@@ -41,7 +41,7 @@ Should you decide not to use one of our prebuilt releases, you may instead build
 
 Provided your workstation satisfies the requirements above, follow the steps below:
 
-1. Clone orbit's source:  `git clone https://github.com/rover/go.git && cd go`
+1. Clone orbit's source:  `git clone https://github.com/laxmicoinofficial/go.git && cd go`
 2. Download external dependencies: `glide install`
 3. Build the binary: `go install github.com/rover/go/services/orbit`
 
@@ -66,7 +66,7 @@ As you will see if you run the command above, orbit defines a large number of fl
 
 `--db-url` specifies the orbit database, and its value should be a valid [PostgreSQL Connection URI](http://www.postgresql.org/docs/9.2/static/libpq-connect.html#AEN38419).  `--rover-core-db-url` specifies a rover-core database which will be used to load data about the rover ledger.  Finally, `--rover-core-url` specifies the HTTP control port for an instance of rover-core.  This URL should be associated with the rover-core that is writing to the database at `--rover-core-db-url`.
 
-Specifying command line flags every time you invoke orbit can be cumbersome, and so we recommend using environment variables.  There are many tools you can use to manage environment variables:  we recommend either [direnv](http://direnv.net/) or [dotenv](https://github.com/bkeepers/dotenv).  A template configuration that is compatible with dotenv can be found in the [orbit git repo](https://github.com/rover/go/blob/master/services/orbit/.env.template).
+Specifying command line flags every time you invoke orbit can be cumbersome, and so we recommend using environment variables.  There are many tools you can use to manage environment variables:  we recommend either [direnv](http://direnv.net/) or [dotenv](https://github.com/bkeepers/dotenv).  A template configuration that is compatible with dotenv can be found in the [orbit git repo](https://github.com/laxmicoinofficial/go/blob/master/services/orbit/.env.template).
 
 
 
@@ -129,8 +129,8 @@ To ensure that your instance of orbit is performing correctly we encourage you t
 
 Orbit will output logs to standard out.  Information about what requests are coming in will be reported, but more importantly and warnings or errors will also be emitted by default.  A correctly running orbit instance will not ouput any warning or error log entries.
 
-Metrics are collected while a orbit process is running and they are exposed at the `/metrics` path.  You can see an example at (https://orbit-testnet.stellar.org/metrics).
+Metrics are collected while a orbit process is running and they are exposed at the `/metrics` path.  You can see an example at (https://orbit-testnet.rover.network/metrics).
 
 ## I'm Stuck! Help!
 
-If any of the above steps don't work or you are otherwise prevented from correctly setting up orbit, please come to our community and tell us.  Either [post a question at our Stack Exchange](https://stellar.stackexchange.com/) or [chat with us on slack](http://slack.stellar.org/) to ask for help.
+If any of the above steps don't work or you are otherwise prevented from correctly setting up orbit, please come to our community and tell us.  Either [post a question at our Stack Exchange](https://stellar.stackexchange.com/) or [chat with us on slack](http://slack.rover.network/) to ask for help.

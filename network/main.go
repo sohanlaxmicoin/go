@@ -1,4 +1,4 @@
-// Package network contains functions that deal with stellar network passphrases
+// Package network contains functions that deal with rover network passphrases
 // and IDs.
 package network
 
@@ -14,7 +14,7 @@ import (
 )
 
 const (
-	// PublicNetworkPassphrase is the pass phrase used for every transaction intended for the public stellar network
+	// PublicNetworkPassphrase is the pass phrase used for every transaction intended for the public rover network
 	PublicNetworkPassphrase = "Public Global Stellar Network ; September 2015"
 	// TestNetworkPassphrase is the pass phrase used for every transaction intended for the SDF-run test network
 	TestNetworkPassphrase = "Rover Testnet ; April 2018"
@@ -29,8 +29,8 @@ func ID(passphrase string) [32]byte {
 
 // HashTransaction derives the network specific hash for the provided
 // transaction using the network identified by the supplied passphrase.  The
-// resulting hash is the value that can be signed by stellar secret key to
-// authorize the transaction identified by the hash to stellar validators.
+// resulting hash is the value that can be signed by rover secret key to
+// authorize the transaction identified by the hash to rover validators.
 func HashTransaction(tx *xdr.Transaction, passphrase string) ([32]byte, error) {
 	var txBytes bytes.Buffer
 

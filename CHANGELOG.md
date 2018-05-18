@@ -15,10 +15,10 @@ NOTE:  this changelog represents the changes that are associated with the librar
 - xdr: added support for new signer types
 - build: `Signer` learned support for new signer types
 - strkey: added support for new signer types
-- network:  Added the `HashTransaction` helper func to get the hash of a transaction targetted to a specific stellar network.
+- network:  Added the `HashTransaction` helper func to get the hash of a transaction targetted to a specific rover network.
 
 ### Changed:
 
 - build: _BREAKING CHANGE_:  A transaction built and signed using the `build` package no longer default to the test network.
 
-[Unreleased]: https://github.com/rover/go/commits/master
+[Unreleased]: https://github.com/laxmicoinofficial/go/commits/master

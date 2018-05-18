@@ -1,7 +1,7 @@
 ---
 title: Operations for Ledger
 clientData:
-  laboratoryUrl: https://www.stellar.org/laboratory/#explorer?resource=operations&endpoint=for_ledger
+  laboratoryUrl: https://www.rover.network/laboratory/#explorer?resource=operations&endpoint=for_ledger
 ---
 
 This endpoint returns all [operations](../resources/operation.md) that occurred in a given [ledger](../resources/ledger.md).
@@ -24,14 +24,14 @@ GET /ledgers/{id}/operations{?cursor,limit,order}
 ### curl Example Request
 
 ```sh
-curl "https://orbit-testnet.stellar.org/ledgers/69859/operations"
+curl "https://orbit-testnet.rover.network/ledgers/69859/operations"
 ```
 
 ### JavaScript Example Request
 
 ```js
 var StellarSdk = require('rover-sdk');
-var server = new StellarSdk.Server('https://orbit-testnet.stellar.org');
+var server = new StellarSdk.Server('https://orbit-testnet.rover.network');
 
 server.operations()
   .forLedger("10866")

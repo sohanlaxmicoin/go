@@ -15,10 +15,10 @@ func TestClientURL(t *testing.T) {
 	//mock.
 
 	c := &Client{UseHTTP: false}
-	assert.Equal(t, "https://stellar.org/.well-known/stellar.toml", c.url("stellar.org"))
+	assert.Equal(t, "https://rover.network/.well-known/rover.toml", c.url("rover.network"))
 
 	c = &Client{UseHTTP: true}
-	assert.Equal(t, "http://stellar.org/.well-known/stellar.toml", c.url("stellar.org"))
+	assert.Equal(t, "http://rover.network/.well-known/rover.toml", c.url("rover.network"))
 }
 
 func TestClient(t *testing.T) {
@@ -27,35 +27,35 @@ func TestClient(t *testing.T) {
 
 	// happy path
 	h.
-		On("GET", "https://stellar.org/.well-known/stellar.toml").
+		On("GET", "https://rover.network/.well-known/rover.toml").
 		ReturnString(http.StatusOK,
 			`FEDERATION_SERVER="https://localhost/federation"`,
 		)
-	stoml, err := c.GetStellarToml("stellar.org")
+	stoml, err := c.GetStellarToml("rover.network")
 	require.NoError(t, err)
 	assert.Equal(t, "https://localhost/federation", stoml.FederationServer)
 
-	// stellar.toml exceeds limit
+	// rover.toml exceeds limit
 	h.
-		On("GET", "https://toobig.org/.well-known/stellar.toml").
+		On("GET", "https://toobig.org/.well-known/rover.toml").
 		ReturnString(http.StatusOK,
 			`FEDERATION_SERVER="https://localhost/federation`+strings.Repeat("0", StellarTomlMaxSize)+`"`,
 		)
 	stoml, err = c.GetStellarToml("toobig.org")
 	if assert.Error(t, err) {
-		assert.Contains(t, err.Error(), "stellar.toml response exceeds")
+		assert.Contains(t, err.Error(), "rover.toml response exceeds")
 	}
 
 	// not found
 	h.
-		On("GET", "https://missing.org/.well-known/stellar.toml").
+		On("GET", "https://missing.org/.well-known/rover.toml").
 		ReturnNotFound()
 	stoml, err = c.GetStellarToml("missing.org")
 	assert.EqualError(t, err, "http request failed with non-200 status code")
 
 	// invalid toml
 	h.
-		On("GET", "https://json.org/.well-known/stellar.toml").
+		On("GET", "https://json.org/.well-known/rover.toml").
 		ReturnJSON(http.StatusOK, map[string]string{"hello": "world"})
 	stoml, err = c.GetStellarToml("json.org")
 

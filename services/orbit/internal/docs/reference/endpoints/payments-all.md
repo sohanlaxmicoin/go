@@ -1,7 +1,7 @@
 ---
 title: All Payments
 clientData:
-  laboratoryUrl: https://www.stellar.org/laboratory/#explorer?resource=payments&endpoint=all
+  laboratoryUrl: https://www.rover.network/laboratory/#explorer?resource=payments&endpoint=all
 ---
 
 This endpoint represents all payment [operations](../resources/operation.md) that are part of validated [transactions](../resources/transaction.md). This endpoint can also be used in [streaming](../responses.md#streaming) mode so it is possible to use it to listen for new payments as they get made in the Stellar network.
@@ -25,20 +25,20 @@ GET /payments{?cursor,limit,order}
 
 ```bash
 # Retrieve the first 200 payments, ordered chronologically.
-curl "https://orbit-testnet.stellar.org/payments?limit=200"
+curl "https://orbit-testnet.rover.network/payments?limit=200"
 ```
 
 ```bash
 # Retrieve a page of payments to occur immediately before the transaction
 # specified by the paging token "1234".
-curl "https://orbit-testnet.stellar.org/payments?cursor=1234&order=desc"
+curl "https://orbit-testnet.rover.network/payments?cursor=1234&order=desc"
 ```
 
 ### JavaScript Example Request
 
 ```js
 var StellarSdk = require('rover-sdk');
-var server = new StellarSdk.Server('https://orbit-testnet.stellar.org');
+var server = new StellarSdk.Server('https://orbit-testnet.rover.network');
 
 server.payments()
   .call()

@@ -30,7 +30,7 @@ GET /assets{?asset_code,asset_issuer,cursor,limit,order}
 
 ```sh
 # Retrieve the 200 newest assets, ordered chronologically:
-curl "https://orbit-testnet.stellar.org/assets?limit=200&order=desc"
+curl "https://orbit-testnet.rover.network/assets?limit=200&order=desc"
 ```
 
 ## Response
@@ -57,7 +57,7 @@ If called normally this endpoint responds with a [page](../resources/page.md) of
       {
         "_links": {
           "toml": {
-            "href": "https://www.stellar.org/.well-known/stellar.toml"
+            "href": "https://www.rover.network/.well-known/rover.toml"
           }
         },
         "asset_type": "credit_alphanum12",
@@ -74,7 +74,7 @@ If called normally this endpoint responds with a [page](../resources/page.md) of
       {
         "_links": {
           "toml": {
-            "href": "https://www.stellar.org/.well-known/stellar.toml"
+            "href": "https://www.rover.network/.well-known/rover.toml"
           }
         },
         "asset_type": "credit_alphanum4",
@@ -91,7 +91,7 @@ If called normally this endpoint responds with a [page](../resources/page.md) of
       {
         "_links": {
           "toml": {
-            "href": "https://www.stellar.org/.well-known/stellar.toml"
+            "href": "https://www.rover.network/.well-known/rover.toml"
           }
         },
         "asset_type": "credit_alphanum4",

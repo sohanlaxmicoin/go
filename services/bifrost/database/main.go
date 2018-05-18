@@ -60,6 +60,6 @@ type AddressAssociation struct {
 	// BIP-44
 	AddressIndex     uint32    `db:"address_index"`
 	Address          string    `db:"address"`
-	StellarPublicKey string    `db:"stellar_public_key"`
+	StellarPublicKey string    `db:"rover_public_key"`
 	CreatedAt        time.Time `db:"created_at"`
 }

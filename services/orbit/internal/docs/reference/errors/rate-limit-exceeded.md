@@ -26,7 +26,7 @@ As with all errors Orbit returns, `rate_limit_exceeded` follows the [Problem Det
 Examples
 ```json
 {
-  "type":     "https://stellar.org/developers/orbit/reference/errors/rate-limit-exceeded",
+  "type":     "https://rover.network/developers/orbit/reference/errors/rate-limit-exceeded",
   "title":    "Rate Limit Exceeded",
   "status":   429,
   "details":  "...",

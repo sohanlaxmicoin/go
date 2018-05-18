@@ -1,7 +1,7 @@
 ---
 title: Effects for Account
 clientData:
-  laboratoryUrl: https://www.stellar.org/laboratory/#explorer?resource=effects&endpoint=for_account
+  laboratoryUrl: https://www.rover.network/laboratory/#explorer?resource=effects&endpoint=for_account
 ---
 
 This endpoint represents all [effects](../resources/effect.md) that changed a given [account](../resources/account.md). It will return relevant effects from the creation of the account to the current ledger.
@@ -27,14 +27,14 @@ GET /accounts/{account}/effects{?cursor,limit,order}
 ### curl Example Request
 
 ```sh
-curl "https://orbit-testnet.stellar.org/accounts/GA2HGBJIJKI6O4XEM7CZWY5PS6GKSXL6D34ERAJYQSPYA6X6AI7HYW36/effects"
+curl "https://orbit-testnet.rover.network/accounts/GA2HGBJIJKI6O4XEM7CZWY5PS6GKSXL6D34ERAJYQSPYA6X6AI7HYW36/effects"
 ```
 
 ### JavaScript Example Request
 
 ```javascript
 var StellarSdk = require('rover-sdk');
-var server = new StellarSdk.Server('https://orbit-testnet.stellar.org');
+var server = new StellarSdk.Server('https://orbit-testnet.rover.network');
 
 server.effects()
   .forAccount("GD6VWBXI6NY3AOOR55RLVQ4MNIDSXE5JSAVXUTF35FRRI72LYPI3WL6Z")
