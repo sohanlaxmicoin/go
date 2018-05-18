@@ -12,10 +12,10 @@ const WellKnownPath = "/.well-known/rover.toml"
 // DefaultClient is a default client using the default parameters
 var DefaultClient = &Client{HTTP: http.DefaultClient}
 
-// Client represents a client that is capable of resolving a Stellar.toml file
+// Client represents a client that is capable of resolving a Rover.toml file
 // using the internet.
 type Client struct {
-	// HTTP is the http client used when resolving a Stellar.toml file
+	// HTTP is the http client used when resolving a Rover.toml file
 	HTTP HTTP
 
 	// UseHTTP forces the client to resolve against servers using plain HTTP.

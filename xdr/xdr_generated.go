@@ -1,11 +1,11 @@
 // Package xdr is generated from:
 //
-//  xdr/Stellar-types.x
-//  xdr/Stellar-ledger-entries.x
-//  xdr/Stellar-transaction.x
-//  xdr/Stellar-ledger.x
-//  xdr/Stellar-overlay.x
-//  xdr/Stellar-SCP.x
+//  xdr/Rover-types.x
+//  xdr/Rover-ledger-entries.x
+//  xdr/Rover-transaction.x
+//  xdr/Rover-ledger.x
+//  xdr/Rover-overlay.x
+//  xdr/Rover-RCA.x
 //
 // DO NOT EDIT or your changes may be overwritten
 package xdr

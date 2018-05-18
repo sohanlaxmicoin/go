@@ -1,4 +1,4 @@
-# Stellar Go 
+# Rover Go 
 [![Build Status](https://travis-ci.org/rover/go.svg?branch=master)](https://travis-ci.org/rover/go) 
 [![GoDoc](https://godoc.org/github.com/rover/go?status.svg)](https://godoc.org/github.com/rover/go)
 [![Go Report Card](https://goreportcard.com/badge/github.com/rover/go)](https://goreportcard.com/report/github.com/rover/go)
