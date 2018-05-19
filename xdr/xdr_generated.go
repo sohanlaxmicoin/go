@@ -1518,7 +1518,7 @@ type LedgerEntry struct {
 //
 //   enum EnvelopeType
 //    {
-//        ENVELOPE_TYPE_SCP = 1,
+//        ENVELOPE_TYPE_RCA = 1,
 //        ENVELOPE_TYPE_TX = 2,
 //        ENVELOPE_TYPE_AUTH = 3
 //    };
@@ -1526,13 +1526,13 @@ type LedgerEntry struct {
 type EnvelopeType int32
 
 const (
-	EnvelopeTypeEnvelopeTypeScp  EnvelopeType = 1
+	EnvelopeTypeEnvelopeTypeRca  EnvelopeType = 1
 	EnvelopeTypeEnvelopeTypeTx   EnvelopeType = 2
 	EnvelopeTypeEnvelopeTypeAuth EnvelopeType = 3
 )
 
 var envelopeTypeMap = map[int32]string{
-	1: "EnvelopeTypeEnvelopeTypeScp",
+	1: "EnvelopeTypeEnvelopeTypeRca",
 	2: "EnvelopeTypeEnvelopeTypeTx",
 	3: "EnvelopeTypeEnvelopeTypeAuth",
 }
@@ -4919,7 +4919,7 @@ func (e UpgradeType) XDRMaxSize() int {
 	return 128
 }
 
-// StellarValueExt is an XDR NestedUnion defines as:
+// RoverValueExt is an XDR NestedUnion defines as:
 //
 //   union switch (int v)
 //        {
@@ -4927,19 +4927,19 @@ func (e UpgradeType) XDRMaxSize() int {
 //            void;
 //        }
 //
-type StellarValueExt struct {
+type RoverValueExt struct {
 	V int32
 }
 
 // SwitchFieldName returns the field name in which this union's
 // discriminant is stored
-func (u StellarValueExt) SwitchFieldName() string {
+func (u RoverValueExt) SwitchFieldName() string {
 	return "V"
 }
 
 // ArmForSwitch returns which field name should be used for storing
-// the value for an instance of StellarValueExt
-func (u StellarValueExt) ArmForSwitch(sw int32) (string, bool) {
+// the value for an instance of RoverValueExt
+func (u RoverValueExt) ArmForSwitch(sw int32) (string, bool) {
 	switch int32(sw) {
 	case 0:
 		return "", true
@@ -4947,8 +4947,8 @@ func (u StellarValueExt) ArmForSwitch(sw int32) (string, bool) {
 	return "-", false
 }
 
-// NewStellarValueExt creates a new  StellarValueExt.
-func NewStellarValueExt(v int32, value interface{}) (result StellarValueExt, err error) {
+// NewRoverValueExt creates a new  RoverValueExt.
+func NewRoverValueExt(v int32, value interface{}) (result RoverValueExt, err error) {
 	result.V = v
 	switch int32(v) {
 	case 0:
@@ -4957,9 +4957,9 @@ func NewStellarValueExt(v int32, value interface{}) (result StellarValueExt, err
 	return
 }
 
-// StellarValue is an XDR Struct defines as:
+// RoverValue is an XDR Struct defines as:
 //
-//   struct StellarValue
+//   struct RoverValue
 //    {
 //        Hash txSetHash;   // transaction set to apply to previous ledger
 //        uint64 closeTime; // network close time
@@ -4980,11 +4980,11 @@ func NewStellarValueExt(v int32, value interface{}) (result StellarValueExt, err
 //        ext;
 //    };
 //
-type StellarValue struct {
+type RoverValue struct {
 	TxSetHash Hash
 	CloseTime Uint64
 	Upgrades  []UpgradeType `xdrmaxsize:"6"`
-	Ext       StellarValueExt
+	Ext       RoverValueExt
 }
 
 // LedgerHeaderExt is an XDR NestedUnion defines as:
@@ -5031,7 +5031,7 @@ func NewLedgerHeaderExt(v int32, value interface{}) (result LedgerHeaderExt, err
 //    {
 //        uint32 ledgerVersion;    // the protocol version of the ledger
 //        Hash previousLedgerHash; // hash of the previous ledger header
-//        StellarValue scpValue;   // what consensus agreed to
+//        RoverValue rcaValue;   // what consensus agreed to
 //        Hash txSetResultHash;    // the TransactionResultSet that led to this ledger
 //        Hash bucketListHash;     // hash of the ledger state
 //
@@ -5068,7 +5068,7 @@ func NewLedgerHeaderExt(v int32, value interface{}) (result LedgerHeaderExt, err
 type LedgerHeader struct {
 	LedgerVersion      Uint32
 	PreviousLedgerHash Hash
-	ScpValue           StellarValue
+	RcaValue           RoverValue
 	TxSetResultHash    Hash
 	BucketListHash     Hash
 	LedgerSeq          Uint32
@@ -5867,54 +5867,54 @@ type LedgerHeaderHistoryEntry struct {
 	Ext    LedgerHeaderHistoryEntryExt
 }
 
-// LedgerScpMessages is an XDR Struct defines as:
+// LedgerRcaMessages is an XDR Struct defines as:
 //
-//   struct LedgerSCPMessages
+//   struct LedgerRCAMessages
 //    {
 //        uint32 ledgerSeq;
-//        SCPEnvelope messages<>;
+//        RCAEnvelope messages<>;
 //    };
 //
-type LedgerScpMessages struct {
+type LedgerRcaMessages struct {
 	LedgerSeq Uint32
-	Messages  []ScpEnvelope
+	Messages  []RcaEnvelope
 }
 
-// ScpHistoryEntryV0 is an XDR Struct defines as:
+// RcaHistoryEntryV0 is an XDR Struct defines as:
 //
-//   struct SCPHistoryEntryV0
+//   struct RCAHistoryEntryV0
 //    {
-//        SCPQuorumSet quorumSets<>; // additional quorum sets used by ledgerMessages
-//        LedgerSCPMessages ledgerMessages;
+//        RCAQuorumSet quorumSets<>; // additional quorum sets used by ledgerMessages
+//        LedgerRCAMessages ledgerMessages;
 //    };
 //
-type ScpHistoryEntryV0 struct {
-	QuorumSets     []ScpQuorumSet
-	LedgerMessages LedgerScpMessages
+type RcaHistoryEntryV0 struct {
+	QuorumSets     []RcaQuorumSet
+	LedgerMessages LedgerRcaMessages
 }
 
-// ScpHistoryEntry is an XDR Union defines as:
+// RcaHistoryEntry is an XDR Union defines as:
 //
-//   union SCPHistoryEntry switch (int v)
+//   union RCAHistoryEntry switch (int v)
 //    {
 //    case 0:
-//        SCPHistoryEntryV0 v0;
+//        RCAHistoryEntryV0 v0;
 //    };
 //
-type ScpHistoryEntry struct {
+type RcaHistoryEntry struct {
 	V  int32
-	V0 *ScpHistoryEntryV0
+	V0 *RcaHistoryEntryV0
 }
 
 // SwitchFieldName returns the field name in which this union's
 // discriminant is stored
-func (u ScpHistoryEntry) SwitchFieldName() string {
+func (u RcaHistoryEntry) SwitchFieldName() string {
 	return "V"
 }
 
 // ArmForSwitch returns which field name should be used for storing
-// the value for an instance of ScpHistoryEntry
-func (u ScpHistoryEntry) ArmForSwitch(sw int32) (string, bool) {
+// the value for an instance of RcaHistoryEntry
+func (u RcaHistoryEntry) ArmForSwitch(sw int32) (string, bool) {
 	switch int32(sw) {
 	case 0:
 		return "V0", true
@@ -5922,14 +5922,14 @@ func (u ScpHistoryEntry) ArmForSwitch(sw int32) (string, bool) {
 	return "-", false
 }
 
-// NewScpHistoryEntry creates a new  ScpHistoryEntry.
-func NewScpHistoryEntry(v int32, value interface{}) (result ScpHistoryEntry, err error) {
+// NewRcaHistoryEntry creates a new  RcaHistoryEntry.
+func NewRcaHistoryEntry(v int32, value interface{}) (result RcaHistoryEntry, err error) {
 	result.V = v
 	switch int32(v) {
 	case 0:
-		tv, ok := value.(ScpHistoryEntryV0)
+		tv, ok := value.(RcaHistoryEntryV0)
 		if !ok {
-			err = fmt.Errorf("invalid value, must be ScpHistoryEntryV0")
+			err = fmt.Errorf("invalid value, must be RcaHistoryEntryV0")
 			return
 		}
 		result.V0 = &tv
@@ -5939,7 +5939,7 @@ func NewScpHistoryEntry(v int32, value interface{}) (result ScpHistoryEntry, err
 
 // MustV0 retrieves the V0 value from the union,
 // panicing if the value is not set.
-func (u ScpHistoryEntry) MustV0() ScpHistoryEntryV0 {
+func (u RcaHistoryEntry) MustV0() RcaHistoryEntryV0 {
 	val, ok := u.GetV0()
 
 	if !ok {
@@ -5951,7 +5951,7 @@ func (u ScpHistoryEntry) MustV0() ScpHistoryEntryV0 {
 
 // GetV0 retrieves the V0 value from the union,
 // returning ok if the union's switch indicated the value is valid.
-func (u ScpHistoryEntry) GetV0() (result ScpHistoryEntryV0, ok bool) {
+func (u RcaHistoryEntry) GetV0() (result RcaHistoryEntryV0, ok bool) {
 	armName, _ := u.ArmForSwitch(int32(u.V))
 
 	if armName == "V0" {
@@ -6554,11 +6554,11 @@ type PeerAddress struct {
 //
 //        TRANSACTION = 8, // pass on a tx you have heard about
 //
-//        // SCP
-//        GET_SCP_QUORUMSET = 9,
-//        SCP_QUORUMSET = 10,
-//        SCP_MESSAGE = 11,
-//        GET_SCP_STATE = 12,
+//        // RCA
+//        GET_RCA_QUORUMSET = 9,
+//        RCA_QUORUMSET = 10,
+//        RCA_MESSAGE = 11,
+//        GET_RCA_STATE = 12,
 //
 //        // new messages
 //        HELLO = 13
@@ -6575,10 +6575,10 @@ const (
 	MessageTypeGetTxSet        MessageType = 6
 	MessageTypeTxSet           MessageType = 7
 	MessageTypeTransaction     MessageType = 8
-	MessageTypeGetScpQuorumset MessageType = 9
-	MessageTypeScpQuorumset    MessageType = 10
-	MessageTypeScpMessage      MessageType = 11
-	MessageTypeGetScpState     MessageType = 12
+	MessageTypeGetRcaQuorumset MessageType = 9
+	MessageTypeRcaQuorumset    MessageType = 10
+	MessageTypeRcaMessage      MessageType = 11
+	MessageTypeGetRcaState     MessageType = 12
 	MessageTypeHello           MessageType = 13
 )
 
@@ -6591,10 +6591,10 @@ var messageTypeMap = map[int32]string{
 	6:  "MessageTypeGetTxSet",
 	7:  "MessageTypeTxSet",
 	8:  "MessageTypeTransaction",
-	9:  "MessageTypeGetScpQuorumset",
-	10: "MessageTypeScpQuorumset",
-	11: "MessageTypeScpMessage",
-	12: "MessageTypeGetScpState",
+	9:  "MessageTypeGetRcaQuorumset",
+	10: "MessageTypeRcaQuorumset",
+	11: "MessageTypeRcaMessage",
+	12: "MessageTypeGetRcaState",
 	13: "MessageTypeHello",
 }
 
@@ -6624,9 +6624,9 @@ type DontHave struct {
 	ReqHash Uint256
 }
 
-// StellarMessage is an XDR Union defines as:
+// RoverMessage is an XDR Union defines as:
 //
-//   union StellarMessage switch (MessageType type)
+//   union RoverMessage switch (MessageType type)
 //    {
 //    case ERROR_MSG:
 //        Error error;
@@ -6649,18 +6649,18 @@ type DontHave struct {
 //    case TRANSACTION:
 //        TransactionEnvelope transaction;
 //
-//    // SCP
-//    case GET_SCP_QUORUMSET:
+//    // RCA
+//    case GET_RCA_QUORUMSET:
 //        uint256 qSetHash;
-//    case SCP_QUORUMSET:
-//        SCPQuorumSet qSet;
-//    case SCP_MESSAGE:
-//        SCPEnvelope envelope;
-//    case GET_SCP_STATE:
-//        uint32 getSCPLedgerSeq; // ledger seq requested ; if 0, requests the latest
+//    case RCA_QUORUMSET:
+//        RCAQuorumSet qSet;
+//    case RCA_MESSAGE:
+//        RCAEnvelope envelope;
+//    case GET_RCA_STATE:
+//        uint32 getRCALedgerSeq; // ledger seq requested ; if 0, requests the latest
 //    };
 //
-type StellarMessage struct {
+type RoverMessage struct {
 	Type            MessageType
 	Error           *Error
 	Hello           *Hello
@@ -6671,20 +6671,20 @@ type StellarMessage struct {
 	TxSet           *TransactionSet
 	Transaction     *TransactionEnvelope
 	QSetHash        *Uint256
-	QSet            *ScpQuorumSet
-	Envelope        *ScpEnvelope
-	GetScpLedgerSeq *Uint32
+	QSet            *RcaQuorumSet
+	Envelope        *RcaEnvelope
+	GetRcaLedgerSeq *Uint32
 }
 
 // SwitchFieldName returns the field name in which this union's
 // discriminant is stored
-func (u StellarMessage) SwitchFieldName() string {
+func (u RoverMessage) SwitchFieldName() string {
 	return "Type"
 }
 
 // ArmForSwitch returns which field name should be used for storing
-// the value for an instance of StellarMessage
-func (u StellarMessage) ArmForSwitch(sw int32) (string, bool) {
+// the value for an instance of RoverMessage
+func (u RoverMessage) ArmForSwitch(sw int32) (string, bool) {
 	switch MessageType(sw) {
 	case MessageTypeErrorMsg:
 		return "Error", true
@@ -6704,20 +6704,20 @@ func (u StellarMessage) ArmForSwitch(sw int32) (string, bool) {
 		return "TxSet", true
 	case MessageTypeTransaction:
 		return "Transaction", true
-	case MessageTypeGetScpQuorumset:
+	case MessageTypeGetRcaQuorumset:
 		return "QSetHash", true
-	case MessageTypeScpQuorumset:
+	case MessageTypeRcaQuorumset:
 		return "QSet", true
-	case MessageTypeScpMessage:
+	case MessageTypeRcaMessage:
 		return "Envelope", true
-	case MessageTypeGetScpState:
-		return "GetScpLedgerSeq", true
+	case MessageTypeGetRcaState:
+		return "GetRcaLedgerSeq", true
 	}
 	return "-", false
 }
 
-// NewStellarMessage creates a new  StellarMessage.
-func NewStellarMessage(aType MessageType, value interface{}) (result StellarMessage, err error) {
+// NewRoverMessage creates a new  RoverMessage.
+func NewRoverMessage(aType MessageType, value interface{}) (result RoverMessage, err error) {
 	result.Type = aType
 	switch MessageType(aType) {
 	case MessageTypeErrorMsg:
@@ -6778,41 +6778,41 @@ func NewStellarMessage(aType MessageType, value interface{}) (result StellarMess
 			return
 		}
 		result.Transaction = &tv
-	case MessageTypeGetScpQuorumset:
+	case MessageTypeGetRcaQuorumset:
 		tv, ok := value.(Uint256)
 		if !ok {
 			err = fmt.Errorf("invalid value, must be Uint256")
 			return
 		}
 		result.QSetHash = &tv
-	case MessageTypeScpQuorumset:
-		tv, ok := value.(ScpQuorumSet)
+	case MessageTypeRcaQuorumset:
+		tv, ok := value.(RcaQuorumSet)
 		if !ok {
-			err = fmt.Errorf("invalid value, must be ScpQuorumSet")
+			err = fmt.Errorf("invalid value, must be RcaQuorumSet")
 			return
 		}
 		result.QSet = &tv
-	case MessageTypeScpMessage:
-		tv, ok := value.(ScpEnvelope)
+	case MessageTypeRcaMessage:
+		tv, ok := value.(RcaEnvelope)
 		if !ok {
-			err = fmt.Errorf("invalid value, must be ScpEnvelope")
+			err = fmt.Errorf("invalid value, must be RcaEnvelope")
 			return
 		}
 		result.Envelope = &tv
-	case MessageTypeGetScpState:
+	case MessageTypeGetRcaState:
 		tv, ok := value.(Uint32)
 		if !ok {
 			err = fmt.Errorf("invalid value, must be Uint32")
 			return
 		}
-		result.GetScpLedgerSeq = &tv
+		result.GetRcaLedgerSeq = &tv
 	}
 	return
 }
 
 // MustError retrieves the Error value from the union,
 // panicing if the value is not set.
-func (u StellarMessage) MustError() Error {
+func (u RoverMessage) MustError() Error {
 	val, ok := u.GetError()
 
 	if !ok {
@@ -6824,7 +6824,7 @@ func (u StellarMessage) MustError() Error {
 
 // GetError retrieves the Error value from the union,
 // returning ok if the union's switch indicated the value is valid.
-func (u StellarMessage) GetError() (result Error, ok bool) {
+func (u RoverMessage) GetError() (result Error, ok bool) {
 	armName, _ := u.ArmForSwitch(int32(u.Type))
 
 	if armName == "Error" {
@@ -6837,7 +6837,7 @@ func (u StellarMessage) GetError() (result Error, ok bool) {
 
 // MustHello retrieves the Hello value from the union,
 // panicing if the value is not set.
-func (u StellarMessage) MustHello() Hello {
+func (u RoverMessage) MustHello() Hello {
 	val, ok := u.GetHello()
 
 	if !ok {
@@ -6849,7 +6849,7 @@ func (u StellarMessage) MustHello() Hello {
 
 // GetHello retrieves the Hello value from the union,
 // returning ok if the union's switch indicated the value is valid.
-func (u StellarMessage) GetHello() (result Hello, ok bool) {
+func (u RoverMessage) GetHello() (result Hello, ok bool) {
 	armName, _ := u.ArmForSwitch(int32(u.Type))
 
 	if armName == "Hello" {
@@ -6862,7 +6862,7 @@ func (u StellarMessage) GetHello() (result Hello, ok bool) {
 
 // MustAuth retrieves the Auth value from the union,
 // panicing if the value is not set.
-func (u StellarMessage) MustAuth() Auth {
+func (u RoverMessage) MustAuth() Auth {
 	val, ok := u.GetAuth()
 
 	if !ok {
@@ -6874,7 +6874,7 @@ func (u StellarMessage) MustAuth() Auth {
 
 // GetAuth retrieves the Auth value from the union,
 // returning ok if the union's switch indicated the value is valid.
-func (u StellarMessage) GetAuth() (result Auth, ok bool) {
+func (u RoverMessage) GetAuth() (result Auth, ok bool) {
 	armName, _ := u.ArmForSwitch(int32(u.Type))
 
 	if armName == "Auth" {
@@ -6887,7 +6887,7 @@ func (u StellarMessage) GetAuth() (result Auth, ok bool) {
 
 // MustDontHave retrieves the DontHave value from the union,
 // panicing if the value is not set.
-func (u StellarMessage) MustDontHave() DontHave {
+func (u RoverMessage) MustDontHave() DontHave {
 	val, ok := u.GetDontHave()
 
 	if !ok {
@@ -6899,7 +6899,7 @@ func (u StellarMessage) MustDontHave() DontHave {
 
 // GetDontHave retrieves the DontHave value from the union,
 // returning ok if the union's switch indicated the value is valid.
-func (u StellarMessage) GetDontHave() (result DontHave, ok bool) {
+func (u RoverMessage) GetDontHave() (result DontHave, ok bool) {
 	armName, _ := u.ArmForSwitch(int32(u.Type))
 
 	if armName == "DontHave" {
@@ -6912,7 +6912,7 @@ func (u StellarMessage) GetDontHave() (result DontHave, ok bool) {
 
 // MustPeers retrieves the Peers value from the union,
 // panicing if the value is not set.
-func (u StellarMessage) MustPeers() []PeerAddress {
+func (u RoverMessage) MustPeers() []PeerAddress {
 	val, ok := u.GetPeers()
 
 	if !ok {
@@ -6924,7 +6924,7 @@ func (u StellarMessage) MustPeers() []PeerAddress {
 
 // GetPeers retrieves the Peers value from the union,
 // returning ok if the union's switch indicated the value is valid.
-func (u StellarMessage) GetPeers() (result []PeerAddress, ok bool) {
+func (u RoverMessage) GetPeers() (result []PeerAddress, ok bool) {
 	armName, _ := u.ArmForSwitch(int32(u.Type))
 
 	if armName == "Peers" {
@@ -6937,7 +6937,7 @@ func (u StellarMessage) GetPeers() (result []PeerAddress, ok bool) {
 
 // MustTxSetHash retrieves the TxSetHash value from the union,
 // panicing if the value is not set.
-func (u StellarMessage) MustTxSetHash() Uint256 {
+func (u RoverMessage) MustTxSetHash() Uint256 {
 	val, ok := u.GetTxSetHash()
 
 	if !ok {
@@ -6949,7 +6949,7 @@ func (u StellarMessage) MustTxSetHash() Uint256 {
 
 // GetTxSetHash retrieves the TxSetHash value from the union,
 // returning ok if the union's switch indicated the value is valid.
-func (u StellarMessage) GetTxSetHash() (result Uint256, ok bool) {
+func (u RoverMessage) GetTxSetHash() (result Uint256, ok bool) {
 	armName, _ := u.ArmForSwitch(int32(u.Type))
 
 	if armName == "TxSetHash" {
@@ -6962,7 +6962,7 @@ func (u StellarMessage) GetTxSetHash() (result Uint256, ok bool) {
 
 // MustTxSet retrieves the TxSet value from the union,
 // panicing if the value is not set.
-func (u StellarMessage) MustTxSet() TransactionSet {
+func (u RoverMessage) MustTxSet() TransactionSet {
 	val, ok := u.GetTxSet()
 
 	if !ok {
@@ -6974,7 +6974,7 @@ func (u StellarMessage) MustTxSet() TransactionSet {
 
 // GetTxSet retrieves the TxSet value from the union,
 // returning ok if the union's switch indicated the value is valid.
-func (u StellarMessage) GetTxSet() (result TransactionSet, ok bool) {
+func (u RoverMessage) GetTxSet() (result TransactionSet, ok bool) {
 	armName, _ := u.ArmForSwitch(int32(u.Type))
 
 	if armName == "TxSet" {
@@ -6987,7 +6987,7 @@ func (u StellarMessage) GetTxSet() (result TransactionSet, ok bool) {
 
 // MustTransaction retrieves the Transaction value from the union,
 // panicing if the value is not set.
-func (u StellarMessage) MustTransaction() TransactionEnvelope {
+func (u RoverMessage) MustTransaction() TransactionEnvelope {
 	val, ok := u.GetTransaction()
 
 	if !ok {
@@ -6999,7 +6999,7 @@ func (u StellarMessage) MustTransaction() TransactionEnvelope {
 
 // GetTransaction retrieves the Transaction value from the union,
 // returning ok if the union's switch indicated the value is valid.
-func (u StellarMessage) GetTransaction() (result TransactionEnvelope, ok bool) {
+func (u RoverMessage) GetTransaction() (result TransactionEnvelope, ok bool) {
 	armName, _ := u.ArmForSwitch(int32(u.Type))
 
 	if armName == "Transaction" {
@@ -7012,7 +7012,7 @@ func (u StellarMessage) GetTransaction() (result TransactionEnvelope, ok bool) {
 
 // MustQSetHash retrieves the QSetHash value from the union,
 // panicing if the value is not set.
-func (u StellarMessage) MustQSetHash() Uint256 {
+func (u RoverMessage) MustQSetHash() Uint256 {
 	val, ok := u.GetQSetHash()
 
 	if !ok {
@@ -7024,7 +7024,7 @@ func (u StellarMessage) MustQSetHash() Uint256 {
 
 // GetQSetHash retrieves the QSetHash value from the union,
 // returning ok if the union's switch indicated the value is valid.
-func (u StellarMessage) GetQSetHash() (result Uint256, ok bool) {
+func (u RoverMessage) GetQSetHash() (result Uint256, ok bool) {
 	armName, _ := u.ArmForSwitch(int32(u.Type))
 
 	if armName == "QSetHash" {
@@ -7037,7 +7037,7 @@ func (u StellarMessage) GetQSetHash() (result Uint256, ok bool) {
 
 // MustQSet retrieves the QSet value from the union,
 // panicing if the value is not set.
-func (u StellarMessage) MustQSet() ScpQuorumSet {
+func (u RoverMessage) MustQSet() RcaQuorumSet {
 	val, ok := u.GetQSet()
 
 	if !ok {
@@ -7049,7 +7049,7 @@ func (u StellarMessage) MustQSet() ScpQuorumSet {
 
 // GetQSet retrieves the QSet value from the union,
 // returning ok if the union's switch indicated the value is valid.
-func (u StellarMessage) GetQSet() (result ScpQuorumSet, ok bool) {
+func (u RoverMessage) GetQSet() (result RcaQuorumSet, ok bool) {
 	armName, _ := u.ArmForSwitch(int32(u.Type))
 
 	if armName == "QSet" {
@@ -7062,7 +7062,7 @@ func (u StellarMessage) GetQSet() (result ScpQuorumSet, ok bool) {
 
 // MustEnvelope retrieves the Envelope value from the union,
 // panicing if the value is not set.
-func (u StellarMessage) MustEnvelope() ScpEnvelope {
+func (u RoverMessage) MustEnvelope() RcaEnvelope {
 	val, ok := u.GetEnvelope()
 
 	if !ok {
@@ -7074,7 +7074,7 @@ func (u StellarMessage) MustEnvelope() ScpEnvelope {
 
 // GetEnvelope retrieves the Envelope value from the union,
 // returning ok if the union's switch indicated the value is valid.
-func (u StellarMessage) GetEnvelope() (result ScpEnvelope, ok bool) {
+func (u RoverMessage) GetEnvelope() (result RcaEnvelope, ok bool) {
 	armName, _ := u.ArmForSwitch(int32(u.Type))
 
 	if armName == "Envelope" {
@@ -7085,25 +7085,25 @@ func (u StellarMessage) GetEnvelope() (result ScpEnvelope, ok bool) {
 	return
 }
 
-// MustGetScpLedgerSeq retrieves the GetScpLedgerSeq value from the union,
+// MustGetRcaLedgerSeq retrieves the GetRcaLedgerSeq value from the union,
 // panicing if the value is not set.
-func (u StellarMessage) MustGetScpLedgerSeq() Uint32 {
-	val, ok := u.GetGetScpLedgerSeq()
+func (u RoverMessage) MustGetRcaLedgerSeq() Uint32 {
+	val, ok := u.GetGetRcaLedgerSeq()
 
 	if !ok {
-		panic("arm GetScpLedgerSeq is not set")
+		panic("arm GetRcaLedgerSeq is not set")
 	}
 
 	return val
 }
 
-// GetGetScpLedgerSeq retrieves the GetScpLedgerSeq value from the union,
+// GetGetRcaLedgerSeq retrieves the GetRcaLedgerSeq value from the union,
 // returning ok if the union's switch indicated the value is valid.
-func (u StellarMessage) GetGetScpLedgerSeq() (result Uint32, ok bool) {
+func (u RoverMessage) GetGetRcaLedgerSeq() (result Uint32, ok bool) {
 	armName, _ := u.ArmForSwitch(int32(u.Type))
 
-	if armName == "GetScpLedgerSeq" {
-		result = *u.GetScpLedgerSeq
+	if armName == "GetRcaLedgerSeq" {
+		result = *u.GetRcaLedgerSeq
 		ok = true
 	}
 
@@ -7115,13 +7115,13 @@ func (u StellarMessage) GetGetScpLedgerSeq() (result Uint32, ok bool) {
 //   struct
 //    {
 //       uint64 sequence;
-//       StellarMessage message;
+//       RoverMessage message;
 //       HmacSha256Mac mac;
 //        }
 //
 type AuthenticatedMessageV0 struct {
 	Sequence Uint64
-	Message  StellarMessage
+	Message  RoverMessage
 	Mac      HmacSha256Mac
 }
 
@@ -7133,7 +7133,7 @@ type AuthenticatedMessageV0 struct {
 //        struct
 //    {
 //       uint64 sequence;
-//       StellarMessage message;
+//       RoverMessage message;
 //       HmacSha256Mac mac;
 //        } v0;
 //    };
@@ -7205,221 +7205,221 @@ func (u AuthenticatedMessage) GetV0() (result AuthenticatedMessageV0, ok bool) {
 //
 type Value []byte
 
-// ScpBallot is an XDR Struct defines as:
+// RcaBallot is an XDR Struct defines as:
 //
-//   struct SCPBallot
+//   struct RCABallot
 //    {
 //        uint32 counter; // n
 //        Value value;    // x
 //    };
 //
-type ScpBallot struct {
+type RcaBallot struct {
 	Counter Uint32
 	Value   Value
 }
 
-// ScpStatementType is an XDR Enum defines as:
+// RcaStatementType is an XDR Enum defines as:
 //
-//   enum SCPStatementType
+//   enum RCAStatementType
 //    {
-//        SCP_ST_PREPARE = 0,
-//        SCP_ST_CONFIRM = 1,
-//        SCP_ST_EXTERNALIZE = 2,
-//        SCP_ST_NOMINATE = 3
+//        RCA_ST_PREPARE = 0,
+//        RCA_ST_CONFIRM = 1,
+//        RCA_ST_EXTERNALIZE = 2,
+//        RCA_ST_NOMINATE = 3
 //    };
 //
-type ScpStatementType int32
+type RcaStatementType int32
 
 const (
-	ScpStatementTypeScpStPrepare     ScpStatementType = 0
-	ScpStatementTypeScpStConfirm     ScpStatementType = 1
-	ScpStatementTypeScpStExternalize ScpStatementType = 2
-	ScpStatementTypeScpStNominate    ScpStatementType = 3
+	RcaStatementTypeRcaStPrepare     RcaStatementType = 0
+	RcaStatementTypeRcaStConfirm     RcaStatementType = 1
+	RcaStatementTypeRcaStExternalize RcaStatementType = 2
+	RcaStatementTypeRcaStNominate    RcaStatementType = 3
 )
 
-var scpStatementTypeMap = map[int32]string{
-	0: "ScpStatementTypeScpStPrepare",
-	1: "ScpStatementTypeScpStConfirm",
-	2: "ScpStatementTypeScpStExternalize",
-	3: "ScpStatementTypeScpStNominate",
+var rcaStatementTypeMap = map[int32]string{
+	0: "RcaStatementTypeRcaStPrepare",
+	1: "RcaStatementTypeRcaStConfirm",
+	2: "RcaStatementTypeRcaStExternalize",
+	3: "RcaStatementTypeRcaStNominate",
 }
 
 // ValidEnum validates a proposed value for this enum.  Implements
-// the Enum interface for ScpStatementType
-func (e ScpStatementType) ValidEnum(v int32) bool {
-	_, ok := scpStatementTypeMap[v]
+// the Enum interface for RcaStatementType
+func (e RcaStatementType) ValidEnum(v int32) bool {
+	_, ok := rcaStatementTypeMap[v]
 	return ok
 }
 
 // String returns the name of `e`
-func (e ScpStatementType) String() string {
-	name, _ := scpStatementTypeMap[int32(e)]
+func (e RcaStatementType) String() string {
+	name, _ := rcaStatementTypeMap[int32(e)]
 	return name
 }
 
-// ScpNomination is an XDR Struct defines as:
+// RcaNomination is an XDR Struct defines as:
 //
-//   struct SCPNomination
+//   struct RCANomination
 //    {
 //        Hash quorumSetHash; // D
 //        Value votes<>;      // X
 //        Value accepted<>;   // Y
 //    };
 //
-type ScpNomination struct {
+type RcaNomination struct {
 	QuorumSetHash Hash
 	Votes         []Value
 	Accepted      []Value
 }
 
-// ScpStatementPrepare is an XDR NestedStruct defines as:
+// RcaStatementPrepare is an XDR NestedStruct defines as:
 //
 //   struct
 //            {
 //                Hash quorumSetHash;       // D
-//                SCPBallot ballot;         // b
-//                SCPBallot* prepared;      // p
-//                SCPBallot* preparedPrime; // p'
+//                RCABallot ballot;         // b
+//                RCABallot* prepared;      // p
+//                RCABallot* preparedPrime; // p'
 //                uint32 nC;                // c.n
 //                uint32 nH;                // h.n
 //            }
 //
-type ScpStatementPrepare struct {
+type RcaStatementPrepare struct {
 	QuorumSetHash Hash
-	Ballot        ScpBallot
-	Prepared      *ScpBallot
-	PreparedPrime *ScpBallot
+	Ballot        RcaBallot
+	Prepared      *RcaBallot
+	PreparedPrime *RcaBallot
 	NC            Uint32
 	NH            Uint32
 }
 
-// ScpStatementConfirm is an XDR NestedStruct defines as:
+// RcaStatementConfirm is an XDR NestedStruct defines as:
 //
 //   struct
 //            {
-//                SCPBallot ballot;   // b
+//                RCABallot ballot;   // b
 //                uint32 nPrepared;   // p.n
 //                uint32 nCommit;     // c.n
 //                uint32 nH;          // h.n
 //                Hash quorumSetHash; // D
 //            }
 //
-type ScpStatementConfirm struct {
-	Ballot        ScpBallot
+type RcaStatementConfirm struct {
+	Ballot        RcaBallot
 	NPrepared     Uint32
 	NCommit       Uint32
 	NH            Uint32
 	QuorumSetHash Hash
 }
 
-// ScpStatementExternalize is an XDR NestedStruct defines as:
+// RcaStatementExternalize is an XDR NestedStruct defines as:
 //
 //   struct
 //            {
-//                SCPBallot commit;         // c
+//                RCABallot commit;         // c
 //                uint32 nH;                // h.n
 //                Hash commitQuorumSetHash; // D used before EXTERNALIZE
 //            }
 //
-type ScpStatementExternalize struct {
-	Commit              ScpBallot
+type RcaStatementExternalize struct {
+	Commit              RcaBallot
 	NH                  Uint32
 	CommitQuorumSetHash Hash
 }
 
-// ScpStatementPledges is an XDR NestedUnion defines as:
+// RcaStatementPledges is an XDR NestedUnion defines as:
 //
-//   union switch (SCPStatementType type)
+//   union switch (RCAStatementType type)
 //        {
-//        case SCP_ST_PREPARE:
+//        case RCA_ST_PREPARE:
 //            struct
 //            {
 //                Hash quorumSetHash;       // D
-//                SCPBallot ballot;         // b
-//                SCPBallot* prepared;      // p
-//                SCPBallot* preparedPrime; // p'
+//                RCABallot ballot;         // b
+//                RCABallot* prepared;      // p
+//                RCABallot* preparedPrime; // p'
 //                uint32 nC;                // c.n
 //                uint32 nH;                // h.n
 //            } prepare;
-//        case SCP_ST_CONFIRM:
+//        case RCA_ST_CONFIRM:
 //            struct
 //            {
-//                SCPBallot ballot;   // b
+//                RCABallot ballot;   // b
 //                uint32 nPrepared;   // p.n
 //                uint32 nCommit;     // c.n
 //                uint32 nH;          // h.n
 //                Hash quorumSetHash; // D
 //            } confirm;
-//        case SCP_ST_EXTERNALIZE:
+//        case RCA_ST_EXTERNALIZE:
 //            struct
 //            {
-//                SCPBallot commit;         // c
+//                RCABallot commit;         // c
 //                uint32 nH;                // h.n
 //                Hash commitQuorumSetHash; // D used before EXTERNALIZE
 //            } externalize;
-//        case SCP_ST_NOMINATE:
-//            SCPNomination nominate;
+//        case RCA_ST_NOMINATE:
+//            RCANomination nominate;
 //        }
 //
-type ScpStatementPledges struct {
-	Type        ScpStatementType
-	Prepare     *ScpStatementPrepare
-	Confirm     *ScpStatementConfirm
-	Externalize *ScpStatementExternalize
-	Nominate    *ScpNomination
+type RcaStatementPledges struct {
+	Type        RcaStatementType
+	Prepare     *RcaStatementPrepare
+	Confirm     *RcaStatementConfirm
+	Externalize *RcaStatementExternalize
+	Nominate    *RcaNomination
 }
 
 // SwitchFieldName returns the field name in which this union's
 // discriminant is stored
-func (u ScpStatementPledges) SwitchFieldName() string {
+func (u RcaStatementPledges) SwitchFieldName() string {
 	return "Type"
 }
 
 // ArmForSwitch returns which field name should be used for storing
-// the value for an instance of ScpStatementPledges
-func (u ScpStatementPledges) ArmForSwitch(sw int32) (string, bool) {
-	switch ScpStatementType(sw) {
-	case ScpStatementTypeScpStPrepare:
+// the value for an instance of RcaStatementPledges
+func (u RcaStatementPledges) ArmForSwitch(sw int32) (string, bool) {
+	switch RcaStatementType(sw) {
+	case RcaStatementTypeRcaStPrepare:
 		return "Prepare", true
-	case ScpStatementTypeScpStConfirm:
+	case RcaStatementTypeRcaStConfirm:
 		return "Confirm", true
-	case ScpStatementTypeScpStExternalize:
+	case RcaStatementTypeRcaStExternalize:
 		return "Externalize", true
-	case ScpStatementTypeScpStNominate:
+	case RcaStatementTypeRcaStNominate:
 		return "Nominate", true
 	}
 	return "-", false
 }
 
-// NewScpStatementPledges creates a new  ScpStatementPledges.
-func NewScpStatementPledges(aType ScpStatementType, value interface{}) (result ScpStatementPledges, err error) {
+// NewRcaStatementPledges creates a new  RcaStatementPledges.
+func NewRcaStatementPledges(aType RcaStatementType, value interface{}) (result RcaStatementPledges, err error) {
 	result.Type = aType
-	switch ScpStatementType(aType) {
-	case ScpStatementTypeScpStPrepare:
-		tv, ok := value.(ScpStatementPrepare)
+	switch RcaStatementType(aType) {
+	case RcaStatementTypeRcaStPrepare:
+		tv, ok := value.(RcaStatementPrepare)
 		if !ok {
-			err = fmt.Errorf("invalid value, must be ScpStatementPrepare")
+			err = fmt.Errorf("invalid value, must be RcaStatementPrepare")
 			return
 		}
 		result.Prepare = &tv
-	case ScpStatementTypeScpStConfirm:
-		tv, ok := value.(ScpStatementConfirm)
+	case RcaStatementTypeRcaStConfirm:
+		tv, ok := value.(RcaStatementConfirm)
 		if !ok {
-			err = fmt.Errorf("invalid value, must be ScpStatementConfirm")
+			err = fmt.Errorf("invalid value, must be RcaStatementConfirm")
 			return
 		}
 		result.Confirm = &tv
-	case ScpStatementTypeScpStExternalize:
-		tv, ok := value.(ScpStatementExternalize)
+	case RcaStatementTypeRcaStExternalize:
+		tv, ok := value.(RcaStatementExternalize)
 		if !ok {
-			err = fmt.Errorf("invalid value, must be ScpStatementExternalize")
+			err = fmt.Errorf("invalid value, must be RcaStatementExternalize")
 			return
 		}
 		result.Externalize = &tv
-	case ScpStatementTypeScpStNominate:
-		tv, ok := value.(ScpNomination)
+	case RcaStatementTypeRcaStNominate:
+		tv, ok := value.(RcaNomination)
 		if !ok {
-			err = fmt.Errorf("invalid value, must be ScpNomination")
+			err = fmt.Errorf("invalid value, must be RcaNomination")
 			return
 		}
 		result.Nominate = &tv
@@ -7429,7 +7429,7 @@ func NewScpStatementPledges(aType ScpStatementType, value interface{}) (result S
 
 // MustPrepare retrieves the Prepare value from the union,
 // panicing if the value is not set.
-func (u ScpStatementPledges) MustPrepare() ScpStatementPrepare {
+func (u RcaStatementPledges) MustPrepare() RcaStatementPrepare {
 	val, ok := u.GetPrepare()
 
 	if !ok {
@@ -7441,7 +7441,7 @@ func (u ScpStatementPledges) MustPrepare() ScpStatementPrepare {
 
 // GetPrepare retrieves the Prepare value from the union,
 // returning ok if the union's switch indicated the value is valid.
-func (u ScpStatementPledges) GetPrepare() (result ScpStatementPrepare, ok bool) {
+func (u RcaStatementPledges) GetPrepare() (result RcaStatementPrepare, ok bool) {
 	armName, _ := u.ArmForSwitch(int32(u.Type))
 
 	if armName == "Prepare" {
@@ -7454,7 +7454,7 @@ func (u ScpStatementPledges) GetPrepare() (result ScpStatementPrepare, ok bool) 
 
 // MustConfirm retrieves the Confirm value from the union,
 // panicing if the value is not set.
-func (u ScpStatementPledges) MustConfirm() ScpStatementConfirm {
+func (u RcaStatementPledges) MustConfirm() RcaStatementConfirm {
 	val, ok := u.GetConfirm()
 
 	if !ok {
@@ -7466,7 +7466,7 @@ func (u ScpStatementPledges) MustConfirm() ScpStatementConfirm {
 
 // GetConfirm retrieves the Confirm value from the union,
 // returning ok if the union's switch indicated the value is valid.
-func (u ScpStatementPledges) GetConfirm() (result ScpStatementConfirm, ok bool) {
+func (u RcaStatementPledges) GetConfirm() (result RcaStatementConfirm, ok bool) {
 	armName, _ := u.ArmForSwitch(int32(u.Type))
 
 	if armName == "Confirm" {
@@ -7479,7 +7479,7 @@ func (u ScpStatementPledges) GetConfirm() (result ScpStatementConfirm, ok bool) 
 
 // MustExternalize retrieves the Externalize value from the union,
 // panicing if the value is not set.
-func (u ScpStatementPledges) MustExternalize() ScpStatementExternalize {
+func (u RcaStatementPledges) MustExternalize() RcaStatementExternalize {
 	val, ok := u.GetExternalize()
 
 	if !ok {
@@ -7491,7 +7491,7 @@ func (u ScpStatementPledges) MustExternalize() ScpStatementExternalize {
 
 // GetExternalize retrieves the Externalize value from the union,
 // returning ok if the union's switch indicated the value is valid.
-func (u ScpStatementPledges) GetExternalize() (result ScpStatementExternalize, ok bool) {
+func (u RcaStatementPledges) GetExternalize() (result RcaStatementExternalize, ok bool) {
 	armName, _ := u.ArmForSwitch(int32(u.Type))
 
 	if armName == "Externalize" {
@@ -7504,7 +7504,7 @@ func (u ScpStatementPledges) GetExternalize() (result ScpStatementExternalize, o
 
 // MustNominate retrieves the Nominate value from the union,
 // panicing if the value is not set.
-func (u ScpStatementPledges) MustNominate() ScpNomination {
+func (u RcaStatementPledges) MustNominate() RcaNomination {
 	val, ok := u.GetNominate()
 
 	if !ok {
@@ -7516,7 +7516,7 @@ func (u ScpStatementPledges) MustNominate() ScpNomination {
 
 // GetNominate retrieves the Nominate value from the union,
 // returning ok if the union's switch indicated the value is valid.
-func (u ScpStatementPledges) GetNominate() (result ScpNomination, ok bool) {
+func (u RcaStatementPledges) GetNominate() (result RcaNomination, ok bool) {
 	armName, _ := u.ArmForSwitch(int32(u.Type))
 
 	if armName == "Nominate" {
@@ -7527,79 +7527,79 @@ func (u ScpStatementPledges) GetNominate() (result ScpNomination, ok bool) {
 	return
 }
 
-// ScpStatement is an XDR Struct defines as:
+// RcaStatement is an XDR Struct defines as:
 //
-//   struct SCPStatement
+//   struct RCAStatement
 //    {
 //        NodeID nodeID;    // v
 //        uint64 slotIndex; // i
 //
-//        union switch (SCPStatementType type)
+//        union switch (RCAStatementType type)
 //        {
-//        case SCP_ST_PREPARE:
+//        case RCA_ST_PREPARE:
 //            struct
 //            {
 //                Hash quorumSetHash;       // D
-//                SCPBallot ballot;         // b
-//                SCPBallot* prepared;      // p
-//                SCPBallot* preparedPrime; // p'
+//                RCABallot ballot;         // b
+//                RCABallot* prepared;      // p
+//                RCABallot* preparedPrime; // p'
 //                uint32 nC;                // c.n
 //                uint32 nH;                // h.n
 //            } prepare;
-//        case SCP_ST_CONFIRM:
+//        case RCA_ST_CONFIRM:
 //            struct
 //            {
-//                SCPBallot ballot;   // b
+//                RCABallot ballot;   // b
 //                uint32 nPrepared;   // p.n
 //                uint32 nCommit;     // c.n
 //                uint32 nH;          // h.n
 //                Hash quorumSetHash; // D
 //            } confirm;
-//        case SCP_ST_EXTERNALIZE:
+//        case RCA_ST_EXTERNALIZE:
 //            struct
 //            {
-//                SCPBallot commit;         // c
+//                RCABallot commit;         // c
 //                uint32 nH;                // h.n
 //                Hash commitQuorumSetHash; // D used before EXTERNALIZE
 //            } externalize;
-//        case SCP_ST_NOMINATE:
-//            SCPNomination nominate;
+//        case RCA_ST_NOMINATE:
+//            RCANomination nominate;
 //        }
 //        pledges;
 //    };
 //
-type ScpStatement struct {
+type RcaStatement struct {
 	NodeId    NodeId
 	SlotIndex Uint64
-	Pledges   ScpStatementPledges
+	Pledges   RcaStatementPledges
 }
 
-// ScpEnvelope is an XDR Struct defines as:
+// RcaEnvelope is an XDR Struct defines as:
 //
-//   struct SCPEnvelope
+//   struct RCAEnvelope
 //    {
-//        SCPStatement statement;
+//        RCAStatement statement;
 //        Signature signature;
 //    };
 //
-type ScpEnvelope struct {
-	Statement ScpStatement
+type RcaEnvelope struct {
+	Statement RcaStatement
 	Signature Signature
 }
 
-// ScpQuorumSet is an XDR Struct defines as:
+// RcaQuorumSet is an XDR Struct defines as:
 //
-//   struct SCPQuorumSet
+//   struct RCAQuorumSet
 //    {
 //        uint32 threshold;
 //        PublicKey validators<>;
-//        SCPQuorumSet innerSets<>;
+//        RCAQuorumSet innerSets<>;
 //    };
 //
-type ScpQuorumSet struct {
+type RcaQuorumSet struct {
 	Threshold  Uint32
 	Validators []PublicKey
-	InnerSets  []ScpQuorumSet
+	InnerSets  []RcaQuorumSet
 }
 
 var fmtTest = fmt.Sprint("this is a dummy usage of fmt")
