@@ -69,13 +69,13 @@ func (t *LedgerHeader) Scan(src interface{}) error {
 	return safeBase64Scan(src, t)
 }
 
-// Scan reads from src into an ScpEnvelope struct
-func (t *ScpEnvelope) Scan(src interface{}) error {
+// Scan reads from src into an RcaEnvelope struct
+func (t *RcaEnvelope) Scan(src interface{}) error {
 	return safeBase64Scan(src, t)
 }
 
-// Scan reads from src into an ScpEnvelope struct
-func (t *ScpQuorumSet) Scan(src interface{}) error {
+// Scan reads from src into an RcaEnvelope struct
+func (t *RcaQuorumSet) Scan(src interface{}) error {
 	return safeBase64Scan(src, t)
 }
 
